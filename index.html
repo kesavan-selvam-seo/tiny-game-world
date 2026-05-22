@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KiddyQuest Arcade: 10-in-1 Interactive Learning Playground</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- FontAwesome for bubbly icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- Dynamic Clouds Background -->
+    <div class="sky-bg">
+        <div class="cloud cloud-1"></div>
+        <div class="cloud cloud-2"></div>
+        <div class="cloud cloud-3"></div>
+        <div class="smiling-sun">
+            <div class="sun-face">
+                <div class="sun-eye left"></div>
+                <div class="sun-eye right"></div>
+                <div class="sun-mouth"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Interactive Navigation Header -->
+    <header class="main-header">
+        <div class="header-inner">
+            <div class="brand-title" onclick="routeTo('lobby')">
+                <span class="brand-emoji">🚀</span>
+                <span>KiddyQuest Arcade</span>
+            </div>
+            <!-- Star Scoring System & Leveling -->
+            <div class="score-dashboard">
+                <div class="level-badge">Explorer Lvl <span id="level-val">1</span></div>
+                <div class="star-counter">
+                    <i class="fa-solid fa-star"></i>
+                    <span>Score: <span id="score-val">0</span> ⭐</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Barnaby the Mascot Welcome Bubble -->
+    <section class="mascot-intro" aria-label="Mascot Welcome">
+        <div class="mascot-character" onclick="speakMascotSpeech()" id="mascot-node">🐻</div>
+        <div class="mascot-bubble">
+            <h2 class="mascot-title" id="mascot-name-tag">Barnaby the Explorer Bear</h2>
+            <p class="mascot-text" id="mascot-speech-text">Click me! I can read your games out loud! Pick a magical game from the arcade board below to start collecting golden stars! 🌟</p>
+            <button class="speak-btn" onclick="speakMascotSpeech()"><i class="fa-solid fa-volume-high"></i> Read Out Loud</button>
+        </div>
+    </section>
+
+    <!-- Main Game Viewport Wrapper -->
+    <main class="arcade-main-container">
+
+        <!-- ==========================================
+             ARCADE LOBBY VIEW (Default Dashboard)
+             ========================================== -->
+        <section class="arcade-lobby" id="zone-lobby">
+            <h1 class="lobby-headline">Select Your Adventure! 🎨🎈</h1>
+            
+            <!-- Category Tab Selector Bar -->
+            <div class="lobby-category-tabs" id="category-tabs-bar">
+                <button class="category-tab active" onclick="switchLobbyCategory('learning', this)">
+                    <span class="tab-emoji">🎓</span> Learning & Math
+                </button>
+                <button class="category-tab" onclick="switchLobbyCategory('english', this)">
+                    <span class="tab-emoji">🔤</span> English & Vocab
+                </button>
+                <button class="category-tab" onclick="switchLobbyCategory('memory', this)">
+                    <span class="tab-emoji">🧠</span> Memory & Brain
+                </button>
+                <button class="category-tab" onclick="switchLobbyCategory('puzzle', this)">
+                    <span class="tab-emoji">🧩</span> Puzzle & Logic
+                </button>
+                <button class="category-tab" onclick="switchLobbyCategory('art', this)">
+                    <span class="tab-emoji">🎨</span> Art & Creative
+                </button>
+                <button class="category-tab" onclick="switchLobbyCategory('animal', this)">
+                    <span class="tab-emoji">🦁</span> Animal & Nature
+                </button>
+                <button class="category-tab" onclick="switchLobbyCategory('science', this)">
+                    <span class="tab-emoji">🚀</span> Space & Science
+                </button>
+                <button class="category-tab" onclick="switchLobbyCategory('cooking', this)">
+                    <span class="tab-emoji">🍰</span> Cooking & Dress-Up
+                </button>
+                <button class="category-tab" onclick="switchLobbyCategory('adventure', this)">
+                    <span class="tab-emoji">🗺️</span> Adventure Trails
+                </button>
+            </div>
+            
+            <!-- Dynamic Lobby Content Injected Here -->
+            <div id="lobby-games-container">
+                <!-- Javascript will inject subgroups and game cards here -->
+            </div>
+        </section>
+
+        <!-- ==========================================
+             CABINET 1: ALPHABET LAND
+             ========================================== -->
+        <section class="game-zone-card hidden" id="zone-alphabet">
+            <div class="cabinet-header">
+                <button class="back-lobby-btn" onclick="routeTo('lobby')"><i class="fa-solid fa-house"></i> Home</button>
+                <h2 class="cabinet-title">🔤 Alphabet Phonics Land</h2>
+            </div>
+
+            <!-- Mini Game Selector Tabs -->
+            <div class="game-selector-row">
+                <button class="game-tab active" id="btn-tab-alpha-phonics" onclick="switchAlphabetSubGame('phonics')">🔊 Sound Phonics</button>
+                <button class="game-tab" id="btn-tab-alpha-match" onclick="switchAlphabetSubGame('matching')">⚖️ Case Matching</button>
+                <button class="game-tab" id="btn-tab-alpha-seq" onclick="switchAlphabetSubGame('sequence')">🧩 Sequence Puzzle</button>
+            </div>
+
+            <!-- SubGame 1: Phonics sound game -->
+            <div class="sub-game-cabinet" id="alpha-phonics-game">
+                <div class="instruction-banner">Listen to the spoken letter and click the matching bubble!</div>
+                <div class="audio-trigger-block">
+                    <button class="hear-btn" onclick="replaySpokenLetter()"><i class="fa-solid fa-circle-play"></i> Tap to Listen</button>
+                </div>
+                <div class="bubble-choices-container" id="alpha-bubble-choices">
+                    <!-- Populated via script.js -->
+                </div>
+            </div>
+
+            <!-- SubGame 2: Case Matching -->
+            <div class="sub-game-cabinet hidden" id="alpha-matching-game">
+                <div class="instruction-banner">Match the Lowercase letter bubble to its Uppercase cloud!</div>
+                <div class="matching-split-container">
+                    <div class="uppercase-clouds-area" id="uppercase-clouds">
+                        <!-- Clouds -->
+                    </div>
+                    <div class="lowercase-bubbles-area" id="lowercase-bubbles">
+                        <!-- Lowercase draggable items -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- SubGame 3: Alphabet sequence -->
+            <div class="sub-game-cabinet hidden" id="alpha-sequence-game">
+                <div class="instruction-banner">Complete the sequence! Drag the missing letter into the slot!</div>
+                <div class="sequence-display-bar">
+                    <span class="seq-box" id="seq-b0">A</span>
+                    <span class="seq-box" id="seq-b1">B</span>
+                    <span class="seq-box slot-active" id="seq-slot" ondragover="allowDrop(event)" ondrop="dropLetterSequence(event)">?</span>
+                    <span class="seq-box" id="seq-b3">D</span>
+                </div>
+                <div class="sequence-choices-grid" id="seq-choices-grid">
+                    <!-- Draggable elements -->
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             CABINET 2: NUMBER TOWN
+             ========================================== -->
+        <section class="game-zone-card hidden" id="zone-counting">
+            <div class="cabinet-header">
+                <button class="back-lobby-btn" onclick="routeTo('lobby')"><i class="fa-solid fa-house"></i> Home</button>
+                <h2 class="cabinet-title">🍎 Number Town & Counting</h2>
+            </div>
+
+            <div class="game-selector-row">
+                <button class="game-tab active" id="btn-tab-count-sweets" onclick="switchCountingSubGame('sweets')">🧁 Count Sweets</button>
+                <button class="game-tab" id="btn-tab-count-order" onclick="switchCountingSubGame('order')">🎈 Balloon Orders</button>
+            </div>
+
+            <!-- SubGame 1: Count Sweets -->
+            <div class="sub-game-cabinet" id="count-sweets-game">
+                <div class="instruction-banner">Count the sweets, then click the correct numbers!</div>
+                <div class="sweets-visual-cardboard">
+                    <div class="sweets-display-grid" id="sweets-display-grid">
+                        <!-- Populated by emojis like 🧁 🍩 🍪 -->
+                    </div>
+                </div>
+                <div class="answers-grid-bubbles" id="sweets-answer-bubbles">
+                    <!-- Numbers buttons -->
+                </div>
+            </div>
+
+            <!-- SubGame 2: Pop Balloon Orders -->
+            <div class="sub-game-cabinet hidden" id="count-order-game">
+                <div class="instruction-banner">Pop the balloons in ascending numerical order: <span class="order-highlight" id="target-count-order">1, 2, 3, 4</span>!</div>
+                <div class="balloon-arena" id="counting-balloon-arena">
+                    <!-- Dynamic balloons -->
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             CABINET 3: MATH RACING
+             ========================================== -->
+        <section class="game-zone-card hidden" id="zone-math">
+            <div class="cabinet-header">
+                <button class="back-lobby-btn" onclick="routeTo('lobby')"><i class="fa-solid fa-house"></i> Home</button>
+                <h2 class="cabinet-title">🏎️ Math Racing Arena</h2>
+            </div>
+
+            <div class="game-selector-row">
+                <button class="game-tab active" id="btn-tab-math-race" onclick="switchMathSubGame('race')">🏎️ Bunny Addition Race</button>
+                <button class="game-tab" id="btn-tab-math-quiz" onclick="switchMathSubGame('quiz')">⏱️ Quiz Timer</button>
+            </div>
+
+            <!-- SubGame 1: Bunny Racer -->
+            <div class="sub-game-cabinet" id="math-race-game">
+                <div class="instruction-banner">Answer addition sums correctly to boost Bunny racer to the finish line carrot!</div>
+                
+                <!-- Race Track Visual -->
+                <div class="race-track-wrapper">
+                    <div class="race-lane">
+                        <div class="racer-avatar" id="bunny-racer" style="left: 0%;">🐇</div>
+                        <div class="finish-line-carrot">🥕</div>
+                    </div>
+                    <div class="track-lines"></div>
+                </div>
+
+                <div class="race-math-panel">
+                    <div class="race-formula" id="race-formula-text">2 + 3 = ?</div>
+                    <div class="answers-row-bubbles" id="race-answers-row">
+                        <!-- Buttons -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- SubGame 2: Quiz Timer -->
+            <div class="sub-game-cabinet hidden" id="math-quiz-game">
+                <div class="instruction-banner">Math Quiz Battle! Solve as many as you can before time runs out!</div>
+                <div class="quiz-status-row">
+                    <div class="quiz-timer">Timer: <span id="quiz-seconds">30</span>s ⏳</div>
+                    <div class="quiz-counter">Correct: <span id="quiz-correct-val">0</span></div>
+                </div>
+                
+                <div class="quiz-cardboard">
+                    <div class="quiz-formula" id="quiz-formula-text">5 + 4 = ?</div>
+                    <div class="answers-grid-bubbles" id="quiz-answers-bubbles">
+                        <!-- Answers -->
+                    </div>
+                </div>
+                <button class="canvas-action-btn" id="start-math-quiz-btn" onclick="startMathQuizGame()">Start Math Quiz Battle</button>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             CABINET 4: MEMORY MATCH
+             ========================================== -->
+        <section class="game-zone-card hidden" id="zone-memory">
+            <div class="cabinet-header">
+                <button class="back-lobby-btn" onclick="routeTo('lobby')"><i class="fa-solid fa-house"></i> Home</button>
+                <h2 class="cabinet-title">🃏 Memory Pairs Card Arena</h2>
+            </div>
+
+            <div class="game-selector-row">
+                <button class="game-tab active" onclick="setMemoryTheme('animals')">🦁 Animals</button>
+                <button class="game-tab" onclick="setMemoryTheme('fruits')">🍌 Fruits</button>
+                <button class="game-tab" onclick="setMemoryTheme('emojis')">❤️ Emojis</button>
+            </div>
+
+            <div class="sub-game-cabinet">
+                <div class="instruction-banner">Match the identical card pairs!</div>
+                <div class="memory-grid" id="memory-grid">
+                    <!-- Cards will be populated dynamically -->
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             CABINET 5: SHAPE PUZZLE
+             ========================================== -->
+        <section class="game-zone-card hidden" id="zone-shapes">
+            <div class="cabinet-header">
+                <button class="back-lobby-btn" onclick="routeTo('lobby')"><i class="fa-solid fa-house"></i> Home</button>
+                <h2 class="cabinet-title">🧩 Shape jigsaw Block Puzzle</h2>
+            </div>
+
+            <div class="sub-game-cabinet">
+                <div class="instruction-banner">Drag each colorful block and drop it into its matching shape container!</div>
+                <div class="jigsaw-sandbox-layout">
+                    <!-- Block slots -->
+                    <div class="jigsaw-targets-row" id="jigsaw-targets-row">
+                        <!-- Targets like Circle, Star, Heart etc -->
+                    </div>
+                    <!-- Draggable blocks -->
+                    <div class="jigsaw-blocks-row" id="jigsaw-blocks-row">
+                        <!-- Draggables -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             CABINET 6: COLORING BOARD
+             ========================================== -->
+        <section class="game-zone-card hidden" id="zone-paint">
+            <div class="cabinet-header">
+                <button class="back-lobby-btn" onclick="routeTo('lobby')"><i class="fa-solid fa-house"></i> Home</button>
+                <h2 class="cabinet-title">🎨 Magic Coloring & Masterpieces</h2>
+            </div>
+
+            <div class="canvas-layout">
+                <div class="canvas-board-wrapper">
+                    <canvas id="magic-drawing-board" class="canvas-board"></canvas>
+                </div>
+
+                <aside class="canvas-sidebar">
+                    <div class="toolbar-block">
+                        <span class="toolbar-block-title">Colors</span>
+                        <div class="color-palette">
+                            <div class="color-bubble active" style="background:#ef4444;" onclick="changeBrushColor('#ef4444', this)"></div>
+                            <div class="color-bubble" style="background:#eab308;" onclick="changeBrushColor('#eab308', this)"></div>
+                            <div class="color-bubble" style="background:#38bdf8;" onclick="changeBrushColor('#38bdf8', this)"></div>
+                            <div class="color-bubble" style="background:#10b981;" onclick="changeBrushColor('#10b981', this)"></div>
+                            <div class="color-bubble" style="background:#8b5cf6;" onclick="changeBrushColor('#8b5cf6', this)"></div>
+                            <div class="color-bubble" style="background:#ffffff; display:flex; align-items:center; justify-content:center; font-size:16px;" onclick="changeBrushColor('#ffffff', this)"><i class="fa-solid fa-eraser"></i></div>
+                        </div>
+                    </div>
+
+                    <div class="toolbar-block">
+                        <span class="toolbar-block-title">Brush Size</span>
+                        <div class="brush-slider-group">
+                            <input type="range" min="3" max="30" value="8" class="brush-caterpillar" id="brush-size-slider" oninput="updateBrushSize(this.value)">
+                            <div class="brush-preview" id="brush-size-preview">
+                                <div style="width: 8px; height: 8px; border-radius:50%; background:#ffffff;"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="toolbar-block">
+                        <span class="toolbar-block-title">Outline Presets</span>
+                        <div class="template-grid">
+                            <button class="template-btn" onclick="loadCartoonTemplate('star')">⭐ Star</button>
+                            <button class="template-btn" onclick="loadCartoonTemplate('cloud')">☁️ Cloud</button>
+                            <button class="template-btn" onclick="loadCartoonTemplate('cat')">🐱 Kitten</button>
+                            <button class="template-btn" onclick="loadCartoonTemplate('heart')">❤️ Heart</button>
+                        </div>
+                    </div>
+
+                    <div class="toolbar-block" style="margin-top:auto; gap:10px;">
+                        <button class="canvas-action-btn" onclick="clearMagicCanvas()">
+                            <i class="fa-solid fa-broom"></i> Clean Board
+                        </button>
+                        <button class="canvas-action-btn" style="background:var(--green-light);" onclick="saveDrawingImage()">
+                            <i class="fa-solid fa-download"></i> Save Art
+                        </button>
+                    </div>
+                </aside>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             CABINET 7: SPELLING CHALLENGE
+             ========================================== -->
+        <section class="game-zone-card hidden" id="zone-spelling">
+            <div class="cabinet-header">
+                <button class="back-lobby-btn" onclick="routeTo('lobby')"><i class="fa-solid fa-house"></i> Home</button>
+                <h2 class="cabinet-title">🐝 Spelling Bee Challenge</h2>
+            </div>
+
+            <div class="sub-game-cabinet">
+                <div class="instruction-banner">Look at the item and pop/click the scrambled letters in the correct order to spell the word!</div>
+                
+                <div class="spelling-visual-board">
+                    <div class="spelling-emoji-avatar" id="spelling-target-emoji">🐱</div>
+                    <div class="spelling-word-display" id="spelling-word-slots">
+                        <!-- slots representing letters -->
+                    </div>
+                </div>
+
+                <div class="spelling-letters-row" id="spelling-letter-bubbles">
+                    <!-- Populated as scrambled letter buttons -->
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             CABINET 8: ANIMAL KINGDOM
+             ========================================== -->
+        <section class="game-zone-card hidden" id="zone-animal-sounds">
+            <div class="cabinet-header">
+                <button class="back-lobby-btn" onclick="routeTo('lobby')"><i class="fa-solid fa-house"></i> Home</button>
+                <h2 class="cabinet-title">🦁 Animal Kingdom</h2>
+            </div>
+
+            <div class="game-selector-row">
+                <button class="game-tab active" id="btn-tab-sound-quiz" onclick="switchAnimalSubGame('quiz')">🔊 Sound Quiz</button>
+                <button class="game-tab" id="btn-tab-habitat-match" onclick="switchAnimalSubGame('habitat')">🏝️ Habitat Explorer</button>
+            </div>
+
+            <!-- Sound quiz -->
+            <div class="sub-game-cabinet" id="animal-sounds-quiz">
+                <div class="instruction-banner">Play the sound, guess who made it, and click!</div>
+                <div class="audio-trigger-block">
+                    <button class="hear-btn" onclick="replaySpokenAnimal()"><i class="fa-solid fa-volume-high"></i> Play Animal Sound</button>
+                </div>
+                <div class="keyboard-grid" id="animal-soundboard-answers" style="margin-top:20px;">
+                    <!-- Choice cards populated in script.js -->
+                </div>
+            </div>
+
+            <!-- Habitat drag and drop -->
+            <div class="sub-game-cabinet hidden" id="animal-habitat-game">
+                <div class="instruction-banner">Match the animal to its correct habitat environment!</div>
+                
+                <div class="habitat-grid-sandbox">
+                    <!-- Habitats drop boxes -->
+                    <div class="habitats-containers-row">
+                        <div class="habitat-box sky-habitat" id="hab-sky" ondragover="allowDrop(event)" ondrop="dropAnimalHabitat(event)">
+                            <div class="hab-icon">☁️</div>
+                            <span>Sky Home</span>
+                            <div class="hab-dropzone-contents" id="hab-sky-contents"></div>
+                        </div>
+                        <div class="habitat-box ocean-habitat" id="hab-ocean" ondragover="allowDrop(event)" ondrop="dropAnimalHabitat(event)">
+                            <div class="hab-icon">🌊</div>
+                            <span>Ocean Home</span>
+                            <div class="hab-dropzone-contents" id="hab-ocean-contents"></div>
+                        </div>
+                        <div class="habitat-box jungle-habitat" id="hab-jungle" ondragover="allowDrop(event)" ondrop="dropAnimalHabitat(event)">
+                            <div class="hab-icon">🌴</div>
+                            <span>Jungle Home</span>
+                            <div class="hab-dropzone-contents" id="hab-jungle-contents"></div>
+                        </div>
+                    </div>
+
+                    <!-- Draggable animal cards -->
+                    <div class="draggable-animals-row" id="habitat-draggable-animals">
+                        <!-- Populated inside script.js -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             CABINET 9: GK SPACE EXPLORER
+             ========================================== -->
+        <section class="game-zone-card hidden" id="zone-gk">
+            <div class="cabinet-header">
+                <button class="back-lobby-btn" onclick="routeTo('lobby')"><i class="fa-solid fa-house"></i> Home</button>
+                <h2 class="cabinet-title">🚀 Space GK Knowledge Quiz</h2>
+            </div>
+
+            <div class="sub-game-cabinet">
+                <div class="instruction-banner">Test your knowledge of the universe, planet Earth, and flags!</div>
+                
+                <div class="gk-quiz-board">
+                    <div class="gk-progress-track">
+                        <div class="gk-progress-fill" id="gk-quiz-progress" style="width: 10%;"></div>
+                    </div>
+                    
+                    <div class="gk-question-block">
+                        <span class="gk-number-label">Question <span id="gk-question-num">1</span> of 5</span>
+                        <h3 class="gk-question-text" id="gk-question-display">Which planet is closest to the Sun?</h3>
+                    </div>
+
+                    <div class="gk-answers-grid" id="gk-answers-display">
+                        <!-- Choices cards -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             CABINET 10: JUNGLE GRID ADVENTURE
+             ========================================== -->
+        <section class="game-zone-card hidden" id="zone-adventure">
+            <div class="cabinet-header">
+                <button class="back-lobby-btn" onclick="routeTo('lobby')"><i class="fa-solid fa-house"></i> Home</button>
+                <h2 class="cabinet-title">🐇 Jungle Grid Carrot Adventure</h2>
+            </div>
+
+            <div class="sub-game-cabinet">
+                <div class="instruction-banner">Guide Bunny (🐇) to the Golden Carrot (🥕) using arrow controls! Avoid hitting mud!</div>
+                
+                <div class="adventure-sandbox-layout">
+                    <!-- The Grid Map -->
+                    <div class="adventure-grid-map" id="adventure-grid-map">
+                        <!-- 5x5 Grid tiles populated by script.js -->
+                    </div>
+
+                    <!-- Navigation controls -->
+                    <div class="adventure-nav-pad">
+                        <span class="pad-label">Nav Controllers</span>
+                        <div class="controls-row-top">
+                            <button class="pad-btn" onclick="moveAdventureBunny('up')">🔼 Up</button>
+                        </div>
+                        <div class="controls-row-mid">
+                            <button class="pad-btn" onclick="moveAdventureBunny('left')">◀️ Left</button>
+                            <button class="pad-btn" onclick="moveAdventureBunny('down')">🔽 Down</button>
+                            <button class="pad-btn" onclick="moveAdventureBunny('right')">▶️ Right</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             CABINET 11: STORY BRANCH ENGINE
+             ========================================== -->
+        <section class="game-zone-card hidden" id="zone-story">
+            <div class="cabinet-header">
+                <button class="back-lobby-btn" onclick="routeTo('lobby')"><i class="fa-solid fa-house"></i> Home</button>
+                <h2 class="cabinet-title">🔮 AI branched Story builder</h2>
+            </div>
+
+            <div class="sub-game-cabinet">
+                <div class="instruction-banner">Listen to the magical tale told by Barnaby, and choose what happens next!</div>
+                
+                <div class="story-teller-cardboard">
+                    <div class="story-illustration" id="story-illustrated-emoji">🏰</div>
+                    <div class="story-narrative-text" id="story-narrative-box">
+                        Once upon a time in a floating cloud castle, there lived a friendly dragon who lost his magical fire spark...
+                    </div>
+                </div>
+
+                <div class="story-options-column" id="story-choice-buttons">
+                    <!-- Choices buttons populated in script.js -->
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             CABINET 12: DYNAMIC MAKER & DECORATOR STUDIO
+             ========================================== -->
+        <section class="game-zone-card hidden" id="zone-maker">
+            <div class="cabinet-header">
+                <button class="back-lobby-btn" onclick="routeTo('lobby')"><i class="fa-solid fa-house"></i> Home</button>
+                <h2 class="cabinet-title" id="maker-title">🍰 Dynamic Creator Studio</h2>
+            </div>
+
+            <div class="sub-game-cabinet">
+                <div class="instruction-banner" id="maker-instruction">Drag or tap items to decorate your masterpiece!</div>
+                
+                <div class="maker-sandbox-layout">
+                    <!-- Base Creator Workspace Plate -->
+                    <div class="maker-canvas-area" id="maker-canvas-area">
+                        <div class="maker-base-element" id="maker-base-element">🍕</div>
+                        <div class="maker-placed-items" id="maker-placed-items">
+                            <!-- Dragged/tapped items go here -->
+                        </div>
+                    </div>
+
+                    <!-- Decorative Palette Sidebar -->
+                    <div class="maker-sidebar-palette">
+                        <span class="maker-sidebar-title">Toppings & Stickers</span>
+                        <div class="maker-items-grid" id="maker-items-grid">
+                            <!-- Items populated in script.js -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="maker-actions-row" style="margin-top:20px; display:flex; gap:12px; justify-content:center;">
+                    <button class="canvas-action-btn" onclick="clearMakerPlate()">
+                        <i class="fa-solid fa-broom"></i> Clean Board
+                    </button>
+                    <button class="canvas-action-btn" style="background:var(--green-light);" onclick="saveMakerMasterpiece()">
+                        <i class="fa-solid fa-circle-check"></i> Show Mommy! ⭐
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             CABINET 13: SPACE & SCIENCE SIMULATION LAB
+             ========================================== -->
+        <section class="game-zone-card hidden" id="zone-science">
+            <div class="cabinet-header">
+                <button class="back-lobby-btn" onclick="routeTo('lobby')"><i class="fa-solid fa-house"></i> Home</button>
+                <h2 class="cabinet-title" id="science-title">🚀 Space & Science Simulation Lab</h2>
+            </div>
+
+            <div class="sub-game-cabinet">
+                <div class="instruction-banner" id="science-instruction">Click interactive triggers to see science in action!</div>
+                
+                <div class="science-sandbox-layout">
+                    <!-- Main Simulation Stage Visual -->
+                    <div class="science-stage" id="science-stage">
+                        <div class="science-actor-large" id="science-main-actor">🌱</div>
+                        <div class="science-bg-effects" id="science-bg-effects"></div>
+                    </div>
+
+                    <!-- Interactive Control Panel -->
+                    <div class="science-control-panel">
+                        <span class="science-panel-title">Sandbox Controls</span>
+                        <div class="science-buttons-grid" id="science-buttons-grid">
+                            <!-- Interactive buttons populated in script.js -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="science-actions-row" style="margin-top:20px; display:flex; gap:12px; justify-content:center;">
+                    <button class="canvas-action-btn" style="background:var(--cyan-light);" onclick="resetScienceSim()">
+                        <i class="fa-solid fa-rotate-left"></i> Restart Experiment
+                    </button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Unified canvas layer for stars and pop particles -->
+    <canvas class="particle-layer" id="stars-particle-canvas"></canvas>
+
+    <!-- Custom Footer -->
+    <footer class="arcade-footer">
+        <p>Created with 💖 for KiddyQuest Interactive Arcade Platforms.</p>
+        <p class="footer-emojis">🎒 🍎 🏎️ 🎨 🃏 🧩 🦁 🚀 🐇 🔮</p>
+    </footer>
+
+    <!-- Core Javascript Code -->
+    <script src="script.js"></script>
+</body>
+</html>
