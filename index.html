@@ -29,26 +29,37 @@
         <div class="header-inner">
             <div class="brand-title" onclick="routeTo('lobby')">
                 <span class="brand-emoji">🚀</span>
-                <span>KiddyQuest Arcade</span>
+                <span id="brand-text">KiddyQuest Arcade</span>
+            </div>
+            <!-- Localization and Voice Controls -->
+            <div class="header-controls">
+                <select id="lang-select" class="control-dropdown" onchange="changeLanguage(this.value)" style="display: none;">
+                    <option value="en">🇬🇧 English</option>
+                    <option value="hi">🇮🇳 हिंदी (Hindi)</option>
+                    <option value="ta">🇮🇳 தமிழ் (Tamil)</option>
+                </select>
+                <button id="voice-toggle-btn" class="control-toggle-btn" onclick="toggleVoiceMute()">
+                    <i class="fa-solid fa-volume-high"></i> <span id="voice-btn-text">Voice On</span>
+                </button>
             </div>
             <!-- Star Scoring System & Leveling -->
             <div class="score-dashboard">
-                <div class="level-badge">Explorer Lvl <span id="level-val">1</span></div>
+                <div class="level-badge"><span id="lbl-explorer-lvl">Explorer Lvl</span> <span id="level-val">1</span></div>
                 <div class="star-counter">
                     <i class="fa-solid fa-star"></i>
-                    <span>Score: <span id="score-val">0</span> ⭐</span>
+                    <span><span id="lbl-score">Score</span>: <span id="score-val">0</span> ⭐</span>
                 </div>
             </div>
         </div>
     </header>
 
-    <!-- Barnaby the Mascot Welcome Bubble -->
+    <!-- Mommy Bear Mascot Welcome Bubble -->
     <section class="mascot-intro" aria-label="Mascot Welcome">
-        <div class="mascot-character" onclick="speakMascotSpeech()" id="mascot-node">🐻</div>
+        <div class="mascot-character" onclick="speakMascotSpeech()" id="mascot-node">🐻❤️</div>
         <div class="mascot-bubble">
-            <h2 class="mascot-title" id="mascot-name-tag">Barnaby the Explorer Bear</h2>
-            <p class="mascot-text" id="mascot-speech-text">Click me! I can read your games out loud! Pick a magical game from the arcade board below to start collecting golden stars! 🌟</p>
-            <button class="speak-btn" onclick="speakMascotSpeech()"><i class="fa-solid fa-volume-high"></i> Read Out Loud</button>
+            <h2 class="mascot-title" id="mascot-name-tag">Mommy Bear (Your Teacher)</h2>
+            <p class="mascot-text" id="mascot-speech-text">Hello sweetie! Welcome to our KiddyQuest Arcade! Pick a magical game below to start collecting golden stars! I am so proud of how much you are learning! 🐻❤️</p>
+            <button class="speak-btn" id="mascot-speak-btn" onclick="speakMascotSpeech()"><i class="fa-solid fa-volume-high"></i> <span id="lbl-read-out-loud">Read Out Loud</span></button>
         </div>
     </section>
 
@@ -292,10 +303,58 @@
         <!-- ==========================================
              CABINET 6: COLORING BOARD
              ========================================== -->
+        <!-- ==========================================
+             CABINET 6: COLORING BOARD
+             ========================================== -->
         <section class="game-zone-card hidden" id="zone-paint">
             <div class="cabinet-header">
                 <button class="back-lobby-btn" onclick="routeTo('lobby')"><i class="fa-solid fa-house"></i> Home</button>
                 <h2 class="cabinet-title">🎨 Magic Coloring & Masterpieces</h2>
+            </div>
+
+            <!-- Top Paint Tool tray (26 features) -->
+            <div class="paint-toolbar-tray">
+                <button class="paint-tool-btn active" id="tool-pencil" onclick="setPaintTool('pencil', this)"><i class="fa-solid fa-pencil"></i> Pencil</button>
+                <button class="paint-tool-btn" id="tool-brush" onclick="setPaintTool('brush', this)"><i class="fa-solid fa-brush"></i> Brush</button>
+                <button class="paint-tool-btn" id="tool-crayon" onclick="setPaintTool('crayon', this)"><i class="fa-solid fa-crayon"></i> Crayon</button>
+                <button class="paint-tool-btn" id="tool-spray" onclick="setPaintTool('spray', this)"><i class="fa-solid fa-spray-can"></i> Spray</button>
+                <button class="paint-tool-btn" id="tool-rainbow" onclick="setPaintTool('rainbow', this)"><i class="fa-solid fa-rainbow"></i> Rainbow</button>
+                <button class="paint-tool-btn" id="tool-glow" onclick="setPaintTool('glow', this)"><i class="fa-solid fa-wand-magic-sparkles"></i> Glow Pen</button>
+                <button class="paint-tool-btn" id="tool-fill" onclick="setPaintTool('fill', this)"><i class="fa-solid fa-fill-drip"></i> Paint Bucket</button>
+                <button class="paint-tool-btn" id="tool-eraser" onclick="setPaintTool('eraser', this)"><i class="fa-solid fa-eraser"></i> Eraser</button>
+                <button class="paint-tool-btn" id="tool-line" onclick="setPaintTool('line', this)"><i class="fa-solid fa-arrows-left-right"></i> Line</button>
+                <button class="paint-tool-btn" id="tool-rect" onclick="setPaintTool('rect', this)"><i class="fa-regular fa-square"></i> Rectangle</button>
+                <button class="paint-tool-btn" id="tool-circle" onclick="setPaintTool('circle', this)"><i class="fa-regular fa-circle"></i> Circle</button>
+                <button class="paint-tool-btn" id="tool-triangle" onclick="setPaintTool('triangle', this)"><i class="fa-solid fa-caret-up"></i> Triangle</button>
+                <button class="paint-tool-btn" id="tool-text" onclick="setPaintTool('text', this)"><i class="fa-solid fa-font"></i> Text Tool</button>
+                <button class="paint-tool-btn" id="tool-stamp" onclick="setPaintTool('stamp', this)"><i class="fa-solid fa-stamp"></i> Stamps</button>
+                <button class="paint-tool-btn" id="tool-sticker" onclick="setPaintTool('sticker', this)"><i class="fa-solid fa-face-smile"></i> Stickers</button>
+            </div>
+
+            <!-- Stamps Drawer -->
+            <div class="stamp-selection-row hidden" id="stamps-palette">
+                <button class="stamp-choice active" onclick="selectStamp('⭐')">⭐ Star</button>
+                <button class="stamp-choice" onclick="selectStamp('❤️')">❤️ Heart</button>
+                <button class="stamp-choice" onclick="selectStamp('🌸')">🌸 Flower</button>
+                <button class="stamp-choice" onclick="selectStamp('🍀')">🍀 Clover</button>
+                <button class="stamp-choice" onclick="selectStamp('✨')">✨ Sparkle</button>
+                <button class="stamp-choice" onclick="selectStamp('🐾')">🐾 Paw</button>
+            </div>
+
+            <!-- Stickers Drawer -->
+            <div class="sticker-selection-row hidden" id="stickers-palette">
+                <button class="sticker-choice active" onclick="selectSticker('🦄')">🦄 Fairy</button>
+                <button class="sticker-choice" onclick="selectSticker('🌈')">🌈 Rainbow</button>
+                <button class="sticker-choice" onclick="selectSticker('🍭')">🍭 Candy</button>
+                <button class="sticker-choice" onclick="selectSticker('🚀')">🚀 Rocket</button>
+                <button class="sticker-choice" onclick="selectSticker('🐼')">🐼 Panda</button>
+                <button class="sticker-choice" onclick="selectSticker('🦁')">🦁 Lion</button>
+                <button class="sticker-choice" onclick="selectSticker('🧜‍♀️')">🧜‍♀️ Mermaid</button>
+                <button class="sticker-choice" onclick="selectSticker('👑')">👑 Crown</button>
+                <button class="sticker-choice" onclick="selectSticker('🎈')">🎈 Balloon</button>
+                <button class="sticker-choice" onclick="selectSticker('🍓')">🍓 Berry</button>
+                <button class="sticker-choice" onclick="selectSticker('🍕')">🍕 Pizza</button>
+                <button class="sticker-choice" onclick="selectSticker('🍔')">🍔 Burger</button>
             </div>
 
             <div class="canvas-layout">
@@ -305,44 +364,77 @@
 
                 <aside class="canvas-sidebar">
                     <div class="toolbar-block">
-                        <span class="toolbar-block-title">Colors</span>
+                        <span class="toolbar-block-title" id="lbl-paint-colors">Brush Colors</span>
                         <div class="color-palette">
                             <div class="color-bubble active" style="background:#ef4444;" onclick="changeBrushColor('#ef4444', this)"></div>
+                            <div class="color-bubble" style="background:#f97316;" onclick="changeBrushColor('#f97316', this)"></div>
                             <div class="color-bubble" style="background:#eab308;" onclick="changeBrushColor('#eab308', this)"></div>
-                            <div class="color-bubble" style="background:#38bdf8;" onclick="changeBrushColor('#38bdf8', this)"></div>
                             <div class="color-bubble" style="background:#10b981;" onclick="changeBrushColor('#10b981', this)"></div>
+                            <div class="color-bubble" style="background:#38bdf8;" onclick="changeBrushColor('#38bdf8', this)"></div>
                             <div class="color-bubble" style="background:#8b5cf6;" onclick="changeBrushColor('#8b5cf6', this)"></div>
-                            <div class="color-bubble" style="background:#ffffff; display:flex; align-items:center; justify-content:center; font-size:16px;" onclick="changeBrushColor('#ffffff', this)"><i class="fa-solid fa-eraser"></i></div>
-                        </div>
-                    </div>
-
-                    <div class="toolbar-block">
-                        <span class="toolbar-block-title">Brush Size</span>
-                        <div class="brush-slider-group">
-                            <input type="range" min="3" max="30" value="8" class="brush-caterpillar" id="brush-size-slider" oninput="updateBrushSize(this.value)">
-                            <div class="brush-preview" id="brush-size-preview">
-                                <div style="width: 8px; height: 8px; border-radius:50%; background:#ffffff;"></div>
+                            <div class="color-bubble" style="background:#ec4899;" onclick="changeBrushColor('#ec4899', this)"></div>
+                            <div class="color-bubble" style="background:#111827;" onclick="changeBrushColor('#111827', this)"></div>
+                            <!-- Rainbow custom picker -->
+                            <div class="color-bubble" style="background:linear-gradient(45deg, red, orange, yellow, green, blue, purple); display:flex; align-items:center; justify-content:center;" onclick="document.getElementById('custom-color-picker').click()">
+                                <input type="color" id="custom-color-picker" style="opacity:0; width:100%; height:100%; cursor:pointer;" onchange="changeBrushColor(this.value, this.parentNode)">
                             </div>
                         </div>
                     </div>
 
                     <div class="toolbar-block">
-                        <span class="toolbar-block-title">Outline Presets</span>
+                        <span class="toolbar-block-title" id="lbl-paint-size">Size Controls</span>
+                        <div class="brush-slider-group">
+                            <input type="range" min="3" max="50" value="8" class="brush-caterpillar" id="brush-size-slider" oninput="updateBrushSize(this.value)">
+                            <div class="brush-preview" id="brush-size-preview">
+                                <div style="width: 8px; height: 8px; border-radius:50%; background:#ef4444;"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="toolbar-block">
+                        <span class="toolbar-block-title" id="lbl-paint-bg">Canvas Color & Zoom</span>
+                        <div style="display:flex; gap:10px; align-items:center;">
+                            <input type="color" id="canvas-bg-picker" value="#ffffff" title="Canvas Background Color" onchange="changeCanvasBg(this.value)" style="width:40px; height:40px; border:3px solid var(--grey-900); border-radius:8px; cursor:pointer;">
+                            <div class="zoom-controls">
+                                <button class="zoom-btn" onclick="zoomCanvas(0.1)" title="Zoom In"><i class="fa-solid fa-magnifying-glass-plus"></i></button>
+                                <button class="zoom-btn" onclick="zoomCanvas(-0.1)" title="Zoom Out"><i class="fa-solid fa-magnifying-glass-minus"></i></button>
+                                <button class="zoom-btn" onclick="zoomCanvas(0, true)" title="Reset Scale"><i class="fa-solid fa-arrows-to-eye"></i></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="toolbar-block">
+                        <button class="paint-toggle-action-btn" id="mirror-mode-btn" onclick="toggleMirrorMode()">
+                            <i class="fa-solid fa-arrows-left-right"></i> Mirror Off
+                        </button>
+                    </div>
+
+                    <div class="toolbar-block">
+                        <span class="toolbar-block-title" id="lbl-paint-templates">Templates</span>
                         <div class="template-grid">
                             <button class="template-btn" onclick="loadCartoonTemplate('star')">⭐ Star</button>
                             <button class="template-btn" onclick="loadCartoonTemplate('cloud')">☁️ Cloud</button>
-                            <button class="template-btn" onclick="loadCartoonTemplate('cat')">🐱 Kitten</button>
+                            <button class="template-btn" onclick="loadCartoonTemplate('cat')">🐱 Kitty</button>
                             <button class="template-btn" onclick="loadCartoonTemplate('heart')">❤️ Heart</button>
+                            <button class="template-btn" onclick="loadCartoonTemplate('car')">🚗 Car</button>
+                            <button class="template-btn" onclick="loadCartoonTemplate('fish')">🐟 Fish</button>
+                            <button class="template-btn" onclick="loadCartoonTemplate('dino')">🦖 Dino</button>
                         </div>
                     </div>
 
                     <div class="toolbar-block" style="margin-top:auto; gap:10px;">
-                        <button class="canvas-action-btn" onclick="clearMagicCanvas()">
-                            <i class="fa-solid fa-broom"></i> Clean Board
-                        </button>
-                        <button class="canvas-action-btn" style="background:var(--green-light);" onclick="saveDrawingImage()">
-                            <i class="fa-solid fa-download"></i> Save Art
-                        </button>
+                        <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+                            <button class="canvas-action-btn" onclick="undoPaint()" title="Undo"><i class="fa-solid fa-rotate-left"></i> Undo</button>
+                            <button class="canvas-action-btn" onclick="redoPaint()" title="Redo"><i class="fa-solid fa-rotate-right"></i> Redo</button>
+                        </div>
+                        <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+                            <button class="canvas-action-btn" onclick="clearMagicCanvas()"><i class="fa-solid fa-broom"></i> Clean</button>
+                            <button class="canvas-action-btn" style="background:var(--green-light);" onclick="saveDrawingImage()"><i class="fa-solid fa-download"></i> Save</button>
+                        </div>
+                        <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+                            <button class="canvas-action-btn" style="background:var(--blue-light);" onclick="printDrawing()"><i class="fa-solid fa-print"></i> Print</button>
+                            <button class="canvas-action-btn" style="background:var(--yellow-light);" onclick="toggleCanvasFullscreen()"><i class="fa-solid fa-expand"></i> Screen</button>
+                        </div>
                     </div>
                 </aside>
             </div>
@@ -599,6 +691,29 @@
 
     <!-- Unified canvas layer for stars and pop particles -->
     <canvas class="particle-layer" id="stars-particle-canvas"></canvas>
+
+    <!-- Animated Game Over Score Screen Modal (26 features) -->
+    <div id="game-over-modal" class="game-over-modal hidden">
+        <div class="modal-content">
+            <div class="modal-emoji">🎉🏆</div>
+            <h2 class="modal-title" id="modal-title-text">Adventure Complete!</h2>
+            <div class="modal-stars-animation">
+                <i class="fa-solid fa-star star-anim-1"></i>
+                <i class="fa-solid fa-star star-anim-2"></i>
+                <i class="fa-solid fa-star star-anim-3"></i>
+            </div>
+            <p class="modal-score-text"><span id="lbl-modal-stars-earned">You earned</span> <span id="modal-stars-val">+3</span> ⭐</p>
+            <p class="modal-level-text"><span id="lbl-modal-lvl">Explorer Level:</span> <span id="modal-level-val">1</span> 🚀</p>
+            <div class="modal-actions">
+                <button class="modal-btn btn-back" id="btn-modal-lobby" onclick="closeGameOverModal(); routeTo('lobby');">
+                    <i class="fa-solid fa-house"></i> Lobby
+                </button>
+                <button class="modal-btn btn-next" id="btn-modal-next" onclick="launchNextGameInSection()">
+                    Next <i class="fa-solid fa-circle-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+    </div>
 
     <!-- Custom Footer -->
     <footer class="arcade-footer">

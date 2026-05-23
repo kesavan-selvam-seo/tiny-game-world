@@ -6,50 +6,50 @@
 @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&family=Quicksand:wght@400;500;600;700&display=swap');
 
 :root {
-    /* Color Tokens */
-    --purple-light: #ddd6fe;
-    --purple-main: #8b5cf6;
-    --purple-dark: #6d28d9;
+    /* Rich, Highly Attractive Color Tokens */
+    --purple-light: #f5f3ff;
+    --purple-main: #7c3aed; /* Vibrant rich purple */
+    --purple-dark: #5b21b6;
 
-    --blue-light: #bae6fd;
-    --blue-main: #38bdf8;
-    --blue-dark: #0284c7;
+    --blue-light: #e0f2fe;
+    --blue-main: #0ea5e9; /* Deep rich sky blue */
+    --blue-dark: #0369a1;
 
-    --pink-light: #fbcfe8;
-    --pink-main: #ec4899;
-    --pink-dark: #be185d;
+    --pink-light: #fce7f3;
+    --pink-main: #db2777; /* Deep magenta rose */
+    --pink-dark: #9d174d;
 
-    --yellow-light: #fef08a;
-    --yellow-main: #eab308;
-    --yellow-dark: #a16207;
+    --yellow-light: #fef9c3;
+    --yellow-main: #f59e0b; /* Glossy amber yellow */
+    --yellow-dark: #b45309;
 
-    --green-light: #a7f3d0;
-    --green-main: #10b981;
-    --green-dark: #047857;
+    --green-light: #d1fae5;
+    --green-main: #059669; /* Rich emerald green */
+    --green-dark: #065f46;
 
     --orange-light: #ffedd5;
-    --orange-main: #f97316;
-    --orange-dark: #c2410c;
+    --orange-main: #ea580c; /* Vivid attractive orange */
+    --orange-dark: #9a3412;
 
-    --indigo-light: #c7d2fe;
-    --indigo-main: #6366f1;
-    --indigo-dark: #4338ca;
+    --indigo-light: #e0e7ff;
+    --indigo-main: #4f46e5; /* Deep attractive indigo royal */
+    --indigo-dark: #3730a3;
 
-    --lime-light: #ecfccb;
-    --lime-main: #84cc16;
-    --lime-dark: #4d7c0f;
+    --lime-light: #f7fee7;
+    --lime-main: #84cc16; /* Electric lime */
+    --lime-dark: #3f6212;
 
-    --cyan-light: #cffafe;
-    --cyan-main: #06b6d4;
+    --cyan-light: #ecfeff;
+    --cyan-main: #06b6d4; /* Premium rich teal-cyan */
     --cyan-dark: #0891b2;
 
     --amber-light: #fef3c7;
-    --amber-main: #f59e0b;
-    --amber-dark: #b45309;
+    --amber-main: #d97706; /* Golden amber */
+    --amber-dark: #78350f;
 
     --rose-light: #ffe4e6;
-    --rose-main: #f43f5e;
-    --rose-dark: #be123c;
+    --rose-main: #e11d48; /* Saturated deep rose crimson */
+    --rose-dark: #9f1239;
 
     --white: #ffffff;
     --grey-100: #f3f4f6;
@@ -62,8 +62,8 @@
     --font-normal: 'Quicksand', sans-serif;
     
     --bubble-border: 4px solid var(--grey-900);
-    --bubble-shadow: 8px 8px 0px rgba(17, 24, 39, 0.12);
-    --bubble-shadow-hover: 12px 12px 0px rgba(17, 24, 39, 0.18);
+    --bubble-shadow: 8px 8px 0px var(--grey-900); /* Authentic thick Neobrutalist high contrast shadow! */
+    --bubble-shadow-hover: 12px 12px 0px var(--grey-900);
     
     --radius-bubble: 28px;
     --radius-pill: 9999px;
@@ -81,7 +81,7 @@
 
 body {
     font-family: var(--font-normal);
-    background-color: #fcfaf0; /* Warm cream background */
+    background-color: #fefdf6; /* Rich warm cream backdrop */
     color: var(--grey-700);
     overflow-x: hidden;
     padding-bottom: 40px;
@@ -93,8 +93,8 @@ body {
     top: 0;
     left: 0;
     width: 100%;
-    height: 360px;
-    background: linear-gradient(180deg, #bae6fd 0%, #fcfaf0 100%);
+    height: 480px;
+    background: linear-gradient(180deg, #7dd3fc 0%, #e0f2fe 60%, #fefdf6 100%); /* Breathtaking dawn sunset spectrum */
     z-index: -2;
     overflow: hidden;
 }
@@ -204,6 +204,61 @@ body {
     0%, 100% { transform: rotate(0deg); }
     25% { transform: rotate(10deg) scale(1.1); }
     75% { transform: rotate(-10deg) scale(1.1); }
+}
+
+/* Localization and Mute Controls in Header */
+.header-controls {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.control-dropdown {
+    font-family: var(--font-kids);
+    font-size: 14px;
+    font-weight: 700;
+    padding: 8px 16px;
+    border: 3px solid var(--grey-900);
+    border-radius: var(--radius-pill);
+    background: var(--cyan-light);
+    color: var(--cyan-dark);
+    cursor: pointer;
+    box-shadow: 3px 3px 0 var(--grey-900);
+    outline: none;
+    transition: var(--transition-bouncy);
+}
+
+.control-dropdown:hover {
+    transform: translateY(-2px);
+    box-shadow: 4px 4px 0 var(--grey-900);
+}
+
+.control-toggle-btn {
+    font-family: var(--font-kids);
+    font-size: 14px;
+    font-weight: 700;
+    padding: 8px 16px;
+    border: 3px solid var(--grey-900);
+    border-radius: var(--radius-pill);
+    background: var(--rose-light);
+    color: var(--rose-dark);
+    cursor: pointer;
+    box-shadow: 3px 3px 0 var(--grey-900);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: var(--transition-bouncy);
+}
+
+.control-toggle-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 4px 4px 0 var(--grey-900);
+}
+
+.control-toggle-btn.muted {
+    background: var(--grey-200);
+    color: var(--grey-700);
 }
 
 .score-dashboard {
@@ -1862,4 +1917,451 @@ body {
 
 @media (max-width: 400px) {
     .lobby-grid { grid-template-columns: 1fr; }
+}
+
+/* ============================================================
+   ADVANCED COLORING STUDIO & GAME-OVER SUCCESS MODAL STYLES
+   ============================================================ */
+
+/* Primary Paint Studio Layout & Toolbars */
+.paint-toolbar-tray {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(12px);
+    border: 3px solid var(--grey-900);
+    border-radius: 20px;
+    padding: 12px;
+    margin-bottom: 18px;
+    box-shadow: 4px 4px 0 var(--grey-900);
+    z-index: 10;
+}
+
+.paint-tool-btn {
+    font-family: var(--font-kids);
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--grey-900);
+    background: var(--white);
+    border: 2px solid var(--grey-900);
+    border-radius: 12px;
+    padding: 8px 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 2px 2px 0 var(--grey-900);
+    transition: var(--transition-bouncy);
+}
+
+.paint-tool-btn:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 4px 4px 0 var(--grey-900);
+    background: var(--yellow-light);
+}
+
+.paint-tool-btn.active {
+    background: var(--cyan-light);
+    transform: translateY(1px);
+    box-shadow: 1px 1px 0 var(--grey-900);
+}
+
+/* Stamp & Sticker selection rows */
+.stamp-selection-row, .sticker-selection-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    background: #fffdf5;
+    border: 3px dashed var(--orange-main);
+    border-radius: 16px;
+    padding: 12px;
+    margin-bottom: 15px;
+    animation: bounceIn 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.stamp-choice, .sticker-choice {
+    font-size: 22px;
+    padding: 6px 14px;
+    background: var(--white);
+    border: 2px solid var(--grey-900);
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 2px 2px 0 var(--grey-900);
+    transition: var(--transition-bouncy);
+}
+
+.stamp-choice:hover, .sticker-choice:hover {
+    transform: scale(1.15) rotate(2deg);
+    background: var(--yellow-light);
+}
+
+.stamp-choice.active, .sticker-choice.active {
+    background: var(--orange-light);
+    transform: scale(1.1) translateY(1px);
+    box-shadow: 1px 1px 0 var(--grey-900);
+    border-color: var(--orange-main);
+}
+
+/* Sidebar Custom Pickers & Zoom Control */
+.zoom-controls {
+    display: flex;
+    gap: 2px;
+    border: 2px solid var(--grey-900);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 2px 2px 0 var(--grey-900);
+}
+
+.zoom-btn {
+    background: var(--white);
+    border: none;
+    border-right: 2px solid var(--grey-900);
+    padding: 8px 14px;
+    cursor: pointer;
+    font-size: 15px;
+    color: var(--grey-900);
+    transition: background 0.2s, transform 0.1s;
+}
+
+.zoom-btn:last-child {
+    border-right: none;
+}
+
+.zoom-btn:hover {
+    background: var(--cyan-light);
+}
+
+.zoom-btn:active {
+    background: var(--cyan-main);
+}
+
+/* Mirror Toggle Button */
+.paint-toggle-action-btn {
+    font-family: var(--font-kids);
+    font-weight: 700;
+    font-size: 14px;
+    width: 100%;
+    color: var(--grey-900);
+    background: var(--white);
+    border: 2px solid var(--grey-900);
+    border-radius: 10px;
+    padding: 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    box-shadow: 2px 2px 0 var(--grey-900);
+    transition: var(--transition-bouncy);
+}
+
+.paint-toggle-action-btn:hover {
+    background: var(--purple-light);
+    transform: translateY(-2px);
+    box-shadow: 4px 4px 0 var(--grey-900);
+}
+
+.paint-toggle-action-btn.active {
+    background: var(--purple-light);
+    border-color: var(--purple-main);
+    box-shadow: 1px 1px 0 var(--grey-900);
+    transform: translateY(1px);
+}
+
+/* Fullscreen alignment and Canvas Transform */
+.canvas-board-wrapper {
+    overflow: hidden;
+    position: relative;
+    border: 3px solid var(--grey-900);
+    border-radius: 20px;
+    background: var(--white);
+    box-shadow: 6px 6px 0 var(--grey-900);
+    width: 100%;
+    height: 100%;
+    min-height: 480px;
+}
+
+.canvas-board {
+    display: block;
+    cursor: crosshair;
+    transform-origin: center center;
+    transition: transform 0.1s ease-out, background-color 0.3s;
+}
+
+/* ============================================================
+   PREMIUM DYNAMIC KIDS ANIMATIONS RULES
+   ============================================================ */
+
+/* Cute Floating Bobbing effect for alphabet/counting bubbles */
+.bubble-choice, .bouncy-sweet, .draggable-letter, .draggable-block, .animal-card {
+    animation: bubbleFloat 3.5s ease-in-out infinite alternate;
+}
+
+/* Dynamic delays so they float asynchronously */
+.bubble-choice:nth-child(2n), .bouncy-sweet:nth-child(2n) { animation-delay: 0.5s; animation-duration: 3s; }
+.bubble-choice:nth-child(3n), .bouncy-sweet:nth-child(3n) { animation-delay: 1.2s; animation-duration: 4s; }
+.bubble-choice:nth-child(4n), .bouncy-sweet:nth-child(4n) { animation-delay: 0.8s; animation-duration: 3.2s; }
+
+@keyframes bubbleFloat {
+    0% { transform: translateY(0px) rotate(0deg) scale(1); }
+    50% { transform: translateY(-7px) rotate(1.5deg) scale(1.02); }
+    100% { transform: translateY(0px) rotate(-1.5deg) scale(0.98); }
+}
+
+/* Smooth 3D Flip Card Mechanics for Memory Pair Arena */
+.memory-grid {
+    perspective: 1000px;
+}
+
+.memory-card {
+    width: 100%;
+    aspect-ratio: 1;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    cursor: pointer;
+}
+
+.memory-card.flipped {
+    transform: rotateY(180deg) scale(1.03);
+}
+
+.card-front, .card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 16px;
+    border: 3px solid var(--grey-900);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 4px 4px 0 var(--grey-900);
+}
+
+.card-back {
+    background: radial-gradient(circle, var(--blue-light) 30%, var(--blue-main) 100%);
+    font-size: 32px;
+}
+
+.card-front {
+    background: var(--white);
+    transform: rotateY(180deg);
+    font-size: 40px;
+}
+
+.memory-card.matched {
+    animation: matchSuccess 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.4) forwards;
+    pointer-events: none;
+}
+
+@keyframes matchSuccess {
+    0% { transform: rotateY(180deg) scale(1); }
+    50% { transform: rotateY(180deg) scale(1.2); box-shadow: 0 0 20px rgba(16, 185, 129, 0.5); }
+    100% { transform: rotateY(180deg) scale(1); opacity: 0.85; border-color: var(--green-main); }
+}
+
+/* Incorrect Answer Shaker Wobble */
+@keyframes shakeWobble {
+    0%, 100% { transform: translateX(0); }
+    20%, 60% { transform: translateX(-9px) rotate(-3.5deg); }
+    40%, 80% { transform: translateX(9px) rotate(3.5deg); }
+}
+
+.shake-wobble {
+    animation: shakeWobble 0.45s ease-in-out !important;
+    border-color: var(--red-main) !important;
+    background: #ffe4e6 !important;
+    box-shadow: 2px 2px 0 var(--red-main) !important;
+}
+
+/* High Speed Math Racing Lane Track Scroll */
+@keyframes trackScroll {
+    0% { background-position-x: 0px; }
+    100% { background-position-x: -80px; }
+}
+
+.race-track-wrapper {
+    background-image: repeating-linear-gradient(90deg, #f3f4f6, #f3f4f6 30px, #ffffff 30px, #ffffff 60px);
+    background-size: 60px 100%;
+    transition: background 0.3s;
+}
+
+.race-track-wrapper.racing {
+    animation: trackScroll 0.35s linear infinite;
+    border-color: var(--cyan-main);
+}
+
+.racer-avatar {
+    font-size: 45px;
+    position: absolute;
+    bottom: 5px;
+    z-index: 5;
+    transition: left 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.25);
+    filter: drop-shadow(2px 2px 0px rgba(0,0,0,0.1));
+}
+
+.racer-avatar.boosting {
+    animation: rabbitSprint 0.25s linear infinite alternate;
+}
+
+@keyframes rabbitSprint {
+    0% { transform: translateY(0px) scaleX(1.05) scaleY(0.95); }
+    100% { transform: translateY(-8px) scaleX(0.95) scaleY(1.05); }
+}
+
+/* Game Over Success Modal */
+.game-over-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(17, 24, 39, 0.5);
+    backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 99999;
+    padding: 20px;
+    transition: opacity 0.3s ease;
+}
+
+.game-over-modal.hidden {
+    display: none;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.modal-content {
+    background: var(--white);
+    border: 4px solid var(--grey-900);
+    border-radius: 28px;
+    max-width: 450px;
+    width: 100%;
+    padding: 35px 25px;
+    text-align: center;
+    box-shadow: 12px 12px 0px var(--grey-900);
+    position: relative;
+    animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+.modal-emoji {
+    font-size: 60px;
+    margin-bottom: 15px;
+    animation: bounce 1.8s infinite;
+}
+
+.modal-title {
+    font-family: var(--font-kids);
+    font-weight: 800;
+    font-size: 32px;
+    color: var(--grey-900);
+    margin-bottom: 12px;
+    text-shadow: 1px 1px 0px var(--white);
+}
+
+.modal-stars-animation {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin: 20px 0;
+}
+
+.modal-stars-animation i {
+    font-size: 40px;
+    color: var(--yellow-main);
+    text-shadow: 2px 2px 0 var(--grey-900);
+}
+
+.star-anim-1 { animation: starSpin 1.5s ease-in-out infinite alternate; }
+.star-anim-2 { animation: starSpin 1.8s ease-in-out infinite alternate-reverse; }
+.star-anim-3 { animation: starSpin 1.6s ease-in-out infinite alternate; }
+
+.modal-score-text {
+    font-family: var(--font-kids);
+    font-weight: 700;
+    font-size: 24px;
+    color: var(--green-main);
+    margin-bottom: 8px;
+}
+
+.modal-level-text {
+    font-family: var(--font-kids);
+    font-weight: 700;
+    font-size: 18px;
+    color: var(--grey-600);
+    margin-bottom: 25px;
+}
+
+.modal-actions {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 12px;
+}
+
+.modal-btn {
+    font-family: var(--font-kids);
+    font-weight: 800;
+    font-size: 16px;
+    padding: 12px 18px;
+    border: 3px solid var(--grey-900);
+    border-radius: 14px;
+    cursor: pointer;
+    box-shadow: 3px 3px 0 var(--grey-900);
+    transition: var(--transition-bouncy);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.modal-btn.btn-back {
+    background: var(--red-light);
+    color: var(--grey-900);
+}
+
+.modal-btn.btn-back:hover {
+    background: #fecaca;
+    transform: translateY(-2px);
+    box-shadow: 5px 5px 0 var(--grey-900);
+}
+
+.modal-btn.btn-next {
+    background: var(--green-light);
+    color: var(--grey-900);
+}
+
+.modal-btn.btn-next:hover {
+    background: #bbf7d0;
+    transform: translateY(-2px);
+    box-shadow: 5px 5px 0 var(--grey-900);
+}
+
+.modal-btn:active {
+    transform: translateY(1px);
+    box-shadow: 1px 1px 0 var(--grey-900);
+}
+
+/* Animations Core definitions */
+@keyframes popIn {
+    0% { transform: scale(0.65); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes bounceIn {
+    0% { transform: scale(0.85); opacity: 0; }
+    50% { transform: scale(1.03); }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes starSpin {
+    0% { transform: scale(0.88) rotate(-18deg); }
+    100% { transform: scale(1.12) rotate(18deg); }
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
 }
