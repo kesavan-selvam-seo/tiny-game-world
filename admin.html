@@ -1,69 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Local CMS Page Generator</title>
-  <meta name="robots" content="noindex,nofollow">
-  <link rel="stylesheet" href="assets/css/style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Local CMS Generator | CalculatorHub</title>
+  <meta name="robots" content="noindex,nofollow" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css" />
 </head>
 <body>
-<header class="site-header"><div class="container nav-wrap"><a class="logo" href="./">CalculatorHub</a><nav class="nav-links"><a href="./">View Website</a></nav></div></header>
-<main class="container admin-page">
-  <section class="admin-card">
-    <h1>Local CMS Page Generator</h1>
-    <div class="notice"><strong>Note:</strong> GitHub Pages does not support real backend CMS/login. Use this page to generate a new calculator HTML file, then upload that file to GitHub.</div>
-    <div class="form-grid">
-      <div class="field"><label>URL Slug</label><input id="slug" value="sip-calculator"></div>
-      <div class="field"><label>Canonical URL</label><input id="canonical" value="https://yourusername.github.io/online-calculator-github/calculators/sip-calculator/"></div>
-      <div class="field"><label>Meta Title</label><input id="metaTitle" value="SIP Calculator Online | Free Investment Calculator"></div>
-      <div class="field"><label>Meta Description</label><input id="metaDesc" value="Use this free SIP calculator to estimate your mutual fund investment returns instantly."></div>
-      <div class="field full"><label>H1</label><input id="h1" value="SIP Calculator"></div>
-      <div class="field full"><label>Calculator Portion: HTML/CSS/JavaScript code</label><textarea id="calculatorCode"><div class="result-box">Add your calculator code here.</div></textarea></div>
-      <div class="field full"><label>SEO Content Section: HTML/CSS content</label><textarea id="seoContent"><h2>About SIP Calculator</h2><p>This SIP calculator helps users estimate their monthly investment returns.</p></textarea></div>
-      <div class="field full"><label>FAQs: one per line, use Question | Answer</label><textarea id="faqs">What is a SIP calculator? | A SIP calculator estimates returns from monthly mutual fund investments.
-Is this SIP calculator free? | Yes, this calculator is free to use.</textarea></div>
-    </div>
-    <button onclick="generatePage()">Generate HTML Code</button>
-    <button onclick="downloadPage()">Download index.html</button>
-    <h2>Generated HTML</h2>
-    <pre id="output" class="code-output">Click Generate HTML Code.</pre>
+<header class="site-header"><div class="container nav"><a class="logo" href="index.html">Calculator<span>Hub</span></a><nav class="nav-links"><a href="index.html">Home</a><a href="calculators/age-calculator.html">Age Calculator</a><a class="active" href="admin.html">Local CMS</a></nav></div></header>
+<section class="hero"><div class="container"><span class="badge">Static CMS Alternative</span><h1>Local CMS Page Generator</h1><p>Fill the fields, generate HTML, copy it into a new file inside the calculators folder, and upload it to GitHub.</p></div></section>
+<main class="container section admin-layout">
+  <section class="admin-panel">
+    <h2>Page Fields</h2>
+    <div class="field"><label>URL File Name</label><input id="slug" value="sip-calculator.html"></div>
+    <div class="field"><label>Canonical URL</label><input id="canonical" value="https://yourusername.github.io/online-calculator/calculators/sip-calculator.html"></div>
+    <div class="field"><label>Meta Title</label><input id="metaTitle" value="SIP Calculator Online | Calculate Investment Returns"></div>
+    <div class="field"><label>Meta Description</label><input id="metaDesc" value="Use this free SIP calculator to estimate your mutual fund investment returns online."></div>
+    <div class="field"><label>H1 Heading</label><input id="h1" value="SIP Calculator"></div>
+    <div class="field"><label>Calculator Code HTML/CSS/JS</label><textarea id="calcCode"><div class="calculator-shell"><p>Add your calculator HTML, CSS, and JavaScript code here.</p></div></textarea></div>
+    <div class="field"><label>SEO Content HTML</label><textarea id="seoContent"><section class="content-box"><h2>What is a SIP Calculator?</h2><p>A SIP calculator helps estimate future investment value based on monthly investment, expected return, and duration.</p></section></textarea></div>
+    <div class="field"><label>FAQs JSON</label><textarea id="faqs">[{"q":"What is a SIP calculator?","a":"A SIP calculator estimates the future value of monthly investments."},{"q":"Is this SIP calculator free?","a":"Yes, this calculator is free to use."}]</textarea></div>
+    <div class="admin-actions"><button class="btn" onclick="generatePage()">Generate HTML</button><button class="btn secondary" onclick="copyCode()">Copy Code</button></div>
+  </section>
+  <section class="admin-panel">
+    <h2>Generated Page Code</h2>
+    <pre class="code-output" id="output">Click Generate HTML to create page code.</pre>
   </section>
 </main>
 <script>
-function esc(str){return String(str).replace(/[&<>'"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[m]));}
-function getFaqs(){return document.getElementById('faqs').value.split('\n').map(line=>line.trim()).filter(Boolean).map(line=>{const parts=line.split('|');return{q:(parts[0]||'').trim(),a:(parts.slice(1).join('|')||'').trim()};}).filter(f=>f.q&&f.a);}
-function generatePage(){const slug=document.getElementById('slug').value.trim();const canonical=document.getElementById('canonical').value.trim();const metaTitle=document.getElementById('metaTitle').value.trim();const metaDesc=document.getElementById('metaDesc').value.trim();const h1=document.getElementById('h1').value.trim();const calculatorCode=document.getElementById('calculatorCode').value;const seoContent=document.getElementById('seoContent').value;const faqs=getFaqs();const schema={"@context":"https://schema.org","@type":"FAQPage","mainEntity":faqs.map(f=>({"@type":"Question","name":f.q,"acceptedAnswer":{"@type":"Answer","text":f.a}}))};const faqHtml=faqs.map(f=>`<details class="faq-item"><summary>${esc(f.q)}</summary><p>${esc(f.a)}</p></details>`).join('\n      ');const html=`<!DOCTYPE html>
+function esc(s){return String(s).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;')}
+function generatePage(){
+  const slug=document.getElementById('slug').value.trim();
+  const canonical=document.getElementById('canonical').value.trim();
+  const metaTitle=document.getElementById('metaTitle').value.trim();
+  const metaDesc=document.getElementById('metaDesc').value.trim();
+  const h1=document.getElementById('h1').value.trim();
+  const calcCode=document.getElementById('calcCode').value;
+  const seoContent=document.getElementById('seoContent').value;
+  let faqs=[];try{faqs=JSON.parse(document.getElementById('faqs').value)}catch(e){alert('FAQ JSON is invalid');return;}
+  const faqSchema={"@context":"https://schema.org","@type":"FAQPage","mainEntity":faqs.map(f=>({"@type":"Question","name":f.q,"acceptedAnswer":{"@type":"Answer","text":f.a}}))};
+  const faqHtml=faqs.map(f=>`<details><summary>${esc(f.q)}</summary><p>${esc(f.a)}</p></details>`).join('\n');
+  const html=`<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>${esc(metaTitle)}</title>
-  <meta name="description" content="${esc(metaDesc)}">
-  <link rel="canonical" href="${esc(canonical)}">
-  <link rel="stylesheet" href="../../assets/css/style.css">
-  <script type="application/ld+json">${JSON.stringify(schema)}<\/script>
+  <meta name="description" content="${esc(metaDesc)}" />
+  <link rel="canonical" href="${esc(canonical)}" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/style.css" />
+  <script type="application/ld+json">${JSON.stringify(faqSchema)}<\/script>
 </head>
 <body>
-  <header class="site-header"><div class="container nav-wrap"><a class="logo" href="../../">CalculatorHub</a></div></header>
-  <main class="container page-wrap">
-    <h1>${esc(h1)}</h1>
-    <section class="calculator-section">
-      ${calculatorCode}
-    </section>
-    <section class="seo-content-section content-body">
-      ${seoContent}
-    </section>
-    <section class="faq-section">
-      <h2>Frequently Asked Questions</h2>
-      ${faqHtml}
-    </section>
-  </main>
-  <footer class="site-footer"><div class="container">© 2026 CalculatorHub. All rights reserved.</div></footer>
-  <script src="../../assets/js/main.js"><\/script>
+<header class="site-header"><div class="container nav"><a class="logo" href="../index.html">Calculator<span>Hub</span></a><nav class="nav-links"><a href="../index.html">Home</a><a href="../admin.html">Local CMS</a></nav></div></header>
+<section class="hero"><div class="container"><span class="badge">Free Calculator</span><h1>${esc(h1)}</h1><p>${esc(metaDesc)}</p></div></section>
+<main class="container section">
+${calcCode}
+${seoContent}
+</main>
+<section class="section"><div class="container"><h2 class="section-title">FAQs</h2><div class="faq-wrap">${faqHtml}</div></div></section>
+<footer class="footer"><div class="container footer-inner"><p>© <span data-year></span> CalculatorHub. All rights reserved.</p><a href="../admin.html">Local CMS Generator</a></div></footer>
+<script src="../assets/js/main.js"><\/script>
 </body>
-</html>`;document.getElementById('output').textContent=html;return html;}
-function downloadPage(){const html=generatePage();const blob=new Blob([html],{type:'text/html'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='index.html';a.click();URL.revokeObjectURL(a.href);}
+</html>`;
+  document.getElementById('output').textContent=html;
+}
+function copyCode(){navigator.clipboard.writeText(document.getElementById('output').textContent);alert('Code copied. Create this file inside calculators folder.');}
 </script>
 </body>
 </html>

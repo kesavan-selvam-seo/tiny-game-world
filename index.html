@@ -1,33 +1,82 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Free Online Calculators | CalculatorHub</title>
-  <meta name="description" content="Use free online calculators for age, finance, health, math, and daily needs. Simple, fast, and mobile-friendly calculator tools.">
-  <link rel="canonical" href="./">
-  <link rel="stylesheet" href="assets/css/style.css">
+  <meta name="description" content="Use free online calculators for age, finance, maths, health, and daily calculations. Fast, simple, and SEO-friendly calculator tools." />
+  <link rel="canonical" href="https://yourusername.github.io/online-calculator/" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css" />
 </head>
 <body>
-  <header class="site-header">
-    <div class="container nav-wrap">
-      <a class="logo" href="./">CalculatorHub</a>
-      <nav class="nav-links"><a href="admin.html">Local CMS</a></nav>
-    </div>
-  </header>
-  <main class="container">
-    <section class="hero">
+<header class="site-header">
+  <div class="container nav">
+    <a class="logo" href="index.html">Calculator<span>Hub</span></a>
+    <nav class="nav-links">
+      <a class="active" href="index.html">Home</a>
+      <a href="calculators/age-calculator.html">Age Calculator</a>
+      <a href="admin.html">Local CMS</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="container hero-grid">
+    <div>
+      <span class="badge">Free SEO-Friendly Tools</span>
       <h1>Free Online Calculators</h1>
-      <p>Create and publish SEO-friendly calculator pages using simple GitHub Pages compatible static files.</p>
-    </section>
-    <section class="calculator-grid">
-      <article class="calc-card">
-        <h2><a href="calculators/age-calculator/">Age Calculator</a></h2>
+      <p>Create and publish calculator pages with a clean layout, strong SEO structure, FAQ schema, and GitHub Pages compatible static files.</p>
+      <a class="btn" href="calculators/age-calculator.html">Open Age Calculator</a>
+      <a class="btn secondary" href="admin.html">Create New Page</a>
+    </div>
+    <div class="hero-card">
+      <h3>Website Features</h3>
+      <ul class="mini-list">
+        <li><span class="check">✓</span>GitHub Pages friendly static website</li>
+        <li><span class="check">✓</span>Calculator section with custom code</li>
+        <li><span class="check">✓</span>SEO content and FAQ schema ready</li>
+        <li><span class="check">✓</span>Mobile responsive modern UI</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <h2 class="section-title">Popular Calculators</h2>
+    <p class="section-subtitle">Start with ready-made calculator pages and add more pages using the local CMS page generator.</p>
+    <div class="cards">
+      <article class="card">
+        <div class="card-icon">🎂</div>
+        <h2>Age Calculator</h2>
         <p>Calculate your exact age in years, months, and days using your date of birth.</p>
-        <a class="button-link" href="calculators/age-calculator/">Open Calculator</a>
+        <a class="btn secondary" href="calculators/age-calculator.html">Open Calculator</a>
       </article>
-    </section>
-  </main>
-  <footer class="site-footer"><div class="container">© 2026 CalculatorHub. All rights reserved.</div></footer>
+      <article class="card">
+        <div class="card-icon">💰</div>
+        <h3>SIP Calculator</h3>
+        <p>Create this page from the CMS generator and paste your calculator code.</p>
+        <a class="btn secondary" href="admin.html">Create Page</a>
+      </article>
+      <article class="card">
+        <div class="card-icon">📊</div>
+        <h3>BMI Calculator</h3>
+        <p>Add health or finance calculators with custom HTML, CSS, and JavaScript.</p>
+        <a class="btn secondary" href="admin.html">Create Page</a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container footer-inner">
+    <p>© <span data-year></span> CalculatorHub. All rights reserved.</p>
+    <a href="admin.html">Local CMS Generator</a>
+  </div>
+</footer>
+<script src="assets/js/main.js"></script>
 </body>
 </html>

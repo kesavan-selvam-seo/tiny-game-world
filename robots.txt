@@ -1,3 +1,3 @@
 User-agent: *
 Allow: /
-Sitemap: https://yourusername.github.io/online-calculator-github/sitemap.xml
+Sitemap: https://yourusername.github.io/online-calculator/sitemap.xml
