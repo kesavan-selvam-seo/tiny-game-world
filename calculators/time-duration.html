@@ -1,0 +1,117 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Time Duration Calculator - Time Difference Online</title>
+  <meta name="description" content="Calculate elapsed hours and minutes between two time periods. Perfect for timesheets and shift tracking.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://www.calcuportal.com/calculators/time-duration.html">
+  <link rel="stylesheet" href="../styles.css">
+  <script src="../script.js"></script>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="nav-container">
+      <a href="../index.html" class="logo">
+        <span class="logo-icon">🧮</span>
+        <span>CalcuPortal</span>
+      </a>
+      <nav class="nav-links">
+        <a href="../index.html" class="nav-link">Home</a>
+        <a href="../pages/about.html" class="nav-link">About</a>
+        <a href="../pages/contact.html" class="nav-link">Contact</a>
+        <button class="theme-btn" title="Toggle Theme">
+          <span class="theme-btn-icon"></span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="detail-container">
+      <a href="../index.html" class="back-btn">← Back to Directory</a>
+      
+      <div class="detail-header">
+        <h1>Time Duration Calculator</h1>
+      </div>
+
+      <!-- Calculator Widget -->
+      <div class="calc-widget">
+                <div class="form-row">
+          <div class="form-group">
+            <label for="time-start">Start Time</label>
+            <input type="time" id="time-start" class="input-field" />
+          </div>
+          <div class="form-group">
+            <label for="time-end">End Time</label>
+            <input type="time" id="time-end" class="input-field" />
+          </div>
+        </div>
+        <button id="calc-btn" class="calc-btn">Calculate Duration</button>
+        <div id="result-section" class="result-section hidden" style="text-align: center;">
+          <div class="summary-title">Elapsed Time</div>
+          <div class="total-balance" id="duration-val">0h 0m</div>
+        </div>
+      </div>
+
+      <!-- SEO Article -->
+      <section class="article-section">
+        <div class="article-header">
+          <h2>Time Duration Calculator Guides</h2>
+        </div>
+        <div class="article-content">
+          <h2>Calculate Elapsed Shift Timelines</h2><p>Track working shift spans or task elapsed periods by entering start and end times.</p>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="copyright-bar" style="border-top: none; padding-top: 0;">
+      © <span id="year">2026</span> CalcuPortal. All rights reserved.
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').innerText = new Date().getFullYear();
+    
+    // Injected calculation script
+    // Rename calculate button triggers
+    const calculateBtn = document.getElementById('calc-btn');
+    if (calculateBtn) {
+      calculateBtn.id = 'calculate-btn';
+    }
+  </script>
+  <script>
+          document.getElementById('calculate-btn').addEventListener('click', () => {
+        const start = document.getElementById('time-start').value;
+        const end = document.getElementById('time-end').value;
+        if (!start || !end) {
+          alert('Please enter both start and end times.');
+          return;
+        }
+        const [sh, sm] = start.split(':').map(Number);
+        const [eh, em] = end.split(':').map(Number);
+        
+        let startMinutes = (sh * 60) + sm;
+        let endMinutes = (eh * 60) + em;
+        
+        if (endMinutes < startMinutes) {
+          // Wrap around next day
+          endMinutes += 24 * 60;
+        }
+        
+        const diff = endMinutes - startMinutes;
+        const h = Math.floor(diff / 60);
+        const m = diff % 60;
+        
+        document.getElementById('duration-val').innerText = h + ' hours ' + m + ' minutes';
+        document.getElementById('result-section').classList.remove('hidden');
+      });
+  </script>
+</body>
+</html>

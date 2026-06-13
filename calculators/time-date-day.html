@@ -1,0 +1,97 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Day of Week Finder - What Day was I Born?</title>
+  <meta name="description" content="Find what day of the week (Monday, Tuesday, etc.) any specific calendar date falls on.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://www.calcuportal.com/calculators/time-date-day.html">
+  <link rel="stylesheet" href="../styles.css">
+  <script src="../script.js"></script>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="nav-container">
+      <a href="../index.html" class="logo">
+        <span class="logo-icon">🧮</span>
+        <span>CalcuPortal</span>
+      </a>
+      <nav class="nav-links">
+        <a href="../index.html" class="nav-link">Home</a>
+        <a href="../pages/about.html" class="nav-link">About</a>
+        <a href="../pages/contact.html" class="nav-link">Contact</a>
+        <button class="theme-btn" title="Toggle Theme">
+          <span class="theme-btn-icon"></span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="detail-container">
+      <a href="../index.html" class="back-btn">← Back to Directory</a>
+      
+      <div class="detail-header">
+        <h1>Day of Week Finder</h1>
+      </div>
+
+      <!-- Calculator Widget -->
+      <div class="calc-widget">
+                <div class="form-group">
+          <label for="day-finder-date">Select Date</label>
+          <input type="date" id="day-finder-date" class="input-field" />
+        </div>
+        <button id="calc-btn" class="calc-btn">Find Day of Week</button>
+        <div id="result-section" class="result-section hidden" style="text-align: center;">
+          <div class="summary-title">Day of Week</div>
+          <div class="total-balance" id="day-of-week-val" style="color:var(--primary); font-size:2.5rem; margin-top:1rem;">Tuesday</div>
+        </div>
+      </div>
+
+      <!-- SEO Article -->
+      <section class="article-section">
+        <div class="article-header">
+          <h2>Day of Week Finder Guides</h2>
+        </div>
+        <div class="article-content">
+          <h2>Find Calendar Day Names</h2><p>Perfect for looking up historical milestones. Find out whether a birthday or wedding was on a weekend or weekday.</p>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="copyright-bar" style="border-top: none; padding-top: 0;">
+      © <span id="year">2026</span> CalcuPortal. All rights reserved.
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').innerText = new Date().getFullYear();
+    
+    // Injected calculation script
+    // Rename calculate button triggers
+    const calculateBtn = document.getElementById('calc-btn');
+    if (calculateBtn) {
+      calculateBtn.id = 'calculate-btn';
+    }
+  </script>
+  <script>
+          document.getElementById('calculate-btn').addEventListener('click', () => {
+        const val = document.getElementById('day-finder-date').value;
+        if (!val) {
+          alert('Please select a date.');
+          return;
+        }
+        const date = new Date(val);
+        const day = date.toLocaleDateString('en-US', { weekday: 'long' });
+        document.getElementById('day-of-week-val').innerText = day;
+        document.getElementById('result-section').classList.remove('hidden');
+      });
+  </script>
+</body>
+</html>

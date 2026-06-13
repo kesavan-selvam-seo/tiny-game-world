@@ -1,0 +1,259 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="robots" content="index, follow">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Date Calculator - Calculate Days Between Dates &amp; Add Days</title>
+  <meta name="description" content="Calculate the number of days, weeks, months, or years between two dates, or add/subtract days from a specific calendar date.">
+  <link rel="canonical" href="https://www.calcuportal.com/calculators/date-calculator.html">
+  <link rel="stylesheet" href="../styles.css">
+  <script src="../script.js"></script>
+  <style>
+    .diff-breakdown {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+      line-height: 1.5;
+      margin-top: 0.5rem;
+    }
+    .res-sub-text {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      font-weight: 650;
+      margin: 0;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="nav-container">
+      <a href="../index.html" class="logo">
+        <span class="logo-icon">🧮</span>
+        <span>CalcuPortal</span>
+      </a>
+      <nav class="nav-links">
+        <a href="../index.html" class="nav-link">Home</a>
+        <a href="../pages/about.html" class="nav-link">About</a>
+        <a href="../pages/contact.html" class="nav-link">Contact</a>
+        <button class="theme-btn" title="Toggle Theme">
+          <span class="theme-btn-icon"></span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="detail-container">
+      <a href="../index.html" class="back-btn">← Back to Directory</a>
+      
+      <div class="detail-header">
+        <h1>Date &amp; Calendar Calculator</h1>
+        <p>Calculate intervals between dates or project calendar targets by adding/subtracting days.</p>
+      </div>
+
+      <!-- Calculator Widget -->
+      <div class="calc-widget">
+        <div class="unit-tabs">
+          <button id="date-diff-tab" class="tab-btn active">Days Between Dates</button>
+          <button id="date-add-tab" class="tab-btn">Add/Subtract Days</button>
+        </div>
+
+        <!-- Tab 1: Days Between Dates -->
+        <div id="date-diff-form" class="form-section">
+          <div class="form-group">
+            <label for="diff-start">Start Date</label>
+            <input type="date" id="diff-start" class="input-field" />
+          </div>
+          <div class="form-group">
+            <label for="diff-end">End Date</label>
+            <input type="date" id="diff-end" class="input-field" />
+          </div>
+          <button id="date-diff-btn" class="calc-btn">Calculate Difference</button>
+          
+          <div id="diff-result" class="result-section hidden" style="text-align: center;">
+            <div class="summary-title" style="font-size: 0.875rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase;">Time Difference</div>
+            <div class="total-balance" id="diff-days-val" style="font-size: 2.25rem; font-weight: 900; color: var(--primary); margin: 0.5rem 0;">0 Days</div>
+            <div class="diff-breakdown" id="diff-breakdown-val">...</div>
+          </div>
+        </div>
+
+        <!-- Tab 2: Add/Subtract Days -->
+        <div id="date-add-form" class="form-section hidden">
+          <div class="form-group">
+            <label for="add-start">Start Date</label>
+            <input type="date" id="add-start" class="input-field" />
+          </div>
+          
+          <div class="form-row">
+            <div class="form-group">
+              <label for="add-op">Operation</label>
+              <select id="add-op" class="select-field">
+                <option value="add" selected>Add (+)</option>
+                <option value="sub">Subtract (-)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="add-val">Value</label>
+              <input type="number" id="add-val" value="10" class="input-field" min="1" />
+            </div>
+            <div class="form-group">
+              <label for="add-unit">Unit</label>
+              <select id="add-unit" class="select-field">
+                <option value="days" selected>Days</option>
+                <option value="weeks">Weeks</option>
+                <option value="months">Months</option>
+                <option value="years">Years</option>
+              </select>
+            </div>
+          </div>
+          
+          <button id="date-add-btn" class="calc-btn">Compute New Date</button>
+          
+          <div id="add-result" class="result-section hidden" style="text-align: center;">
+            <div class="summary-title" style="font-size: 0.875rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase;">Resulting Date</div>
+            <div class="total-balance" id="add-res-date" style="font-size: 2.25rem; font-weight: 900; color: var(--primary); margin: 0.5rem 0;">June 23, 2026</div>
+            <p id="add-res-sub" class="res-sub-text">Tuesday</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- SEO Article -->
+      <section class="article-section">
+        <div class="article-header">
+          <h2>Why Use a Date Calculator?</h2>
+        </div>
+        <div class="article-content">
+          <p>Manual calendar calculations can lead to errors due to changing month lengths (28, 30, or 31 days) and leap years. Our date calculator solves calendar interval differences and projections client-side with 100% precision.</p>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="copyright-bar" style="border-top: none; padding-top: 0;">
+      © <span id="year">2026</span> CalcuPortal. All rights reserved.
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').innerText = new Date().getFullYear();
+
+    // Set defaults
+    const today = new Date();
+    const yyyy = today.getFullYear();
+    const mm = String(today.getMonth() + 1).padStart(2, '0');
+    const dd = String(today.getDate()).padStart(2, '0');
+    const todayStr = `${yyyy}-${mm}-${dd}`;
+
+    document.getElementById('diff-start').value = todayStr;
+    document.getElementById('diff-end').value = todayStr;
+    document.getElementById('add-start').value = todayStr;
+
+    const diffTab = document.getElementById('date-diff-tab');
+    const addTab = document.getElementById('date-add-tab');
+    const diffForm = document.getElementById('date-diff-form');
+    const addForm = document.getElementById('date-add-form');
+
+    diffTab.addEventListener('click', () => {
+      diffTab.classList.add('active');
+      addTab.classList.remove('active');
+      diffForm.classList.remove('hidden');
+      addForm.classList.add('hidden');
+    });
+
+    addTab.addEventListener('click', () => {
+      addTab.classList.add('active');
+      diffTab.classList.remove('active');
+      addForm.classList.remove('hidden');
+      diffForm.classList.add('hidden');
+    });
+
+    document.getElementById('date-diff-btn').addEventListener('click', () => {
+      const startVal = document.getElementById('diff-start').value;
+      const endVal = document.getElementById('diff-end').value;
+      
+      if (!startVal || !endVal) {
+        alert('Please enter valid dates.');
+        return;
+      }
+      
+      const d1 = new Date(startVal);
+      const d2 = new Date(endVal);
+      const diffTime = d2 - d1;
+      const diffDays = Math.round(diffTime / (1000 * 60 * 60 * 24));
+      
+      let years = d2.getFullYear() - d1.getFullYear();
+      let months = d2.getMonth() - d1.getMonth();
+      let days = d2.getDate() - d1.getDate();
+      
+      if (days < 0) {
+        months--;
+        const prevMonth = new Date(d2.getFullYear(), d2.getMonth(), 0);
+        days += prevMonth.getDate();
+      }
+      
+      if (months < 0) {
+        years--;
+        months += 12;
+      }
+      
+      const absDays = Math.abs(diffDays);
+      document.getElementById('diff-days-val').innerText = `${absDays} ${absDays === 1 ? 'Day' : 'Days'}`;
+      
+      let breakdown = '';
+      if (diffDays < 0) {
+        breakdown = `End date is before start date. Difference is: `;
+      } else {
+        breakdown = 'Alternative breakdown: ';
+      }
+      
+      const absYears = Math.abs(years);
+      const absMonths = Math.abs(months);
+      const absDaysRemainder = Math.abs(days);
+      
+      breakdown += `<strong>${absYears} years, ${absMonths} months, and ${absDaysRemainder} days</strong>`;
+      
+      const weeks = Math.floor(absDays / 7);
+      const remDays = absDays % 7;
+      breakdown += `<br><span style="font-size:0.8rem; color:var(--text-muted);">Or ${weeks} weeks and ${remDays} days</span>`;
+      
+      document.getElementById('diff-breakdown-val').innerHTML = breakdown;
+      document.getElementById('diff-result').classList.remove('hidden');
+    });
+
+    document.getElementById('date-add-btn').addEventListener('click', () => {
+      const startVal = document.getElementById('add-start').value;
+      const op = document.getElementById('add-op').value;
+      const quantity = parseInt(document.getElementById('add-val').value);
+      const unit = document.getElementById('add-unit').value;
+      
+      if (!startVal || isNaN(quantity) || quantity <= 0) {
+        alert('Please select a start date and enter a positive quantity.');
+        return;
+      }
+      
+      const date = new Date(startVal);
+      const multiplier = op === 'add' ? 1 : -1;
+      const val = quantity * multiplier;
+      
+      if (unit === 'days') {
+        date.setDate(date.getDate() + val);
+      } else if (unit === 'weeks') {
+        date.setDate(date.getDate() + (val * 7));
+      } else if (unit === 'months') {
+        date.setMonth(date.getMonth() + val);
+      } else if (unit === 'years') {
+        date.setFullYear(date.getFullYear() + val);
+      }
+      
+      document.getElementById('add-res-date').innerText = date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+      document.getElementById('add-res-sub').innerText = date.toLocaleDateString('en-US', { weekday: 'long' });
+      document.getElementById('add-result').classList.remove('hidden');
+    });
+  </script>
+</body>
+</html>
+

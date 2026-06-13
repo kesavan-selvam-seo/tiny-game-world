@@ -1,0 +1,117 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Big Number Calculator - Large Scale Math</title>
+  <meta name="description" content="Perform arithmetic calculations on extremely large numbers that exceed typical browser storage scales.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://www.calcuportal.com/calculators/big-number-calculator.html">
+  <link rel="stylesheet" href="../styles.css">
+  <script src="../script.js"></script>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="nav-container">
+      <a href="../index.html" class="logo">
+        <span class="logo-icon">🧮</span>
+        <span>CalcuPortal</span>
+      </a>
+      <nav class="nav-links">
+        <a href="../index.html" class="nav-link">Home</a>
+        <a href="../pages/about.html" class="nav-link">About</a>
+        <a href="../pages/contact.html" class="nav-link">Contact</a>
+        <button class="theme-btn" title="Toggle Theme">
+          <span class="theme-btn-icon"></span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="detail-container">
+      <a href="../index.html" class="back-btn">← Back to Directory</a>
+      
+      <div class="detail-header">
+        <h1>Big Number Calculator</h1>
+      </div>
+
+      <!-- Calculator Widget -->
+      <div class="calc-widget">
+                <div class="form-group">
+          <label for="big-a">Big Number A</label>
+          <input type="text" id="big-a" value="12345678901234567890" class="input-field" />
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="big-op">Operation</label>
+            <select id="big-op" class="select-field">
+              <option value="add">Add (+)</option>
+              <option value="multiply">Multiply (*)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="big-b">Big Number B</label>
+            <input type="text" id="big-b" value="98765432109876543210" class="input-field" />
+          </div>
+        </div>
+        <button id="calc-btn" class="calc-btn">Compute Big Math</button>
+        <div id="result-section" class="result-section hidden">
+          <div class="summary-title">Big Result</div>
+          <div id="big-result-val" class="breakdown-info" style="word-break: break-all; font-weight:700; margin-top:1rem;">...</div>
+        </div>
+      </div>
+
+      <!-- SEO Article -->
+      <section class="article-section">
+        <div class="article-header">
+          <h2>Big Number Calculator Guides</h2>
+        </div>
+        <div class="article-content">
+          <h2>Arbitrary Precision Big Math</h2><p>Standard JavaScript numbers lose precision after 15 digits. Our big number calculator uses modern BigInt libraries to compute exact values for hundreds of digits.</p>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="copyright-bar" style="border-top: none; padding-top: 0;">
+      © <span id="year">2026</span> CalcuPortal. All rights reserved.
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').innerText = new Date().getFullYear();
+    
+    // Injected calculation script
+    // Rename calculate button triggers
+    const calculateBtn = document.getElementById('calc-btn');
+    if (calculateBtn) {
+      calculateBtn.id = 'calculate-btn';
+    }
+  </script>
+  <script>
+          document.getElementById('calculate-btn').addEventListener('click', () => {
+        const aVal = document.getElementById('big-a').value;
+        const bVal = document.getElementById('big-b').value;
+        const op = document.getElementById('big-op').value;
+        
+        try {
+          const a = BigInt(aVal);
+          const b = BigInt(bVal);
+          let res = 0n;
+          if (op === 'add') res = a + b;
+          else res = a * b;
+          
+          document.getElementById('big-result-val').innerText = res.toString();
+          document.getElementById('result-section').classList.remove('hidden');
+        } catch (e) {
+          alert('Please enter valid integers. Do not include decimals or characters.');
+        }
+      });
+  </script>
+</body>
+</html>

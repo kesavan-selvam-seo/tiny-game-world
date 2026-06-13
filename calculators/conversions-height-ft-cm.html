@@ -1,0 +1,131 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Height Ft to Cm Converter - Convert Height Online</title>
+  <meta name="description" content="Convert heights between Feet/Inches and Centimeters instantly with our free online conversion tool.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://www.calcuportal.com/calculators/conversions-height-ft-cm.html">
+  <link rel="stylesheet" href="../styles.css">
+  <script src="../script.js"></script>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="nav-container">
+      <a href="../index.html" class="logo">
+        <span class="logo-icon">🧮</span>
+        <span>CalcuPortal</span>
+      </a>
+      <nav class="nav-links">
+        <a href="../index.html" class="nav-link">Home</a>
+        <a href="../pages/about.html" class="nav-link">About</a>
+        <a href="../pages/contact.html" class="nav-link">Contact</a>
+        <button class="theme-btn" title="Toggle Theme">
+          <span class="theme-btn-icon"></span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="detail-container">
+      <a href="../index.html" class="back-btn">← Back to Directory</a>
+      
+      <div class="detail-header">
+        <h1>Height Feet to Centimeters Converter</h1>
+      </div>
+
+      <!-- Calculator Widget -->
+      <div class="calc-widget">
+                <div class="unit-tabs">
+          <button id="ft-to-cm-tab" class="tab-btn active">Ft/In to Cm</button>
+          <button id="cm-to-ft-tab" class="tab-btn">Cm to Ft/In</button>
+        </div>
+        <div id="ft-form" class="form-row">
+          <div class="form-group">
+            <label for="height-ft">Feet</label>
+            <input type="number" id="height-ft" value="5" class="input-field" />
+          </div>
+          <div class="form-group">
+            <label for="height-in">Inches</label>
+            <input type="number" id="height-in" value="9" class="input-field" />
+          </div>
+        </div>
+        <div id="cm-form" class="form-group hidden">
+          <label for="height-cm">Centimeters</label>
+          <input type="number" id="height-cm" value="175" class="input-field" />
+        </div>
+        <button id="calc-btn" class="calc-btn">Convert Height</button>
+        <div id="result-section" class="result-section hidden" style="text-align: center;">
+          <div class="summary-title">Result</div>
+          <div class="total-balance" id="conversion-result">175.26 cm</div>
+        </div>
+      </div>
+
+      <!-- SEO Article -->
+      <section class="article-section">
+        <div class="article-header">
+          <h2>Height Feet to Centimeters Converter Guides</h2>
+        </div>
+        <div class="article-content">
+          <h2>Height Metric Conversion</h2><p>Easily convert height measurements between the Imperial (feet/inches) and Metric (centimeters) systems.</p>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="copyright-bar" style="border-top: none; padding-top: 0;">
+      © <span id="year">2026</span> CalcuPortal. All rights reserved.
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').innerText = new Date().getFullYear();
+    
+    // Injected calculation script
+    // Rename calculate button triggers
+    const calculateBtn = document.getElementById('calc-btn');
+    if (calculateBtn) {
+      calculateBtn.id = 'calculate-btn';
+    }
+  </script>
+  <script>
+          let mode = 'ft-to-cm';
+      document.getElementById('ft-to-cm-tab').addEventListener('click', () => {
+        mode = 'ft-to-cm';
+        document.getElementById('ft-to-cm-tab').classList.add('active');
+        document.getElementById('cm-to-ft-tab').classList.remove('active');
+        document.getElementById('ft-form').classList.remove('hidden');
+        document.getElementById('cm-form').classList.add('hidden');
+      });
+      document.getElementById('cm-to-ft-tab').addEventListener('click', () => {
+        mode = 'cm-to-ft';
+        document.getElementById('cm-to-ft-tab').classList.add('active');
+        document.getElementById('ft-to-cm-tab').classList.remove('active');
+        document.getElementById('cm-form').classList.remove('hidden');
+        document.getElementById('ft-form').classList.add('hidden');
+      });
+      document.getElementById('calculate-btn').addEventListener('click', () => {
+        const resultEl = document.getElementById('conversion-result');
+        if (mode === 'ft-to-cm') {
+          const ft = parseFloat(document.getElementById('height-ft').value) || 0;
+          const inch = parseFloat(document.getElementById('height-in').value) || 0;
+          const cm = ((ft * 12) + inch) * 2.54;
+          resultEl.innerText = cm.toFixed(2) + ' cm';
+        } else {
+          const cm = parseFloat(document.getElementById('height-cm').value) || 0;
+          const totalInches = cm / 2.54;
+          const ft = Math.floor(totalInches / 12);
+          const inch = Math.round(totalInches % 12);
+          resultEl.innerText = ft + ' ft ' + inch + ' in';
+        }
+        document.getElementById('result-section').classList.remove('hidden');
+      });
+  </script>
+</body>
+</html>

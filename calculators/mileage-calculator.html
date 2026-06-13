@@ -1,0 +1,103 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mileage Calculator - Vehicle Fuel Economy</title>
+  <meta name="description" content="Determine your vehicle's gas mileage (MPG or km/L) based on distance driven and fuel consumed.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://www.calcuportal.com/calculators/mileage-calculator.html">
+  <link rel="stylesheet" href="../styles.css">
+  <script src="../script.js"></script>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="nav-container">
+      <a href="../index.html" class="logo">
+        <span class="logo-icon">🧮</span>
+        <span>CalcuPortal</span>
+      </a>
+      <nav class="nav-links">
+        <a href="../index.html" class="nav-link">Home</a>
+        <a href="../pages/about.html" class="nav-link">About</a>
+        <a href="../pages/contact.html" class="nav-link">Contact</a>
+        <button class="theme-btn" title="Toggle Theme">
+          <span class="theme-btn-icon"></span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="detail-container">
+      <a href="../index.html" class="back-btn">← Back to Directory</a>
+      
+      <div class="detail-header">
+        <h1>Gas Mileage Calculator</h1>
+      </div>
+
+      <!-- Calculator Widget -->
+      <div class="calc-widget">
+                <div class="form-row">
+          <div class="form-group">
+            <label for="mil-distance">Distance Driven (Miles/Km)</label>
+            <input type="number" id="mil-distance" value="300" class="input-field" />
+          </div>
+          <div class="form-group">
+            <label for="mil-fuel">Fuel Consumed (Gallons/Liters)</label>
+            <input type="number" id="mil-fuel" value="12" class="input-field" step="any" />
+          </div>
+        </div>
+        <button id="calc-btn" class="calc-btn">Calculate Mileage</button>
+        <div id="result-section" class="result-section hidden" style="text-align: center;">
+          <div class="summary-title">Fuel Economy</div>
+          <div class="total-balance" id="mileage-val">25.0 MPG</div>
+        </div>
+      </div>
+
+      <!-- SEO Article -->
+      <section class="article-section">
+        <div class="article-header">
+          <h2>Gas Mileage Calculator Guides</h2>
+        </div>
+        <div class="article-content">
+          <h2>Calculate Fuel Efficiency</h2><p>Determine your car's fuel consumption score to optimize long term fuel budgeting.</p>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="copyright-bar" style="border-top: none; padding-top: 0;">
+      © <span id="year">2026</span> CalcuPortal. All rights reserved.
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').innerText = new Date().getFullYear();
+    
+    // Injected calculation script
+    // Rename calculate button triggers
+    const calculateBtn = document.getElementById('calc-btn');
+    if (calculateBtn) {
+      calculateBtn.id = 'calculate-btn';
+    }
+  </script>
+  <script>
+          document.getElementById('calculate-btn').addEventListener('click', () => {
+        const dist = parseFloat(document.getElementById('mil-distance').value);
+        const fuel = parseFloat(document.getElementById('mil-fuel').value);
+        if (isNaN(dist) || isNaN(fuel) || fuel <= 0) {
+          alert('Please enter valid inputs.');
+          return;
+        }
+        const mpg = dist / fuel;
+        document.getElementById('mileage-val').innerText = mpg.toFixed(1) + ' MPG (or units)';
+        document.getElementById('result-section').classList.remove('hidden');
+      });
+  </script>
+</body>
+</html>

@@ -1,0 +1,129 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pressure Converter - PSI, Bar, Pascal</title>
+  <meta name="description" content="Convert pressure units between PSI, Bar, Pascal, and Atmospheres instantly with our free online tool.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://www.calcuportal.com/calculators/conversions-pressure.html">
+  <link rel="stylesheet" href="../styles.css">
+  <script src="../script.js"></script>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="nav-container">
+      <a href="../index.html" class="logo">
+        <span class="logo-icon">🧮</span>
+        <span>CalcuPortal</span>
+      </a>
+      <nav class="nav-links">
+        <a href="../index.html" class="nav-link">Home</a>
+        <a href="../pages/about.html" class="nav-link">About</a>
+        <a href="../pages/contact.html" class="nav-link">Contact</a>
+        <button class="theme-btn" title="Toggle Theme">
+          <span class="theme-btn-icon"></span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="detail-container">
+      <a href="../index.html" class="back-btn">← Back to Directory</a>
+      
+      <div class="detail-header">
+        <h1>Pressure Units Converter</h1>
+      </div>
+
+      <!-- Calculator Widget -->
+      <div class="calc-widget">
+                <div class="form-row">
+          <div class="form-group">
+            <label for="pres-val">Value</label>
+            <input type="number" id="pres-val" value="32" class="input-field" step="any" />
+          </div>
+          <div class="form-group">
+            <label for="pres-from">From</label>
+            <select id="pres-from" class="select-field">
+              <option value="psi">PSI (Pound/sq in)</option>
+              <option value="bar">Bar</option>
+              <option value="pa">Pascal (Pa)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="pres-to">To</label>
+            <select id="pres-to" class="select-field">
+              <option value="psi">PSI (Pound/sq in)</option>
+              <option value="bar" selected>Bar</option>
+              <option value="pa">Pascal (Pa)</option>
+            </select>
+          </div>
+        </div>
+        <button id="calc-btn" class="calc-btn">Convert Pressure</button>
+        <div id="result-section" class="result-section hidden" style="text-align: center;">
+          <div class="summary-title">Converted Pressure</div>
+          <div class="total-balance" id="pres-result">2.21 Bar</div>
+        </div>
+      </div>
+
+      <!-- SEO Article -->
+      <section class="article-section">
+        <div class="article-header">
+          <h2>Pressure Units Converter Guides</h2>
+        </div>
+        <div class="article-content">
+          <h2>Conversions Pressure Index</h2><p>Easily convert tyre inflate PSI ratings to metric Bar or Pascal scales.</p>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="copyright-bar" style="border-top: none; padding-top: 0;">
+      © <span id="year">2026</span> CalcuPortal. All rights reserved.
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').innerText = new Date().getFullYear();
+    
+    // Injected calculation script
+    // Rename calculate button triggers
+    const calculateBtn = document.getElementById('calc-btn');
+    if (calculateBtn) {
+      calculateBtn.id = 'calculate-btn';
+    }
+  </script>
+  <script>
+          document.getElementById('calculate-btn').addEventListener('click', () => {
+        const val = parseFloat(document.getElementById('pres-val').value);
+        const from = document.getElementById('pres-from').value;
+        const to = document.getElementById('pres-to').value;
+        
+        if (isNaN(val)) {
+          alert('Please enter a valid numeric value.');
+          return;
+        }
+        
+        // Convert input to Pascal first
+        let pa = 0;
+        if (from === 'pa') pa = val;
+        else if (from === 'psi') pa = val * 6894.75729;
+        else if (from === 'bar') pa = val * 100000;
+        
+        // Convert Pascal to output
+        let out = 0;
+        if (to === 'pa') out = pa;
+        else if (to === 'psi') out = pa / 6894.75729;
+        else if (to === 'bar') out = pa / 100000;
+        
+        document.getElementById('pres-result').innerText = out.toFixed(4).replace(/\.?0+$/, '') + ' ' + to.toUpperCase();
+        document.getElementById('result-section').classList.remove('hidden');
+      });
+  </script>
+</body>
+</html>

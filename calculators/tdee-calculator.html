@@ -1,0 +1,109 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TDEE Calculator - Total Daily Energy Expenditure</title>
+  <meta name="description" content="Estimate your Total Daily Energy Expenditure (TDEE) based on BMR and physical activity thresholds.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://www.calcuportal.com/calculators/tdee-calculator.html">
+  <link rel="stylesheet" href="../styles.css">
+  <script src="../script.js"></script>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="nav-container">
+      <a href="../index.html" class="logo">
+        <span class="logo-icon">🧮</span>
+        <span>CalcuPortal</span>
+      </a>
+      <nav class="nav-links">
+        <a href="../index.html" class="nav-link">Home</a>
+        <a href="../pages/about.html" class="nav-link">About</a>
+        <a href="../pages/contact.html" class="nav-link">Contact</a>
+        <button class="theme-btn" title="Toggle Theme">
+          <span class="theme-btn-icon"></span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="detail-container">
+      <a href="../index.html" class="back-btn">← Back to Directory</a>
+      
+      <div class="detail-header">
+        <h1>TDEE Calculator</h1>
+      </div>
+
+      <!-- Calculator Widget -->
+      <div class="calc-widget">
+                <div class="form-row">
+          <div class="form-group">
+            <label for="t-bmr">Basal Metabolic Rate (BMR) (kcal)</label>
+            <input type="number" id="t-bmr" value="1600" class="input-field" />
+          </div>
+          <div class="form-group">
+            <label for="t-activity">Activity Level</label>
+            <select id="t-activity" class="select-field">
+              <option value="1.2" selected>Sedentary (1.2)</option>
+              <option value="1.375">Lightly Active (1.375)</option>
+              <option value="1.55">Moderately Active (1.55)</option>
+              <option value="1.725">Very Active (1.725)</option>
+              <option value="1.9">Extra Active (1.9)</option>
+            </select>
+          </div>
+        </div>
+        <button id="calc-btn" class="calc-btn">Calculate TDEE</button>
+        <div id="result-section" class="result-section hidden" style="text-align: center;">
+          <div class="summary-title">Total Energy Burned (TDEE)</div>
+          <div class="total-balance" id="tdee-val" style="color:var(--accent);">1,920 kcal</div>
+        </div>
+      </div>
+
+      <!-- SEO Article -->
+      <section class="article-section">
+        <div class="article-header">
+          <h2>TDEE Calculator Guides</h2>
+        </div>
+        <div class="article-content">
+          <h2>Track Total Energy Outlay</h2><p>Your TDEE estimates how many total calories your body burns in a 24-hour cycle including physical movements and workouts.</p>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="copyright-bar" style="border-top: none; padding-top: 0;">
+      © <span id="year">2026</span> CalcuPortal. All rights reserved.
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').innerText = new Date().getFullYear();
+    
+    // Injected calculation script
+    // Rename calculate button triggers
+    const calculateBtn = document.getElementById('calc-btn');
+    if (calculateBtn) {
+      calculateBtn.id = 'calculate-btn';
+    }
+  </script>
+  <script>
+          document.getElementById('calculate-btn').addEventListener('click', () => {
+        const bmr = parseFloat(document.getElementById('t-bmr').value);
+        const act = parseFloat(document.getElementById('t-activity').value);
+        if (isNaN(bmr) || bmr <= 0) {
+          alert('Please enter a valid BMR.');
+          return;
+        }
+        const tdee = bmr * act;
+        document.getElementById('tdee-val').innerText = Math.round(tdee).toLocaleString() + ' kcal';
+        document.getElementById('result-section').classList.remove('hidden');
+      });
+  </script>
+</body>
+</html>

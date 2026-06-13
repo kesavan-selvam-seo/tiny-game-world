@@ -1,0 +1,123 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profit & Margin Calculator - Free Business Calculator</title>
+  <meta name="description" content="Calculate business profit amounts, markup ratios, and margins instantly based on cost and selling price.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://www.calcuportal.com/calculators/profit-calculator.html">
+  <link rel="stylesheet" href="../styles.css">
+  <script src="../script.js"></script>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="nav-container">
+      <a href="../index.html" class="logo">
+        <span class="logo-icon">🧮</span>
+        <span>CalcuPortal</span>
+      </a>
+      <nav class="nav-links">
+        <a href="../index.html" class="nav-link">Home</a>
+        <a href="../pages/about.html" class="nav-link">About</a>
+        <a href="../pages/contact.html" class="nav-link">Contact</a>
+        <button class="theme-btn" title="Toggle Theme">
+          <span class="theme-btn-icon"></span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="detail-container">
+      <a href="../index.html" class="back-btn">← Back to Directory</a>
+      
+      <div class="detail-header">
+        <h1>Profit & Margin Calculator</h1>
+      </div>
+
+      <!-- Calculator Widget -->
+      <div class="calc-widget">
+                <div class="form-row">
+          <div class="form-group">
+            <label for="cost-price">Cost Price ($)</label>
+            <input type="number" id="cost-price" value="50" class="input-field" step="any" />
+          </div>
+          <div class="form-group">
+            <label for="selling-price">Selling Price ($)</label>
+            <input type="number" id="selling-price" value="80" class="input-field" step="any" />
+          </div>
+        </div>
+        <button id="calc-btn" class="calc-btn">Calculate Profit</button>
+        <div id="result-section" class="result-section hidden">
+          <div class="metric-grid">
+            <div class="metric-card">
+              <span class="metric-title">Gross Profit</span>
+              <span class="metric-value" id="profit-val">.00</span>
+            </div>
+            <div class="metric-card">
+              <span class="metric-title">Profit Margin</span>
+              <span class="metric-value" id="margin-val">37.5%</span>
+            </div>
+            <div class="metric-card">
+              <span class="metric-title">Markup</span>
+              <span class="metric-value" id="markup-val">60%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SEO Article -->
+      <section class="article-section">
+        <div class="article-header">
+          <h2>Profit & Margin Calculator Guides</h2>
+        </div>
+        <div class="article-content">
+          <h2>Track Retail Margin Metrics</h2><p>Understand the profitability of your products. Margin measures profit relative to sales price, while markup evaluates markup over purchase cost.</p>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="copyright-bar" style="border-top: none; padding-top: 0;">
+      © <span id="year">2026</span> CalcuPortal. All rights reserved.
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').innerText = new Date().getFullYear();
+    
+    // Injected calculation script
+    // Rename calculate button triggers
+    const calculateBtn = document.getElementById('calc-btn');
+    if (calculateBtn) {
+      calculateBtn.id = 'calculate-btn';
+    }
+  </script>
+  <script>
+          document.getElementById('calculate-btn').addEventListener('click', () => {
+        const cost = parseFloat(document.getElementById('cost-price').value);
+        const sell = parseFloat(document.getElementById('selling-price').value);
+        
+        if (isNaN(cost) || isNaN(sell) || cost < 0 || sell < 0 || sell === 0) {
+          alert('Please enter valid numeric inputs.');
+          return;
+        }
+        
+        const profit = sell - cost;
+        const margin = (profit / sell) * 100;
+        const markup = cost === 0 ? 0 : (profit / cost) * 100;
+        
+        document.getElementById('profit-val').innerText = '$' + profit.toFixed(2);
+        document.getElementById('margin-val').innerText = margin.toFixed(1) + '%';
+        document.getElementById('markup-val').innerText = markup.toFixed(1) + '%';
+        
+        document.getElementById('result-section').classList.remove('hidden');
+      });
+  </script>
+</body>
+</html>

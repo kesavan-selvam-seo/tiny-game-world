@@ -1,0 +1,103 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Square Footage Calculator - Room & Area Size</title>
+  <meta name="description" content="Calculate the square footage (area) of a room or space. Enter length and width measurements.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://www.calcuportal.com/calculators/square-footage-calculator.html">
+  <link rel="stylesheet" href="../styles.css">
+  <script src="../script.js"></script>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="nav-container">
+      <a href="../index.html" class="logo">
+        <span class="logo-icon">🧮</span>
+        <span>CalcuPortal</span>
+      </a>
+      <nav class="nav-links">
+        <a href="../index.html" class="nav-link">Home</a>
+        <a href="../pages/about.html" class="nav-link">About</a>
+        <a href="../pages/contact.html" class="nav-link">Contact</a>
+        <button class="theme-btn" title="Toggle Theme">
+          <span class="theme-btn-icon"></span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="detail-container">
+      <a href="../index.html" class="back-btn">← Back to Directory</a>
+      
+      <div class="detail-header">
+        <h1>Square Footage Calculator</h1>
+      </div>
+
+      <!-- Calculator Widget -->
+      <div class="calc-widget">
+                <div class="form-row">
+          <div class="form-group">
+            <label for="sq-length">Length (Feet)</label>
+            <input type="number" id="sq-length" value="12" class="input-field" step="any" />
+          </div>
+          <div class="form-group">
+            <label for="sq-width">Width (Feet)</label>
+            <input type="number" id="sq-width" value="10" class="input-field" step="any" />
+          </div>
+        </div>
+        <button id="calc-btn" class="calc-btn">Calculate Area</button>
+        <div id="result-section" class="result-section hidden" style="text-align: center;">
+          <div class="summary-title">Total Area</div>
+          <div class="total-balance" id="sq-ft-val" style="color:var(--accent);">120 sq ft</div>
+        </div>
+      </div>
+
+      <!-- SEO Article -->
+      <section class="article-section">
+        <div class="article-header">
+          <h2>Square Footage Calculator Guides</h2>
+        </div>
+        <div class="article-content">
+          <h2>Calculate Room Square Footage</h2><p>Calculate space flooring requirements or project painting costs by estimating length times width area.</p>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="copyright-bar" style="border-top: none; padding-top: 0;">
+      © <span id="year">2026</span> CalcuPortal. All rights reserved.
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').innerText = new Date().getFullYear();
+    
+    // Injected calculation script
+    // Rename calculate button triggers
+    const calculateBtn = document.getElementById('calc-btn');
+    if (calculateBtn) {
+      calculateBtn.id = 'calculate-btn';
+    }
+  </script>
+  <script>
+          document.getElementById('calculate-btn').addEventListener('click', () => {
+        const len = parseFloat(document.getElementById('sq-length').value);
+        const wid = parseFloat(document.getElementById('sq-width').value);
+        if (isNaN(len) || isNaN(wid) || len < 0 || wid < 0) {
+          alert('Please enter valid measurements.');
+          return;
+        }
+        const area = len * wid;
+        document.getElementById('sq-ft-val').innerText = area.toFixed(1) + ' sq ft';
+        document.getElementById('result-section').classList.remove('hidden');
+      });
+  </script>
+</body>
+</html>

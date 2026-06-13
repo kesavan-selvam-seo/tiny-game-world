@@ -1,0 +1,117 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lottery Number Generator - Random Numbers</title>
+  <meta name="description" content="Generate random lottery ticket numbers. Choose your range size and count to customize tickets.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://www.calcuportal.com/calculators/games-lottery-number-generator.html">
+  <link rel="stylesheet" href="../styles.css">
+  <script src="../script.js"></script>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="nav-container">
+      <a href="../index.html" class="logo">
+        <span class="logo-icon">🧮</span>
+        <span>CalcuPortal</span>
+      </a>
+      <nav class="nav-links">
+        <a href="../index.html" class="nav-link">Home</a>
+        <a href="../pages/about.html" class="nav-link">About</a>
+        <a href="../pages/contact.html" class="nav-link">Contact</a>
+        <button class="theme-btn" title="Toggle Theme">
+          <span class="theme-btn-icon"></span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="detail-container">
+      <a href="../index.html" class="back-btn">← Back to Directory</a>
+      
+      <div class="detail-header">
+        <h1>Lottery Number Generator</h1>
+      </div>
+
+      <!-- Calculator Widget -->
+      <div class="calc-widget">
+                <div class="form-row">
+          <div class="form-group">
+            <label for="lot-min">Min Value</label>
+            <input type="number" id="lot-min" value="1" class="input-field" />
+          </div>
+          <div class="form-group">
+            <label for="lot-max">Max Value</label>
+            <input type="number" id="lot-max" value="49" class="input-field" />
+          </div>
+          <div class="form-group">
+            <label for="lot-count">Numbers Count</label>
+            <input type="number" id="lot-count" value="6" class="input-field" />
+          </div>
+        </div>
+        <button id="calc-btn" class="calc-btn">Generate Ticket</button>
+        <div id="result-section" class="result-section hidden" style="text-align: center;">
+          <div class="summary-title">Your Numbers</div>
+          <div class="total-balance" id="lottery-numbers" style="display:flex; justify-content:center; gap:0.5rem; flex-wrap:wrap; margin-top:1rem;">...</div>
+        </div>
+      </div>
+
+      <!-- SEO Article -->
+      <section class="article-section">
+        <div class="article-header">
+          <h2>Lottery Number Generator Guides</h2>
+        </div>
+        <div class="article-content">
+          <h2>Generate Lucky Numbers</h2><p>Draw randomized lottery entries based on configurable bounds. Great for Powerball, Mega Millions, or general prize draws.</p>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="copyright-bar" style="border-top: none; padding-top: 0;">
+      © <span id="year">2026</span> CalcuPortal. All rights reserved.
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').innerText = new Date().getFullYear();
+    
+    // Injected calculation script
+    // Rename calculate button triggers
+    const calculateBtn = document.getElementById('calc-btn');
+    if (calculateBtn) {
+      calculateBtn.id = 'calculate-btn';
+    }
+  </script>
+  <script>
+          document.getElementById('calculate-btn').addEventListener('click', () => {
+        const min = parseInt(document.getElementById('lot-min').value);
+        const max = parseInt(document.getElementById('lot-max').value);
+        const count = parseInt(document.getElementById('lot-count').value);
+        
+        if (isNaN(min) || isNaN(max) || isNaN(count) || count <= 0 || max <= min || (max - min + 1) < count) {
+          alert('Please enter valid configuration ranges.');
+          return;
+        }
+        
+        const set = new Set();
+        while (set.size < count) {
+          const rand = Math.floor(Math.random() * (max - min + 1)) + min;
+          set.add(rand);
+        }
+        
+        const nums = Array.from(set).sort((a,b) => a-b);
+        const html = nums.map(n => <span style="background:var(--primary); color:white; font-size:1.25rem; font-weight:800; width:3rem; height:3rem; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; box-shadow:var(--shadow-sm);"></span>).join('');
+        document.getElementById('lottery-numbers').innerHTML = html;
+        document.getElementById('result-section').classList.remove('hidden');
+      });
+  </script>
+</body>
+</html>

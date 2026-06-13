@@ -1,0 +1,115 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cm to M Converter - Length Conversion</title>
+  <meta name="description" content="Convert centimeters to meters and vice versa instantly. Fast metric conversions.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://www.calcuportal.com/calculators/centimeter-to-meter.html">
+  <link rel="stylesheet" href="../styles.css">
+  <script src="../script.js"></script>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="nav-container">
+      <a href="../index.html" class="logo">
+        <span class="logo-icon">🧮</span>
+        <span>CalcuPortal</span>
+      </a>
+      <nav class="nav-links">
+        <a href="../index.html" class="nav-link">Home</a>
+        <a href="../pages/about.html" class="nav-link">About</a>
+        <a href="../pages/contact.html" class="nav-link">Contact</a>
+        <button class="theme-btn" title="Toggle Theme">
+          <span class="theme-btn-icon"></span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="detail-container">
+      <a href="../index.html" class="back-btn">← Back to Directory</a>
+      
+      <div class="detail-header">
+        <h1>Centimeters to Meters Converter</h1>
+      </div>
+
+      <!-- Calculator Widget -->
+      <div class="calc-widget">
+                <div class="unit-tabs">
+          <button id="cm-to-m-tab" class="tab-btn active">Cm to Meters</button>
+          <button id="m-to-cm-tab" class="tab-btn">Meters to Cm</button>
+        </div>
+        <div class="form-group">
+          <label for="cm-m-input">Length</label>
+          <input type="number" id="cm-m-input" value="150" class="input-field" step="any" />
+        </div>
+        <button id="calc-btn" class="calc-btn">Convert</button>
+        <div id="result-section" class="result-section hidden" style="text-align: center;">
+          <div class="summary-title">Result</div>
+          <div class="total-balance" id="cm-m-result">1.5 m</div>
+        </div>
+      </div>
+
+      <!-- SEO Article -->
+      <section class="article-section">
+        <div class="article-header">
+          <h2>Centimeters to Meters Converter Guides</h2>
+        </div>
+        <div class="article-content">
+          <h2>Metric Length Scaling</h2><p>Convert metrics within the standard SI system. One meter is equivalent to exactly 100 centimeters.</p>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="copyright-bar" style="border-top: none; padding-top: 0;">
+      © <span id="year">2026</span> CalcuPortal. All rights reserved.
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').innerText = new Date().getFullYear();
+    
+    // Injected calculation script
+    // Rename calculate button triggers
+    const calculateBtn = document.getElementById('calc-btn');
+    if (calculateBtn) {
+      calculateBtn.id = 'calculate-btn';
+    }
+  </script>
+  <script>
+          let mode = 'cm-to-m';
+      document.getElementById('cm-to-m-tab').addEventListener('click', () => {
+        mode = 'cm-to-m';
+        document.getElementById('cm-to-m-tab').classList.add('active');
+        document.getElementById('m-to-cm-tab').classList.remove('active');
+      });
+      document.getElementById('m-to-cm-tab').addEventListener('click', () => {
+        mode = 'm-to-cm';
+        document.getElementById('m-to-cm-tab').classList.add('active');
+        document.getElementById('cm-to-m-tab').classList.remove('active');
+      });
+      document.getElementById('calculate-btn').addEventListener('click', () => {
+        const val = parseFloat(document.getElementById('cm-m-input').value);
+        if (isNaN(val)) {
+          alert('Please enter a valid length.');
+          return;
+        }
+        const resEl = document.getElementById('cm-m-result');
+        if (mode === 'cm-to-m') {
+          resEl.innerText = (val / 100).toFixed(2).replace(/\.?0+$/, '') + ' m';
+        } else {
+          resEl.innerText = (val * 100).toFixed(2).replace(/\.?0+$/, '') + ' cm';
+        }
+        document.getElementById('result-section').classList.remove('hidden');
+      });
+  </script>
+</body>
+</html>

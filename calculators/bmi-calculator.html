@@ -1,0 +1,309 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="robots" content="index, follow">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BMI Calculator - Calculate Body Mass Index Online</title>
+  <meta name="description" content="Calculate your BMI (Body Mass Index) with our free online tool. Supports metric and imperial systems. Includes weight category classifications.">
+  <link rel="canonical" href="https://www.calcuportal.com/calculators/bmi-calculator.html">
+  <link rel="stylesheet" href="../styles.css">
+  <script src="../script.js"></script>
+  <style>
+    /* BMI Gauge Styling */
+    .gauge-wrapper {
+      position: relative;
+      margin: 2rem 0;
+    }
+    .gauge-bar {
+      display: flex;
+      height: 12px;
+      border-radius: 9999px;
+      overflow: hidden;
+    }
+    .gauge-segment {
+      height: 100%;
+    }
+    .gauge-segment.underweight { flex: 2.5; background-color: #3b82f6; } /* 16 to 18.5 */
+    .gauge-segment.normal { flex: 6.5; background-color: #10b981; }      /* 18.5 to 25 */
+    .gauge-segment.overweight { flex: 5; background-color: #f59e0b; }   /* 25 to 30 */
+    .gauge-segment.obese { flex: 5; background-color: #ef4444; }        /* 30 to 35+ */
+    
+    .gauge-pointer {
+      position: absolute;
+      top: -6px;
+      width: 4px;
+      height: 24px;
+      background-color: var(--text-primary);
+      border: 1.5px solid var(--bg-card);
+      border-radius: 2px;
+      transform: translateX(-50%);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+      transition: left 0.5s ease-in-out;
+    }
+    .gauge-labels {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-top: 0.5rem;
+      padding: 0 5%;
+    }
+    .category-tag {
+      padding: 0.375rem 1rem;
+      border-radius: 9999px;
+      font-size: 0.875rem;
+      font-weight: 700;
+      color: white;
+      margin-top: 0.5rem;
+      display: inline-block;
+    }
+    .category-tag.underweight { background-color: #3b82f6; }
+    .category-tag.normal { background-color: #10b981; }
+    .category-tag.overweight { background-color: #f59e0b; }
+    .category-tag.obese { background-color: #ef4444; }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="nav-container">
+      <a href="../index.html" class="logo">
+        <span class="logo-icon">🧮</span>
+        <span>CalcuPortal</span>
+      </a>
+      <nav class="nav-links">
+        <a href="../index.html" class="nav-link">Home</a>
+        <a href="../pages/about.html" class="nav-link">About</a>
+        <a href="../pages/contact.html" class="nav-link">Contact</a>
+        <button class="theme-btn" title="Toggle Theme">
+          <span class="theme-btn-icon"></span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="detail-container">
+      <a href="../index.html" class="back-btn">← Back to Directory</a>
+      
+      <div class="detail-header">
+        <h1>BMI Calculator</h1>
+        <p>Calculate your Body Mass Index (BMI) instantly to assess your height-to-weight ratio.</p>
+      </div>
+
+      <!-- Calculator Widget -->
+      <div class="calc-widget">
+        <div class="unit-tabs">
+          <button id="metric-tab" class="tab-btn active">Metric (cm/kg)</button>
+          <button id="imperial-tab" class="tab-btn">Imperial (in/lbs)</button>
+        </div>
+
+        <!-- Metric Form -->
+        <div id="metric-form">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="height-cm">Height (cm)</label>
+              <input type="number" id="height-cm" placeholder="e.g. 175" class="input-field" />
+            </div>
+            <div class="form-group">
+              <label for="weight-kg">Weight (kg)</label>
+              <input type="number" id="weight-kg" placeholder="e.g. 70" class="input-field" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Imperial Form -->
+        <div id="imperial-form" class="hidden">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="height-ft">Height (feet)</label>
+              <input type="number" id="height-ft" placeholder="ft" class="input-field" />
+            </div>
+            <div class="form-group">
+              <label for="height-in">Height (inches)</label>
+              <input type="number" id="height-in" placeholder="in" class="input-field" />
+            </div>
+            <div class="form-group">
+              <label for="weight-lbs">Weight (pounds)</label>
+              <input type="number" id="weight-lbs" placeholder="lbs" class="input-field" />
+            </div>
+          </div>
+        </div>
+
+        <button id="calculate-btn" class="calc-btn">Calculate BMI</button>
+
+        <!-- Result -->
+        <div id="result-section" class="result-section hidden">
+          <div class="result-display">
+            <span class="score-label">Your BMI is</span>
+            <span id="bmi-score" class="score-value">22.9</span>
+            <span id="bmi-category" class="category-tag normal">Normal Weight</span>
+          </div>
+
+          <!-- Gauge bar -->
+          <div class="gauge-wrapper">
+            <div class="gauge-bar">
+              <div class="gauge-segment underweight"></div>
+              <div class="gauge-segment normal"></div>
+              <div class="gauge-segment overweight"></div>
+              <div class="gauge-segment obese"></div>
+            </div>
+            <div id="gauge-pointer" class="gauge-pointer" style="left: 50%"></div>
+            <div class="gauge-labels">
+              <span>16.0</span>
+              <span>18.5</span>
+              <span>25.0</span>
+              <span>30.0</span>
+              <span>35.0</span>
+            </div>
+          </div>
+
+          <div class="breakdown-info">
+            <p id="bmi-feedback">...</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- SEO Article -->
+      <section class="article-section">
+        <div class="article-header">
+          <h2>Understanding Body Mass Index (BMI)</h2>
+        </div>
+        <div class="article-content">
+          <p>Body Mass Index (BMI) is a medical metric that estimates body fat levels based on a person's weight and height. It helps doctors screen for obesity, underweight conditions, and overall metabolic health risks.</p>
+          <h3>WHO BMI Classification Table</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>BMI Range</th>
+                <th>Classification</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Less than 18.5</td>
+                <td style="color:#3b82f6; font-weight:700;">Underweight</td>
+              </tr>
+              <tr>
+                <td>18.5 to 24.9</td>
+                <td style="color:#10b981; font-weight:700;">Normal Weight</td>
+              </tr>
+              <tr>
+                <td>25.0 to 29.9</td>
+                <td style="color:#f59e0b; font-weight:700;">Overweight</td>
+              </tr>
+              <tr>
+                <td>30.0 and above</td>
+                <td style="color:#ef4444; font-weight:700;">Obese</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="copyright-bar" style="border-top: none; padding-top: 0;">
+      © <span id="year">2026</span> CalcuPortal. All rights reserved.
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').innerText = new Date().getFullYear();
+
+    let activeUnit = 'metric';
+    const metricTab = document.getElementById('metric-tab');
+    const imperialTab = document.getElementById('imperial-tab');
+    const metricForm = document.getElementById('metric-form');
+    const imperialForm = document.getElementById('imperial-form');
+
+    metricTab.addEventListener('click', () => {
+      activeUnit = 'metric';
+      metricTab.classList.add('active');
+      imperialTab.classList.remove('active');
+      metricForm.classList.remove('hidden');
+      imperialForm.classList.add('hidden');
+    });
+
+    imperialTab.addEventListener('click', () => {
+      activeUnit = 'imperial';
+      imperialTab.classList.add('active');
+      metricTab.classList.remove('active');
+      imperialForm.classList.remove('hidden');
+      metricForm.classList.add('hidden');
+    });
+
+    document.getElementById('calculate-btn').addEventListener('click', () => {
+      let bmi = 0;
+      if (activeUnit === 'metric') {
+        const cm = parseFloat(document.getElementById('height-cm').value);
+        const kg = parseFloat(document.getElementById('weight-kg').value);
+        
+        if (!cm || !kg || cm <= 0 || kg <= 0) {
+          alert('Please enter valid height and weight values!');
+          return;
+        }
+        
+        const m = cm / 100;
+        bmi = kg / (m * m);
+      } else {
+        const ft = parseFloat(document.getElementById('height-ft').value) || 0;
+        const inch = parseFloat(document.getElementById('height-in').value) || 0;
+        const lbs = parseFloat(document.getElementById('weight-lbs').value);
+        
+        const totalInches = (ft * 12) + inch;
+        if (totalInches <= 0 || !lbs || lbs <= 0) {
+          alert('Please enter valid height and weight values!');
+          return;
+        }
+        
+        bmi = (lbs / (totalInches * totalInches)) * 703;
+      }
+      
+      bmi = Math.round(bmi * 10) / 10;
+      
+      let category = '';
+      let catClass = '';
+      let feedback = '';
+      
+      if (bmi < 18.5) {
+        category = 'Underweight';
+        catClass = 'underweight';
+        feedback = 'Your BMI is underweight. Consider checking your metabolic requirements or talking to a doctor.';
+      } else if (bmi >= 18.5 && bmi < 25) {
+        category = 'Normal Weight';
+        catClass = 'normal';
+        feedback = 'Your BMI is in a healthy, normal range. Excellent job maintaining your energy balances!';
+      } else if (bmi >= 25 && bmi < 30) {
+        category = 'Overweight';
+        catClass = 'overweight';
+        feedback = 'Your BMI is in the overweight range. Incorporate daily activity or nutrition checks.';
+      } else {
+        category = 'Obese';
+        catClass = 'obese';
+        feedback = 'Your BMI falls in the obese category. Consult a healthcare provider or coach for health guidelines.';
+      }
+      
+      // Update pointer position (16 is 0%, 35 is 100%)
+      let pointerPos = 50;
+      if (bmi < 16) pointerPos = 0;
+      else if (bmi > 35) pointerPos = 100;
+      else pointerPos = ((bmi - 16) / (35 - 16)) * 100;
+      
+      document.getElementById('bmi-score').innerText = bmi.toFixed(1);
+      const catTag = document.getElementById('bmi-category');
+      catTag.innerText = category;
+      catTag.className = 'category-tag ' + catClass;
+      document.getElementById('gauge-pointer').style.left = `${pointerPos}%`;
+      document.getElementById('bmi-feedback').innerText = feedback;
+      
+      document.getElementById('result-section').classList.remove('hidden');
+    });
+  </script>
+</body>
+</html>
+

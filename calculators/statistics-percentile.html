@@ -1,0 +1,119 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Percentile Calculator - Statistics Tool</title>
+  <meta name="description" content="Find the k-th percentile value for any data set. Enter list values and see calculations.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://www.calcuportal.com/calculators/statistics-percentile.html">
+  <link rel="stylesheet" href="../styles.css">
+  <script src="../script.js"></script>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="nav-container">
+      <a href="../index.html" class="logo">
+        <span class="logo-icon">🧮</span>
+        <span>CalcuPortal</span>
+      </a>
+      <nav class="nav-links">
+        <a href="../index.html" class="nav-link">Home</a>
+        <a href="../pages/about.html" class="nav-link">About</a>
+        <a href="../pages/contact.html" class="nav-link">Contact</a>
+        <button class="theme-btn" title="Toggle Theme">
+          <span class="theme-btn-icon"></span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="detail-container">
+      <a href="../index.html" class="back-btn">← Back to Directory</a>
+      
+      <div class="detail-header">
+        <h1>Statistics Percentile Calculator</h1>
+      </div>
+
+      <!-- Calculator Widget -->
+      <div class="calc-widget">
+                <div class="form-group">
+          <label for="data-set">Data Set (Comma-separated numbers)</label>
+          <input type="text" id="data-set" value="10, 20, 35, 45, 50, 60, 75, 80, 90" class="input-field" />
+        </div>
+        <div class="form-group">
+          <label for="percentile-k">Percentile Value (K %)</label>
+          <input type="number" id="percentile-k" value="90" class="input-field" min="1" max="99" />
+        </div>
+        <button id="calc-btn" class="calc-btn">Calculate Percentile</button>
+        <div id="result-section" class="result-section hidden" style="text-align: center;">
+          <div class="summary-title">K-th Percentile Value</div>
+          <div class="total-balance" id="percentile-result" style="color:var(--accent);">80.0</div>
+        </div>
+      </div>
+
+      <!-- SEO Article -->
+      <section class="article-section">
+        <div class="article-header">
+          <h2>Statistics Percentile Calculator Guides</h2>
+        </div>
+        <div class="article-content">
+          <h2>Calculate Percentiles</h2><p>A percentile indicates the value below which a given percentage of observations falls. Excellent tool for standardized grading checks.</p>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="copyright-bar" style="border-top: none; padding-top: 0;">
+      © <span id="year">2026</span> CalcuPortal. All rights reserved.
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').innerText = new Date().getFullYear();
+    
+    // Injected calculation script
+    // Rename calculate button triggers
+    const calculateBtn = document.getElementById('calc-btn');
+    if (calculateBtn) {
+      calculateBtn.id = 'calculate-btn';
+    }
+  </script>
+  <script>
+          document.getElementById('calculate-btn').addEventListener('click', () => {
+        const text = document.getElementById('data-set').value;
+        const k = parseFloat(document.getElementById('percentile-k').value);
+        
+        if (!text || isNaN(k) || k <= 0 || k >= 100) {
+          alert('Please enter valid dataset inputs and K values.');
+          return;
+        }
+        
+        const arr = text.split(',').map(n => parseFloat(n.trim())).filter(n => !isNaN(n)).sort((a,b) => a-b);
+        if (arr.length === 0) {
+          alert('Invalid dataset input.');
+          return;
+        }
+        
+        // Percentile rank index: (k/100) * (N - 1)
+        const index = (k / 100) * (arr.length - 1);
+        let val = 0;
+        if (index % 1 === 0) {
+          val = arr[index];
+        } else {
+          const lower = arr[Math.floor(index)];
+          const upper = arr[Math.ceil(index)];
+          val = lower + (index - Math.floor(index)) * (upper - lower);
+        }
+        
+        document.getElementById('percentile-result').innerText = val.toFixed(2);
+        document.getElementById('result-section').classList.remove('hidden');
+      });
+  </script>
+</body>
+</html>

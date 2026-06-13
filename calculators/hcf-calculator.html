@@ -1,0 +1,125 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HCF & LCM Calculator - Find Common Factors</title>
+  <meta name="description" content="Find the Highest Common Factor (HCF / GCD) and Least Common Multiple (LCM) for any two numbers.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://www.calcuportal.com/calculators/hcf-calculator.html">
+  <link rel="stylesheet" href="../styles.css">
+  <script src="../script.js"></script>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="nav-container">
+      <a href="../index.html" class="logo">
+        <span class="logo-icon">🧮</span>
+        <span>CalcuPortal</span>
+      </a>
+      <nav class="nav-links">
+        <a href="../index.html" class="nav-link">Home</a>
+        <a href="../pages/about.html" class="nav-link">About</a>
+        <a href="../pages/contact.html" class="nav-link">Contact</a>
+        <button class="theme-btn" title="Toggle Theme">
+          <span class="theme-btn-icon"></span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="detail-container">
+      <a href="../index.html" class="back-btn">← Back to Directory</a>
+      
+      <div class="detail-header">
+        <h1>HCF & LCM Calculator</h1>
+      </div>
+
+      <!-- Calculator Widget -->
+      <div class="calc-widget">
+                <div class="form-row">
+          <div class="form-group">
+            <label for="num-a">Number A</label>
+            <input type="number" id="num-a" value="24" class="input-field" />
+          </div>
+          <div class="form-group">
+            <label for="num-b">Number B</label>
+            <input type="number" id="num-b" value="36" class="input-field" />
+          </div>
+        </div>
+        <button id="calc-btn" class="calc-btn">Find Factors</button>
+        <div id="result-section" class="result-section hidden">
+          <div class="metric-grid">
+            <div class="metric-card">
+              <span class="metric-title">HCF (GCD)</span>
+              <span class="metric-value" id="hcf-val">12</span>
+            </div>
+            <div class="metric-card">
+              <span class="metric-title">LCM</span>
+              <span class="metric-value" id="lcm-val">72</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SEO Article -->
+      <section class="article-section">
+        <div class="article-header">
+          <h2>HCF & LCM Calculator Guides</h2>
+        </div>
+        <div class="article-content">
+          <h2>Common Factors Math</h2><p>Find the highest common division factor (HCF) and the lowest common multiple (LCM) for integers instantly.</p>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="copyright-bar" style="border-top: none; padding-top: 0;">
+      © <span id="year">2026</span> CalcuPortal. All rights reserved.
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').innerText = new Date().getFullYear();
+    
+    // Injected calculation script
+    // Rename calculate button triggers
+    const calculateBtn = document.getElementById('calc-btn');
+    if (calculateBtn) {
+      calculateBtn.id = 'calculate-btn';
+    }
+  </script>
+  <script>
+          document.getElementById('calculate-btn').addEventListener('click', () => {
+        let a = Math.abs(parseInt(document.getElementById('num-a').value));
+        let b = Math.abs(parseInt(document.getElementById('num-b').value));
+        
+        if (isNaN(a) || isNaN(b) || a === 0 || b === 0) {
+          alert('Please enter valid non-zero integers.');
+          return;
+        }
+        
+        const origA = a;
+        const origB = b;
+        
+        // Euclidean algorithm for GCD
+        while (b) {
+          let temp = b;
+          b = a % b;
+          a = temp;
+        }
+        const hcf = a;
+        const lcm = (origA * origB) / hcf;
+        
+        document.getElementById('hcf-val').innerText = hcf;
+        document.getElementById('lcm-val').innerText = lcm;
+        document.getElementById('result-section').classList.remove('hidden');
+      });
+  </script>
+</body>
+</html>

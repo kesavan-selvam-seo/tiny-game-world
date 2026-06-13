@@ -1,0 +1,116 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pregnancy Calculator - Estimate Due Date</title>
+  <meta name="description" content="Estimate your due date, current gestational age, and pregnancy progress milestones based on your last menstrual period (LMP).">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://www.calcuportal.com/calculators/pregnancy-calculator.html">
+  <link rel="stylesheet" href="../styles.css">
+  <script src="../script.js"></script>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="nav-container">
+      <a href="../index.html" class="logo">
+        <span class="logo-icon">🧮</span>
+        <span>CalcuPortal</span>
+      </a>
+      <nav class="nav-links">
+        <a href="../index.html" class="nav-link">Home</a>
+        <a href="../pages/about.html" class="nav-link">About</a>
+        <a href="../pages/contact.html" class="nav-link">Contact</a>
+        <button class="theme-btn" title="Toggle Theme">
+          <span class="theme-btn-icon"></span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="detail-container">
+      <a href="../index.html" class="back-btn">← Back to Directory</a>
+      
+      <div class="detail-header">
+        <h1>Pregnancy Due Date Calculator</h1>
+      </div>
+
+      <!-- Calculator Widget -->
+      <div class="calc-widget">
+                <div class="form-group">
+          <label for="lmp-date">First Day of Last Period (LMP)</label>
+          <input type="date" id="lmp-date" class="input-field" />
+        </div>
+        <button id="calc-btn" class="calc-btn">Calculate Due Date</button>
+        <div id="result-section" class="result-section hidden">
+          <div class="summary-title" style="text-align: center;">Estimated Due Date</div>
+          <div class="total-balance" id="due-date-val" style="text-align: center; font-size: 2rem; color: var(--accent);">...</div>
+          <div class="breakdown-info" id="gestational-details" style="margin-top: 1.5rem;">...</div>
+        </div>
+      </div>
+
+      <!-- SEO Article -->
+      <section class="article-section">
+        <div class="article-header">
+          <h2>Pregnancy Due Date Calculator Guides</h2>
+        </div>
+        <div class="article-content">
+          <h2>Pregnancy Timeline Verification</h2><p>This calculator estimates gestational milestones according to the standard clinical 40-week gestation calendar cycle.</p>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="copyright-bar" style="border-top: none; padding-top: 0;">
+      © <span id="year">2026</span> CalcuPortal. All rights reserved.
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').innerText = new Date().getFullYear();
+    
+    // Injected calculation script
+    // Rename calculate button triggers
+    const calculateBtn = document.getElementById('calc-btn');
+    if (calculateBtn) {
+      calculateBtn.id = 'calculate-btn';
+    }
+  </script>
+  <script>
+          document.getElementById('calculate-btn').addEventListener('click', () => {
+        const lmpVal = document.getElementById('lmp-date').value;
+        if (!lmpVal) {
+          alert('Please select a date.');
+          return;
+        }
+        const lmp = new Date(lmpVal);
+        // Naegele's rule: add 280 days (40 weeks) to LMP
+        const due = new Date(lmp.getTime() + (280 * 24 * 60 * 60 * 1000));
+        
+        const now = new Date();
+        const diffMs = now - lmp;
+        const totalDays = diffMs / (1000 * 60 * 60 * 24);
+        const weeks = Math.floor(totalDays / 7);
+        const days = Math.floor(totalDays % 7);
+        
+        document.getElementById('due-date-val').innerText = due.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+        
+        let details = '';
+        if (weeks >= 40) {
+          details = 'You are at full term. Estimated gestational age is: <strong>' + weeks + ' weeks</strong>.';
+        } else if (weeks < 0) {
+          details = 'LMP cannot be in the future of today.';
+        } else {
+          details = 'Gestational progress: <strong>' + weeks + ' weeks and ' + days + ' days</strong>.<br>Days remaining: <strong>' + Math.ceil(280 - totalDays) + ' days</strong>.';
+        }
+        document.getElementById('gestational-details').innerHTML = details;
+        document.getElementById('result-section').classList.remove('hidden');
+      });
+  </script>
+</body>
+</html>

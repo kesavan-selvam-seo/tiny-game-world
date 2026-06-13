@@ -1,0 +1,148 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="robots" content="index, follow">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Discount Calculator - Calculate Sale Prices &amp; Savings</title>
+  <meta name="description" content="Calculate discount percentages, savings amounts, and final prices including sales tax with our free online discount calculator.">
+  <link rel="canonical" href="https://www.calcuportal.com/calculators/discount-calculator.html">
+  <link rel="stylesheet" href="../styles.css">
+  <script src="../script.js"></script>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="nav-container">
+      <a href="../index.html" class="logo">
+        <span class="logo-icon">🧮</span>
+        <span>CalcuPortal</span>
+      </a>
+      <nav class="nav-links">
+        <a href="../index.html" class="nav-link">Home</a>
+        <a href="../pages/about.html" class="nav-link">About</a>
+        <a href="../pages/contact.html" class="nav-link">Contact</a>
+        <button class="theme-btn" title="Toggle Theme">
+          <span class="theme-btn-icon"></span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="detail-container">
+      <a href="../index.html" class="back-btn">← Back to Directory</a>
+      
+      <div class="detail-header">
+        <h1>Discount &amp; Savings Calculator</h1>
+        <p>Calculate final sale prices, discount savings, and post-tax retail costs instantly.</p>
+      </div>
+
+      <!-- Calculator Widget -->
+      <div class="calc-widget">
+        <div class="form-group">
+          <label for="disc-price">Original Price ($)</label>
+          <input type="number" id="disc-price" value="100" class="input-field" min="0" step="0.01" />
+        </div>
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label for="disc-pct">Discount (%)</label>
+            <input type="number" id="disc-pct" value="20" class="input-field" min="0" max="100" step="any" />
+          </div>
+          <div class="form-group">
+            <label for="disc-tax">Sales Tax (%) (Optional)</label>
+            <input type="number" id="disc-tax" value="0" class="input-field" min="0" max="100" step="any" />
+          </div>
+        </div>
+        
+        <button id="calculate-btn" class="calc-btn">Calculate Savings</button>
+
+        <!-- Result -->
+        <div id="result-section" class="result-section hidden" style="text-align: center;">
+          <div class="summary-title" style="font-size: 0.875rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase;">Final Price</div>
+          <div class="total-balance" id="disc-final-price" style="font-size: 2.5rem; font-weight: 900; color: var(--accent); margin: 0.5rem 0 1.5rem 0; line-height: 1;">$80.00</div>
+          
+          <div class="metric-grid">
+            <div class="metric-card">
+              <span class="metric-title">Original Price</span>
+              <span class="metric-value" id="disc-orig-val">$100.00</span>
+            </div>
+            <div class="metric-card">
+              <span class="metric-title">Total Savings</span>
+              <span class="metric-value" id="disc-savings-val" style="color: var(--accent);">$20.00</span>
+            </div>
+            <div class="metric-card">
+              <span class="metric-title">Tax Amount</span>
+              <span class="metric-value" id="disc-tax-val">$0.00</span>
+            </div>
+          </div>
+          
+          <div class="breakdown-info" style="text-align: left;">
+            <p>By applying a <strong><span id="disc-pct-txt">20</span>%</strong> discount on <strong>$<span id="orig-txt">100</span></strong>, you save <strong>$<span id="save-txt">20</span></strong>. The final price after adding <strong><span id="tax-pct-txt">0</span>%</strong> sales tax is <strong>$<span id="final-txt">80</span></strong>.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- SEO Article -->
+      <section class="article-section">
+        <div class="article-header">
+          <h2>Store Discount Calculations</h2>
+        </div>
+        <div class="article-content">
+          <p>Discounts lower checkout totals. When applying sales tax, the tax percentage is calculated on the already-discounted price rather than the original product cost.</p>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="copyright-bar" style="border-top: none; padding-top: 0;">
+      © <span id="year">2026</span> CalcuPortal. All rights reserved.
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').innerText = new Date().getFullYear();
+
+    document.getElementById('calculate-btn').addEventListener('click', () => {
+      const origPrice = parseFloat(document.getElementById('disc-price').value);
+      const discount = parseFloat(document.getElementById('disc-pct').value);
+      const tax = parseFloat(document.getElementById('disc-tax').value) || 0;
+      
+      if (isNaN(origPrice) || isNaN(discount) || origPrice < 0 || discount < 0 || discount > 100 || tax < 0 || tax > 100) {
+        alert('Please enter valid inputs. Discount and tax values must be between 0 and 100.');
+        return;
+      }
+      
+      const savings = origPrice * (discount / 100);
+      const discountedPrice = origPrice - savings;
+      const taxAmount = discountedPrice * (tax / 100);
+      const finalPrice = discountedPrice + taxAmount;
+      
+      const fmt = (val) => {
+        return new Intl.NumberFormat('en-US', {
+          style: 'currency',
+          currency: 'USD'
+        }).format(val);
+      };
+      
+      document.getElementById('disc-final-price').innerText = fmt(finalPrice);
+      document.getElementById('disc-orig-val').innerText = fmt(origPrice);
+      document.getElementById('disc-savings-val').innerText = fmt(savings);
+      document.getElementById('disc-tax-val').innerText = fmt(taxAmount);
+      
+      document.getElementById('disc-pct-txt').innerText = discount;
+      document.getElementById('orig-txt').innerText = origPrice.toLocaleString();
+      document.getElementById('save-txt').innerText = savings.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+      document.getElementById('tax-pct-txt').innerText = tax;
+      document.getElementById('final-txt').innerText = finalPrice.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+      
+      document.getElementById('result-section').classList.remove('hidden');
+    });
+  </script>
+</body>
+</html>
+

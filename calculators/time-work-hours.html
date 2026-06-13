@@ -1,0 +1,129 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Work Hours Calculator - Employee Timesheet Tool</title>
+  <meta name="description" content="Calculate daily and weekly work hours, breaks, and gross pay with our free online timesheet calculator.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://www.calcuportal.com/calculators/time-work-hours.html">
+  <link rel="stylesheet" href="../styles.css">
+  <script src="../script.js"></script>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="nav-container">
+      <a href="../index.html" class="logo">
+        <span class="logo-icon">🧮</span>
+        <span>CalcuPortal</span>
+      </a>
+      <nav class="nav-links">
+        <a href="../index.html" class="nav-link">Home</a>
+        <a href="../pages/about.html" class="nav-link">About</a>
+        <a href="../pages/contact.html" class="nav-link">Contact</a>
+        <button class="theme-btn" title="Toggle Theme">
+          <span class="theme-btn-icon"></span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="detail-container">
+      <a href="../index.html" class="back-btn">← Back to Directory</a>
+      
+      <div class="detail-header">
+        <h1>Work Hours Calculator</h1>
+      </div>
+
+      <!-- Calculator Widget -->
+      <div class="calc-widget">
+                <div class="form-row">
+          <div class="form-group">
+            <label for="hours-mon">Mon Hours</label>
+            <input type="number" id="hours-mon" value="8" class="input-field hours-input" step="any" />
+          </div>
+          <div class="form-group">
+            <label for="hours-tue">Tue Hours</label>
+            <input type="number" id="hours-tue" value="8" class="input-field hours-input" step="any" />
+          </div>
+          <div class="form-group">
+            <label for="hours-wed">Wed Hours</label>
+            <input type="number" id="hours-wed" value="8" class="input-field hours-input" step="any" />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="hours-thu">Thu Hours</label>
+            <input type="number" id="hours-thu" value="8" class="input-field hours-input" step="any" />
+          </div>
+          <div class="form-group">
+            <label for="hours-fri">Fri Hours</label>
+            <input type="number" id="hours-fri" value="8" class="input-field hours-input" step="any" />
+          </div>
+          <div class="form-group">
+            <label for="hourly-rate">Hourly Rate ($)</label>
+            <input type="number" id="hourly-rate" value="15" class="input-field" step="any" />
+          </div>
+        </div>
+        <button id="calc-btn" class="calc-btn">Calculate Pay</button>
+        <div id="result-section" class="result-section hidden">
+          <div class="metric-grid">
+            <div class="metric-card">
+              <span class="metric-title">Total Hours</span>
+              <span class="metric-value" id="work-hours-val">40</span>
+            </div>
+            <div class="metric-card">
+              <span class="metric-title">Gross Pay</span>
+              <span class="metric-value" id="gross-pay-val" style="color:var(--accent);">.00</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SEO Article -->
+      <section class="article-section">
+        <div class="article-header">
+          <h2>Work Hours Calculator Guides</h2>
+        </div>
+        <div class="article-content">
+          <h2>Track Weekly Wages</h2><p>Enter your hours worked from Monday to Friday, input your hourly wage rate, and check your projected earnings.</p>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="copyright-bar" style="border-top: none; padding-top: 0;">
+      © <span id="year">2026</span> CalcuPortal. All rights reserved.
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').innerText = new Date().getFullYear();
+    
+    // Injected calculation script
+    // Rename calculate button triggers
+    const calculateBtn = document.getElementById('calc-btn');
+    if (calculateBtn) {
+      calculateBtn.id = 'calculate-btn';
+    }
+  </script>
+  <script>
+          document.getElementById('calculate-btn').addEventListener('click', () => {
+        const rate = parseFloat(document.getElementById('hourly-rate').value) || 0;
+        let totalHours = 0;
+        document.querySelectorAll('.hours-input').forEach(input => {
+          totalHours += parseFloat(input.value) || 0;
+        });
+        const pay = totalHours * rate;
+        document.getElementById('work-hours-val').innerText = totalHours.toFixed(1);
+        document.getElementById('gross-pay-val').innerText = '$' + pay.toFixed(2);
+        document.getElementById('result-section').classList.remove('hidden');
+      });
+  </script>
+</body>
+</html>

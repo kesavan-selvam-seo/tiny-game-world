@@ -1,0 +1,108 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Billion to Rupees Converter - Indian Currency Converter</title>
+  <meta name="description" content="Convert Billions to Indian Rupees (INR) instantly. Check the conversion value in Crores and Lakhs.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://www.calcuportal.com/calculators/billion-to-rupees.html">
+  <link rel="stylesheet" href="../styles.css">
+  <script src="../script.js"></script>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="nav-container">
+      <a href="../index.html" class="logo">
+        <span class="logo-icon">🧮</span>
+        <span>CalcuPortal</span>
+      </a>
+      <nav class="nav-links">
+        <a href="../index.html" class="nav-link">Home</a>
+        <a href="../pages/about.html" class="nav-link">About</a>
+        <a href="../pages/contact.html" class="nav-link">Contact</a>
+        <button class="theme-btn" title="Toggle Theme">
+          <span class="theme-btn-icon"></span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="detail-container">
+      <a href="../index.html" class="back-btn">← Back to Directory</a>
+      
+      <div class="detail-header">
+        <h1>Billion to Rupees Converter</h1>
+      </div>
+
+      <!-- Calculator Widget -->
+      <div class="calc-widget">
+                <div class="form-group">
+          <label for="billions-val">Billions</label>
+          <input type="number" id="billions-val" value="1" class="input-field" step="any" />
+        </div>
+        <button id="calc-btn" class="calc-btn">Convert to INR</button>
+        <div id="result-section" class="result-section hidden" style="text-align: center;">
+          <div class="summary-title">Indian Rupees (INR)</div>
+          <div class="total-balance" id="b-rupees-val">₹1,00,00,00,000</div>
+          <div class="breakdown-info" id="b-crore-val">...</div>
+        </div>
+      </div>
+
+      <!-- SEO Article -->
+      <section class="article-section">
+        <div class="article-header">
+          <h2>Billion to Rupees Converter Guides</h2>
+        </div>
+        <div class="article-content">
+          <h2>Convert Billions to Indian Rupees</h2><p>Align international financial metrics expressing values in Billions directly with Indian currency scales (Crores).</p>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="copyright-bar" style="border-top: none; padding-top: 0;">
+      © <span id="year">2026</span> CalcuPortal. All rights reserved.
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').innerText = new Date().getFullYear();
+    
+    // Injected calculation script
+    // Rename calculate button triggers
+    const calculateBtn = document.getElementById('calc-btn');
+    if (calculateBtn) {
+      calculateBtn.id = 'calculate-btn';
+    }
+  </script>
+  <script>
+          document.getElementById('calculate-btn').addEventListener('click', () => {
+        const billions = parseFloat(document.getElementById('billions-val').value);
+        if (isNaN(billions) || billions < 0) {
+          alert('Please enter a valid amount.');
+          return;
+        }
+        
+        // 1 Billion = 1,000 Millions = 100 Crores = 1,000,000,000 Rupees
+        const rupees = billions * 1000000000;
+        const crores = billions * 100;
+        
+        const formatRupees = new Intl.NumberFormat('en-IN', {
+          style: 'currency',
+          currency: 'INR',
+          maximumFractionDigits: 0
+        }).format(rupees);
+        
+        document.getElementById('b-rupees-val').innerText = formatRupees;
+        document.getElementById('b-crore-val').innerHTML = 'Equivalent to: <strong>' + crores + ' Crores</strong>.';
+        document.getElementById('result-section').classList.remove('hidden');
+      });
+  </script>
+</body>
+</html>

@@ -1,0 +1,135 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Time Unit Converter - Convert Hours, Minutes, Seconds</title>
+  <meta name="description" content="Convert time measurements between seconds, minutes, hours, days, weeks, months, and years.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://www.calcuportal.com/calculators/conversions-time.html">
+  <link rel="stylesheet" href="../styles.css">
+  <script src="../script.js"></script>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="nav-container">
+      <a href="../index.html" class="logo">
+        <span class="logo-icon">🧮</span>
+        <span>CalcuPortal</span>
+      </a>
+      <nav class="nav-links">
+        <a href="../index.html" class="nav-link">Home</a>
+        <a href="../pages/about.html" class="nav-link">About</a>
+        <a href="../pages/contact.html" class="nav-link">Contact</a>
+        <button class="theme-btn" title="Toggle Theme">
+          <span class="theme-btn-icon"></span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="detail-container">
+      <a href="../index.html" class="back-btn">← Back to Directory</a>
+      
+      <div class="detail-header">
+        <h1>Time Unit Converter</h1>
+      </div>
+
+      <!-- Calculator Widget -->
+      <div class="calc-widget">
+                <div class="form-row">
+          <div class="form-group">
+            <label for="time-val">Value</label>
+            <input type="number" id="time-val" value="1" class="input-field" step="any" />
+          </div>
+          <div class="form-group">
+            <label for="time-from">From</label>
+            <select id="time-from" class="select-field">
+              <option value="sec">Seconds</option>
+              <option value="min">Minutes</option>
+              <option value="hr" selected>Hours</option>
+              <option value="day">Days</option>
+              <option value="week">Weeks</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="time-to">To</label>
+            <select id="time-to" class="select-field">
+              <option value="sec">Seconds</option>
+              <option value="min" selected>Minutes</option>
+              <option value="hr">Hours</option>
+              <option value="day">Days</option>
+              <option value="week">Weeks</option>
+            </select>
+          </div>
+        </div>
+        <button id="calc-btn" class="calc-btn">Convert Time</button>
+        <div id="result-section" class="result-section hidden" style="text-align: center;">
+          <div class="summary-title">Converted Time</div>
+          <div class="total-balance" id="time-result">60 Minutes</div>
+        </div>
+      </div>
+
+      <!-- SEO Article -->
+      <section class="article-section">
+        <div class="article-header">
+          <h2>Time Unit Converter Guides</h2>
+        </div>
+        <div class="article-content">
+          <h2>Convert Time Units</h2><p>Our time unit converter allows you to switch between standard units like seconds, minutes, hours, days, and weeks instantly.</p>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="copyright-bar" style="border-top: none; padding-top: 0;">
+      © <span id="year">2026</span> CalcuPortal. All rights reserved.
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').innerText = new Date().getFullYear();
+    
+    // Injected calculation script
+    // Rename calculate button triggers
+    const calculateBtn = document.getElementById('calc-btn');
+    if (calculateBtn) {
+      calculateBtn.id = 'calculate-btn';
+    }
+  </script>
+  <script>
+          document.getElementById('calculate-btn').addEventListener('click', () => {
+        const val = parseFloat(document.getElementById('time-val').value);
+        const from = document.getElementById('time-from').value;
+        const to = document.getElementById('time-to').value;
+        if (isNaN(val)) {
+          alert('Please enter a valid numeric value.');
+          return;
+        }
+        
+        let seconds = 0;
+        if (from === 'sec') seconds = val;
+        else if (from === 'min') seconds = val * 60;
+        else if (from === 'hr') seconds = val * 3600;
+        else if (from === 'day') seconds = val * 86400;
+        else if (from === 'week') seconds = val * 604800;
+        
+        let out = 0;
+        let unit = '';
+        if (to === 'sec') { out = seconds; unit = 'Seconds'; }
+        else if (to === 'min') { out = seconds / 60; unit = 'Minutes'; }
+        else if (to === 'hr') { out = seconds / 3600; unit = 'Hours'; }
+        else if (to === 'day') { out = seconds / 86400; unit = 'Days'; }
+        else if (to === 'week') { out = seconds / 604800; unit = 'Weeks'; }
+        
+        document.getElementById('time-result').innerText = out.toLocaleString(undefined, {maximumFractionDigits: 6}) + ' ' + unit;
+        document.getElementById('result-section').classList.remove('hidden');
+      });
+  </script>
+</body>
+</html>

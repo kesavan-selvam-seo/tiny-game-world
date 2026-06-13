@@ -1,0 +1,181 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="robots" content="index, follow">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Compound Interest Calculator - Free Investment Growth Projection</title>
+  <meta name="description" content="Calculate how your money grows over time with compound interest. Adjust starting principal, monthly additions, compounding frequencies, and see your future wealth.">
+  <link rel="canonical" href="https://www.calcuportal.com/calculators/compound-interest-calculator.html">
+  <link rel="stylesheet" href="../styles.css">
+  <script src="../script.js"></script>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="nav-container">
+      <a href="../index.html" class="logo">
+        <span class="logo-icon">🧮</span>
+        <span>CalcuPortal</span>
+      </a>
+      <nav class="nav-links">
+        <a href="../index.html" class="nav-link">Home</a>
+        <a href="../pages/about.html" class="nav-link">About</a>
+        <a href="../pages/contact.html" class="nav-link">Contact</a>
+        <button class="theme-btn" title="Toggle Theme">
+          <span class="theme-btn-icon"></span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="detail-container">
+      <a href="../index.html" class="back-btn">← Back to Directory</a>
+      
+      <div class="detail-header">
+        <h1>Compound Interest Calculator</h1>
+        <p>Project the future value of your savings or investments when interest compounds over time.</p>
+      </div>
+
+      <!-- Calculator Widget -->
+      <div class="calc-widget">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="principal">Initial Investment ($)</label>
+            <input type="number" id="principal" value="10000" class="input-field" min="0" />
+          </div>
+          <div class="form-group">
+            <label for="monthly-deposit">Monthly Contribution ($)</label>
+            <input type="number" id="monthly-deposit" value="200" class="input-field" min="0" />
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="rate">Annual Interest Rate (%)</label>
+            <input type="number" id="rate" value="8" step="0.1" class="input-field" min="0" />
+          </div>
+          <div class="form-group">
+            <label for="years">Time Period (Years)</label>
+            <input type="number" id="years" value="10" class="input-field" min="1" max="100" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="frequency">Compounding Frequency</label>
+          <select id="frequency" class="select-field">
+            <option value="12" selected>Monthly (12/yr)</option>
+            <option value="4">Quarterly (4/yr)</option>
+            <option value="2">Semiannually (2/yr)</option>
+            <option value="1">Annually (1/yr)</option>
+          </select>
+        </div>
+
+        <button id="calculate-btn" class="calc-btn">Calculate Growth</button>
+
+        <!-- Result -->
+        <div id="result-section" class="result-section hidden" style="text-align: center;">
+          <div class="summary-title" style="font-size: 0.875rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em;">Future Balance Projection</div>
+          <div class="total-balance" id="total-balance" style="font-size: 2.5rem; font-weight: 900; color: var(--accent); margin: 0.5rem 0 1.5rem 0; line-height: 1;">$34,896.42</div>
+          
+          <div class="metric-grid">
+            <div class="metric-card">
+              <span class="metric-title">Initial Principal</span>
+              <span class="metric-value" id="init-principal">$10,000.00</span>
+            </div>
+            <div class="metric-card">
+              <span class="metric-title">Total Contributions</span>
+              <span class="metric-value" id="total-contributions">$24,000.00</span>
+            </div>
+            <div class="metric-card">
+              <span class="metric-title">Total Interest Earned</span>
+              <span class="metric-value" id="total-interest">$10,896.42</span>
+            </div>
+          </div>
+          
+          <div class="breakdown-info" style="text-align: left;">
+            <p>By investing <strong>$<span id="deposit-txt">200</span></strong> monthly over <strong><span id="years-txt">10</span> years</strong> at an annual rate of <strong><span id="rate-txt">8</span>%</strong>, your initial deposit of <strong>$<span id="init-txt">10,000</span></strong> will grow by <strong>$<span id="growth-txt">24,896</span></strong>.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- SEO Article -->
+      <section class="article-section">
+        <div class="article-header">
+          <h2>What is Compound Interest?</h2>
+        </div>
+        <div class="article-content">
+          <p>Compound interest is the concept of earning interest on interest. Unlike simple interest, which only calculates returns on your starting principal, compounding computes interest on your initial principal plus all the interest that has accumulated in preceding periods. Over longer timelines, compounding creates exponential growth, allowing your savings to compound into significant wealth.</p>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="copyright-bar" style="border-top: none; padding-top: 0;">
+      © <span id="year">2026</span> CalcuPortal. All rights reserved.
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').innerText = new Date().getFullYear();
+
+    document.getElementById('calculate-btn').addEventListener('click', () => {
+      const principal = parseFloat(document.getElementById('principal').value) || 0;
+      const monthlyDeposit = parseFloat(document.getElementById('monthly-deposit').value) || 0;
+      const rate = parseFloat(document.getElementById('rate').value) || 0;
+      const years = parseInt(document.getElementById('years').value) || 0;
+      const compoundFreq = parseInt(document.getElementById('frequency').value) || 12;
+      
+      if (years <= 0 || years > 100) {
+        alert('Please enter a valid time period between 1 and 100 years.');
+        return;
+      }
+      
+      const r = rate / 100;
+      const t = years;
+      
+      let balance = principal;
+      let totalDeposited = principal;
+      const totalMonths = t * 12;
+      
+      for (let m = 1; m <= totalMonths; m++) {
+        const monthsPerComp = 12 / compoundFreq;
+        if (m % monthsPerComp === 0) {
+          const periodicRate = r / compoundFreq;
+          balance += balance * periodicRate;
+        }
+        
+        balance += monthlyDeposit;
+        totalDeposited += monthlyDeposit;
+      }
+      
+      const totalInterest = balance - totalDeposited;
+      
+      const formatCurrency = (val) => {
+        return new Intl.NumberFormat('en-US', {
+          style: 'currency',
+          currency: 'USD'
+        }).format(val);
+      };
+      
+      document.getElementById('total-balance').innerText = formatCurrency(balance);
+      document.getElementById('init-principal').innerText = formatCurrency(principal);
+      document.getElementById('total-contributions').innerText = formatCurrency(totalDeposited - principal);
+      document.getElementById('total-interest').innerText = formatCurrency(totalInterest);
+      
+      document.getElementById('deposit-txt').innerText = monthlyDeposit;
+      document.getElementById('years-txt').innerText = years;
+      document.getElementById('rate-txt').innerText = rate;
+      document.getElementById('init-txt').innerText = principal.toLocaleString();
+      document.getElementById('growth-txt').innerText = Math.round(balance - principal).toLocaleString();
+      
+      document.getElementById('result-section').classList.remove('hidden');
+    });
+  </script>
+</body>
+</html>
+

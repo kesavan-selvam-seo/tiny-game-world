@@ -1,0 +1,62 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="robots" content="index, follow">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us - CalcuPortal</title>
+  <meta name="description" content="Learn about CalcuPortal, our mission, and our mathematical verification standards.">
+  <link rel="canonical" href="https://www.calcuportal.com/pages/about.html">
+  <link rel="stylesheet" href="../styles.css">
+  <script src="../script.js"></script>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="nav-container">
+      <a href="../index.html" class="logo">
+        <span class="logo-icon">🧮</span>
+        <span>CalcuPortal</span>
+      </a>
+      <nav class="nav-links">
+        <a href="../index.html" class="nav-link">Home</a>
+        <a href="about.html" class="nav-link active">About</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+        <button class="theme-btn" title="Toggle Theme">
+          <span class="theme-btn-icon"></span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="detail-container">
+      <section class="article-section" style="margin-top: 2rem;">
+        <div class="article-header">
+          <h1>About CalcuPortal</h1>
+        </div>
+        <div class="article-content">
+          <h2>Our Mission</h2>
+          <p>At CalcuPortal, our goal is to simplify daily computations for everyone. Whether you are budgeting a loan, tracking your health indicators, counting down days on a project, or doing high-level math, we want to provide immediate, error-free answers.</p>
+          <p>We design and build clean, responsive, and completely free online calculators that perform complex calculations in milliseconds. Our calculators execute entirely in your browser with zero latency.</p>
+          <h2>Computational Integrity</h2>
+          <p>All our tools are built using validated standard formulas (like Mifflin-St Jeor, compound interest equations, and standard calendar indexes) to ensure 100% computational correctness.</p>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="copyright-bar" style="border-top: none; padding-top: 0;">
+      © <span id="year">2026</span> CalcuPortal. All rights reserved.
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').innerText = new Date().getFullYear();
+  </script>
+</body>
+</html>
+

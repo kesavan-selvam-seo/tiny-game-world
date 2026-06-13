@@ -1,0 +1,113 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fuel Cost Calculator - Estimate Trip Expenses</title>
+  <meta name="description" content="Calculate fuel cost for any trip. Input distance, efficiency, and price to see travel cost.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://www.calcuportal.com/calculators/fuel-cost-calculator.html">
+  <link rel="stylesheet" href="../styles.css">
+  <script src="../script.js"></script>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="nav-container">
+      <a href="../index.html" class="logo">
+        <span class="logo-icon">🧮</span>
+        <span>CalcuPortal</span>
+      </a>
+      <nav class="nav-links">
+        <a href="../index.html" class="nav-link">Home</a>
+        <a href="../pages/about.html" class="nav-link">About</a>
+        <a href="../pages/contact.html" class="nav-link">Contact</a>
+        <button class="theme-btn" title="Toggle Theme">
+          <span class="theme-btn-icon"></span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="detail-container">
+      <a href="../index.html" class="back-btn">← Back to Directory</a>
+      
+      <div class="detail-header">
+        <h1>Fuel Cost Calculator</h1>
+      </div>
+
+      <!-- Calculator Widget -->
+      <div class="calc-widget">
+                <div class="form-group">
+          <label for="distance">Trip Distance</label>
+          <input type="number" id="distance" value="100" class="input-field" />
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="efficiency">Fuel Efficiency (MPG or L/100km)</label>
+            <input type="number" id="efficiency" value="25" class="input-field" step="any" />
+          </div>
+          <div class="form-group">
+            <label for="fuel-price">Fuel Price (per gallon/liter)</label>
+            <input type="number" id="fuel-price" value="3.50" class="input-field" step="any" />
+          </div>
+        </div>
+        <button id="calc-btn" class="calc-btn">Calculate Cost</button>
+        <div id="result-section" class="result-section hidden" style="text-align: center;">
+          <div class="summary-title">Total Fuel Cost</div>
+          <div class="total-balance" id="fuel-cost-val">.00</div>
+        </div>
+      </div>
+
+      <!-- SEO Article -->
+      <section class="article-section">
+        <div class="article-header">
+          <h2>Fuel Cost Calculator Guides</h2>
+        </div>
+        <div class="article-content">
+          <h2>Calculate Trip Fuel Budgets</h2><p>Planning a road trip? Estimate gasoline or diesel costs based on vehicle mileage ratings and local pump rates.</p>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="copyright-bar" style="border-top: none; padding-top: 0;">
+      © <span id="year">2026</span> CalcuPortal. All rights reserved.
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').innerText = new Date().getFullYear();
+    
+    // Injected calculation script
+    // Rename calculate button triggers
+    const calculateBtn = document.getElementById('calc-btn');
+    if (calculateBtn) {
+      calculateBtn.id = 'calculate-btn';
+    }
+  </script>
+  <script>
+          document.getElementById('calculate-btn').addEventListener('click', () => {
+        const dist = parseFloat(document.getElementById('distance').value);
+        const eff = parseFloat(document.getElementById('efficiency').value);
+        const price = parseFloat(document.getElementById('fuel-price').value);
+        
+        if (isNaN(dist) || isNaN(eff) || isNaN(price) || eff <= 0) {
+          alert('Please enter valid numeric inputs.');
+          return;
+        }
+        
+        // Simple MPG formula
+        const gallons = dist / eff;
+        const total = gallons * price;
+        
+        document.getElementById('fuel-cost-val').innerText = '$' + total.toFixed(2);
+        document.getElementById('result-section').classList.remove('hidden');
+      });
+  </script>
+</body>
+</html>

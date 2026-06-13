@@ -1,0 +1,125 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bingo Number Generator - Random Caller</title>
+  <meta name="description" content="Call random Bingo numbers from 1 to 75. Keep track of previous draws.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://www.calcuportal.com/calculators/games-bingo-number-generator.html">
+  <link rel="stylesheet" href="../styles.css">
+  <script src="../script.js"></script>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="nav-container">
+      <a href="../index.html" class="logo">
+        <span class="logo-icon">🧮</span>
+        <span>CalcuPortal</span>
+      </a>
+      <nav class="nav-links">
+        <a href="../index.html" class="nav-link">Home</a>
+        <a href="../pages/about.html" class="nav-link">About</a>
+        <a href="../pages/contact.html" class="nav-link">Contact</a>
+        <button class="theme-btn" title="Toggle Theme">
+          <span class="theme-btn-icon"></span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="detail-container">
+      <a href="../index.html" class="back-btn">← Back to Directory</a>
+      
+      <div class="detail-header">
+        <h1>Bingo Number Generator</h1>
+      </div>
+
+      <!-- Calculator Widget -->
+      <div class="calc-widget">
+                <button id="draw-btn" class="calc-btn">Draw Next Number</button>
+        <button id="reset-btn" class="calc-btn" style="background:var(--border-light); color:var(--text-primary); margin-top:0.5rem;">Reset Board</button>
+        <div id="result-section" class="result-section hidden" style="text-align: center;">
+          <div class="summary-title">Called Number</div>
+          <div class="total-balance" id="called-num" style="font-size: 3.5rem; color:var(--primary); margin:1rem 0;">G-46</div>
+          <div class="breakdown-info" style="text-align:left;">
+            <p>Called Numbers History: <span id="bingo-history">...</span></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- SEO Article -->
+      <section class="article-section">
+        <div class="article-header">
+          <h2>Bingo Number Generator Guides</h2>
+        </div>
+        <div class="article-content">
+          <h2>Automated Bingo Caller</h2><p>Host Bingo game nights without a physical rolling cage using our automated 1-75 caller.</p>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="copyright-bar" style="border-top: none; padding-top: 0;">
+      © <span id="year">2026</span> CalcuPortal. All rights reserved.
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').innerText = new Date().getFullYear();
+    
+    // Injected calculation script
+    // Rename calculate button triggers
+    const calculateBtn = document.getElementById('calc-btn');
+    if (calculateBtn) {
+      calculateBtn.id = 'calculate-btn';
+    }
+  </script>
+  <script>
+          let drawn = [];
+      const letterRanges = [
+        { letter: 'B', min: 1, max: 15 },
+        { letter: 'I', min: 16, max: 30 },
+        { letter: 'N', min: 31, max: 45 },
+        { letter: 'G', min: 46, max: 60 },
+        { letter: 'O', min: 61, max: 75 }
+      ];
+      
+      document.getElementById('calculate-btn').addEventListener('click', () => {
+        if (drawn.length >= 75) {
+          alert('All numbers drawn! Reset board to play again.');
+          return;
+        }
+        let rand = 0;
+        do {
+          rand = Math.floor(Math.random() * 75) + 1;
+        } while (drawn.includes(rand));
+        
+        drawn.push(rand);
+        
+        let rangeObj = letterRanges.find(r => rand >= r.min && rand <= r.max);
+        const code = rangeObj.letter + '-' + rand;
+        
+        document.getElementById('called-num').innerText = code;
+        document.getElementById('bingo-history').innerText = drawn.map(n => {
+          let r = letterRanges.find(x => n >= x.min && n <= x.max);
+          return r.letter + n;
+        }).join(', ');
+        
+        document.getElementById('result-section').classList.remove('hidden');
+      });
+      
+      document.getElementById('reset-btn').addEventListener('click', () => {
+        drawn = [];
+        document.getElementById('called-num').innerText = '--';
+        document.getElementById('bingo-history').innerText = 'None';
+        document.getElementById('result-section').classList.add('hidden');
+      });
+  </script>
+</body>
+</html>

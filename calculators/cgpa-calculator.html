@@ -1,0 +1,139 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CGPA Calculator - Cumulative Grade Point Average</title>
+  <meta name="description" content="Estimate your Cumulative Grade Point Average (CGPA) from individual semester grade marks.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://www.calcuportal.com/calculators/cgpa-calculator.html">
+  <link rel="stylesheet" href="../styles.css">
+  <script src="../script.js"></script>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="nav-container">
+      <a href="../index.html" class="logo">
+        <span class="logo-icon">🧮</span>
+        <span>CalcuPortal</span>
+      </a>
+      <nav class="nav-links">
+        <a href="../index.html" class="nav-link">Home</a>
+        <a href="../pages/about.html" class="nav-link">About</a>
+        <a href="../pages/contact.html" class="nav-link">Contact</a>
+        <button class="theme-btn" title="Toggle Theme">
+          <span class="theme-btn-icon"></span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="detail-container">
+      <a href="../index.html" class="back-btn">← Back to Directory</a>
+      
+      <div class="detail-header">
+        <h1>CGPA Calculator</h1>
+      </div>
+
+      <!-- Calculator Widget -->
+      <div class="calc-widget">
+                <div id="semesters-container">
+          <div class="form-row semester-row">
+            <div class="form-group">
+              <label>GPA Semester 1</label>
+              <input type="number" class="input-field gpa-val" placeholder="e.g. 8.5" step="0.01" />
+            </div>
+            <div class="form-group">
+              <label>Credits Semester 1</label>
+              <input type="number" class="input-field credit-val" placeholder="e.g. 20" />
+            </div>
+          </div>
+        </div>
+        <button id="add-sem-btn" class="calc-btn" style="background:var(--border-light); color:var(--text-primary); margin-bottom:1rem;">+ Add Semester</button>
+        <button id="calc-btn" class="calc-btn">Calculate CGPA</button>
+        <div id="result-section" class="result-section hidden" style="text-align: center;">
+          <div class="summary-title">Cumulative Grade Points (CGPA)</div>
+          <div class="total-balance" id="cgpa-val" style="color:var(--accent);">0.00</div>
+        </div>
+      </div>
+
+      <!-- SEO Article -->
+      <section class="article-section">
+        <div class="article-header">
+          <h2>CGPA Calculator Guides</h2>
+        </div>
+        <div class="article-content">
+          <h2>Calculate Semester CGPA</h2><p>Our CGPA calculator weights individual GPA inputs by semester credits, yielding an accurate cumulative grade average.</p>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="copyright-bar" style="border-top: none; padding-top: 0;">
+      © <span id="year">2026</span> CalcuPortal. All rights reserved.
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').innerText = new Date().getFullYear();
+    
+    // Injected calculation script
+    // Rename calculate button triggers
+    const calculateBtn = document.getElementById('calc-btn');
+    if (calculateBtn) {
+      calculateBtn.id = 'calculate-btn';
+    }
+  </script>
+  <script>
+          let semesterCount = 1;
+      document.getElementById('add-sem-btn').addEventListener('click', () => {
+        semesterCount++;
+        const container = document.getElementById('semesters-container');
+        const div = document.createElement('div');
+        div.className = 'form-row semester-row';
+        div.innerHTML = 
+          <div class="form-group">
+            <label>GPA Semester </label>
+            <input type="number" class="input-field gpa-val" placeholder="e.g. 8.5" step="0.01" />
+          </div>
+          <div class="form-group">
+            <label>Credits Semester </label>
+            <input type="number" class="input-field credit-val" placeholder="e.g. 20" />
+          </div>
+        ;
+        container.appendChild(div);
+      });
+      document.getElementById('calculate-btn').addEventListener('click', () => {
+        const gpaInputs = document.querySelectorAll('.gpa-val');
+        const creditInputs = document.querySelectorAll('.credit-val');
+        
+        let totalWeightedPoints = 0;
+        let totalCredits = 0;
+        
+        for (let i = 0; i < gpaInputs.length; i++) {
+          const gpa = parseFloat(gpaInputs[i].value);
+          const credits = parseFloat(creditInputs[i].value) || 1; // Default credit weight 1 if empty
+          
+          if (!isNaN(gpa)) {
+            totalWeightedPoints += (gpa * credits);
+            totalCredits += credits;
+          }
+        }
+        
+        if (totalCredits === 0) {
+          alert('Please enter valid semesters GPA.');
+          return;
+        }
+        
+        const cgpa = totalWeightedPoints / totalCredits;
+        document.getElementById('cgpa-val').innerText = cgpa.toFixed(2);
+        document.getElementById('result-section').classList.remove('hidden');
+      });
+  </script>
+</body>
+</html>

@@ -1,0 +1,123 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Long Division Calculator - Solve Division Steps</title>
+  <meta name="description" content="Perform long division and see calculated quotients and remainders instantly with our free online tool.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://www.calcuportal.com/calculators/math-long-division.html">
+  <link rel="stylesheet" href="../styles.css">
+  <script src="../script.js"></script>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="nav-container">
+      <a href="../index.html" class="logo">
+        <span class="logo-icon">🧮</span>
+        <span>CalcuPortal</span>
+      </a>
+      <nav class="nav-links">
+        <a href="../index.html" class="nav-link">Home</a>
+        <a href="../pages/about.html" class="nav-link">About</a>
+        <a href="../pages/contact.html" class="nav-link">Contact</a>
+        <button class="theme-btn" title="Toggle Theme">
+          <span class="theme-btn-icon"></span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="detail-container">
+      <a href="../index.html" class="back-btn">← Back to Directory</a>
+      
+      <div class="detail-header">
+        <h1>Long Division Calculator</h1>
+      </div>
+
+      <!-- Calculator Widget -->
+      <div class="calc-widget">
+                <div class="form-row">
+          <div class="form-group">
+            <label for="dividend">Dividend</label>
+            <input type="number" id="dividend" value="125" class="input-field" />
+          </div>
+          <div class="form-group">
+            <label for="divisor">Divisor</label>
+            <input type="number" id="divisor" value="4" class="input-field" />
+          </div>
+        </div>
+        <button id="calc-btn" class="calc-btn">Solve Division</button>
+        <div id="result-section" class="result-section hidden">
+          <div class="metric-grid">
+            <div class="metric-card">
+              <span class="metric-title">Quotient (Integer)</span>
+              <span class="metric-value" id="quotient-val">31</span>
+            </div>
+            <div class="metric-card">
+              <span class="metric-title">Remainder</span>
+              <span class="metric-value" id="remainder-val">1</span>
+            </div>
+            <div class="metric-card">
+              <span class="metric-title">Decimal Quotient</span>
+              <span class="metric-value" id="decimal-val">31.25</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SEO Article -->
+      <section class="article-section">
+        <div class="article-header">
+          <h2>Long Division Calculator Guides</h2>
+        </div>
+        <div class="article-content">
+          <h2>Understand Division Rules</h2><p>Division fractions have four main components: Dividend (what you divide), Divisor (what you divide by), Quotient (integer results), and Remainder.</p>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="copyright-bar" style="border-top: none; padding-top: 0;">
+      © <span id="year">2026</span> CalcuPortal. All rights reserved.
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').innerText = new Date().getFullYear();
+    
+    // Injected calculation script
+    // Rename calculate button triggers
+    const calculateBtn = document.getElementById('calc-btn');
+    if (calculateBtn) {
+      calculateBtn.id = 'calculate-btn';
+    }
+  </script>
+  <script>
+          document.getElementById('calculate-btn').addEventListener('click', () => {
+        const dividend = parseInt(document.getElementById('dividend').value);
+        const divisor = parseInt(document.getElementById('divisor').value);
+        
+        if (isNaN(dividend) || isNaN(divisor) || divisor === 0) {
+          alert('Please enter valid numbers. Divisor cannot be zero.');
+          return;
+        }
+        
+        const quot = Math.floor(dividend / divisor);
+        const rem = dividend % divisor;
+        const dec = dividend / divisor;
+        
+        document.getElementById('quotient-val').innerText = quot;
+        document.getElementById('remainder-val').innerText = rem;
+        document.getElementById('decimal-val').innerText = dec.toFixed(4).replace(/\.?0+$/, '');
+        
+        document.getElementById('result-section').classList.remove('hidden');
+      });
+  </script>
+</body>
+</html>

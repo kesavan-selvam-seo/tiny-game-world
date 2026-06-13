@@ -1,0 +1,115 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sq M to Sq Ft Converter - Area Conversion</title>
+  <meta name="description" content="Convert square meters to square feet and vice versa instantly. Perfect for real estate and flooring calculations.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://www.calcuportal.com/calculators/square-meter-to-square-feet.html">
+  <link rel="stylesheet" href="../styles.css">
+  <script src="../script.js"></script>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="nav-container">
+      <a href="../index.html" class="logo">
+        <span class="logo-icon">🧮</span>
+        <span>CalcuPortal</span>
+      </a>
+      <nav class="nav-links">
+        <a href="../index.html" class="nav-link">Home</a>
+        <a href="../pages/about.html" class="nav-link">About</a>
+        <a href="../pages/contact.html" class="nav-link">Contact</a>
+        <button class="theme-btn" title="Toggle Theme">
+          <span class="theme-btn-icon"></span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="detail-container">
+      <a href="../index.html" class="back-btn">← Back to Directory</a>
+      
+      <div class="detail-header">
+        <h1>Square Meters to Square Feet Converter</h1>
+      </div>
+
+      <!-- Calculator Widget -->
+      <div class="calc-widget">
+                <div class="unit-tabs">
+          <button id="sm-to-sf-tab" class="tab-btn active">Sq M to Sq Ft</button>
+          <button id="sf-to-sm-tab" class="tab-btn">Sq Ft to Sq M</button>
+        </div>
+        <div class="form-group">
+          <label for="area-input">Area</label>
+          <input type="number" id="area-input" value="10" class="input-field" step="any" />
+        </div>
+        <button id="calc-btn" class="calc-btn">Convert Area</button>
+        <div id="result-section" class="result-section hidden" style="text-align: center;">
+          <div class="summary-title">Result</div>
+          <div class="total-balance" id="area-result">107.64 sq ft</div>
+        </div>
+      </div>
+
+      <!-- SEO Article -->
+      <section class="article-section">
+        <div class="article-header">
+          <h2>Square Meters to Square Feet Converter Guides</h2>
+        </div>
+        <div class="article-content">
+          <h2>Real Estate Area conversions</h2><p>Convert floor planning metrics. One square meter represents roughly 10.7639 square feet.</p>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="copyright-bar" style="border-top: none; padding-top: 0;">
+      © <span id="year">2026</span> CalcuPortal. All rights reserved.
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').innerText = new Date().getFullYear();
+    
+    // Injected calculation script
+    // Rename calculate button triggers
+    const calculateBtn = document.getElementById('calc-btn');
+    if (calculateBtn) {
+      calculateBtn.id = 'calculate-btn';
+    }
+  </script>
+  <script>
+          let mode = 'sm-to-sf';
+      document.getElementById('sm-to-sf-tab').addEventListener('click', () => {
+        mode = 'sm-to-sf';
+        document.getElementById('sm-to-sf-tab').classList.add('active');
+        document.getElementById('sf-to-sm-tab').classList.remove('active');
+      });
+      document.getElementById('sf-to-sm-tab').addEventListener('click', () => {
+        mode = 'sf-to-sm';
+        document.getElementById('sf-to-sm-tab').classList.add('active');
+        document.getElementById('sm-to-sf-tab').classList.remove('active');
+      });
+      document.getElementById('calculate-btn').addEventListener('click', () => {
+        const val = parseFloat(document.getElementById('area-input').value);
+        if (isNaN(val)) {
+          alert('Please enter a valid area.');
+          return;
+        }
+        const resEl = document.getElementById('area-result');
+        if (mode === 'sm-to-sf') {
+          resEl.innerText = (val * 10.7639104).toFixed(2) + ' sq ft';
+        } else {
+          resEl.innerText = (val / 10.7639104).toFixed(2) + ' sq m';
+        }
+        document.getElementById('result-section').classList.remove('hidden');
+      });
+  </script>
+</body>
+</html>

@@ -1,0 +1,288 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="robots" content="index, follow">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scientific Calculator - Free Advanced Online Calculator</title>
+  <meta name="description" content="Use our free online scientific calculator. Supports standard arithmetic, trigonometry, log functions, exponentiation, and constants. Responsive.">
+  <link rel="canonical" href="https://www.calcuportal.com/calculators/scientific-calculator.html">
+  <link rel="stylesheet" href="../styles.css">
+  <script src="../script.js"></script>
+  <style>
+    .scientific-calc-widget {
+      max-width: 420px;
+      margin: 0 auto 3rem;
+      padding: 1.25rem;
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 1.5rem;
+      box-shadow: var(--shadow-md);
+    }
+    .calc-display-wrapper {
+      background-color: #0f172a;
+      border-radius: 1rem;
+      padding: 1rem 1.25rem;
+      margin-bottom: 1.25rem;
+      text-align: right;
+      min-height: 80px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      border: 1px solid #1e293b;
+    }
+    .calc-history {
+      font-size: 0.8rem;
+      color: #94a3b8;
+      min-height: 1.2rem;
+      word-wrap: break-word;
+      word-break: break-all;
+    }
+    .calc-screen {
+      font-size: 1.75rem;
+      font-weight: 750;
+      color: #f8fafc;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .calc-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 0.5rem;
+    }
+    .btn {
+      height: 48px;
+      border: none;
+      border-radius: 0.75rem;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.1s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-sans);
+    }
+    .num-btn {
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      border: 1px solid var(--border-color);
+    }
+    .num-btn:hover {
+      background-color: var(--border-light);
+    }
+    .op-btn {
+      background-color: var(--border-light);
+      color: var(--primary);
+      border: 1px solid var(--border-color);
+      font-size: 1.15rem;
+    }
+    .op-btn:hover {
+      background-color: var(--border-color);
+    }
+    .fn-btn {
+      background-color: var(--bg-primary);
+      color: var(--text-muted);
+      border: 1px solid var(--border-color);
+      font-size: 0.9rem;
+    }
+    .fn-btn:hover {
+      background-color: var(--border-light);
+      color: var(--text-secondary);
+    }
+    .clr-btn {
+      color: var(--danger);
+    }
+    .clr-btn:hover {
+      color: #dc2626;
+    }
+    .eq-btn {
+      background: linear-gradient(135deg, var(--primary) 0%, #3b82f6 100%);
+      color: white;
+      box-shadow: 0 4px 6px -1px rgba(79, 70, 229, 0.2);
+    }
+    .eq-btn:hover {
+      opacity: 0.95;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="nav-container">
+      <a href="../index.html" class="logo">
+        <span class="logo-icon">🧮</span>
+        <span>CalcuPortal</span>
+      </a>
+      <nav class="nav-links">
+        <a href="../index.html" class="nav-link">Home</a>
+        <a href="../pages/about.html" class="nav-link">About</a>
+        <a href="../pages/contact.html" class="nav-link">Contact</a>
+        <button class="theme-btn" title="Toggle Theme">
+          <span class="theme-btn-icon"></span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="detail-container">
+      <a href="../index.html" class="back-btn">← Back to Directory</a>
+      
+      <div class="detail-header" style="text-align: center;">
+        <h1>Scientific Calculator</h1>
+        <p>A full computational scientific engine supporting arithmetic, logs, trig coordinates, and math constants.</p>
+      </div>
+
+      <!-- Calculator Widget -->
+      <div class="scientific-calc-widget">
+        <div class="calc-display-wrapper">
+          <div id="calc-history" class="calc-history"></div>
+          <div id="calc-screen" class="calc-screen">0</div>
+        </div>
+        
+        <div class="calc-grid">
+          <!-- Row 1 -->
+          <button class="btn fn-btn clr-btn" data-val="clear">C</button>
+          <button class="btn fn-btn" data-val="backspace">⌫</button>
+          <button class="btn fn-btn" data-val="(">(</button>
+          <button class="btn fn-btn" data-val=")">)</button>
+          <button class="btn op-btn" data-val="/">÷</button>
+          
+          <!-- Row 2 -->
+          <button class="btn fn-btn" data-val="sin">sin</button>
+          <button class="btn num-btn" data-val="7">7</button>
+          <button class="btn num-btn" data-val="8">8</button>
+          <button class="btn num-btn" data-val="9">9</button>
+          <button class="btn op-btn" data-val="*">×</button>
+          
+          <!-- Row 3 -->
+          <button class="btn fn-btn" data-val="cos">cos</button>
+          <button class="btn num-btn" data-val="4">4</button>
+          <button class="btn num-btn" data-val="5">5</button>
+          <button class="btn num-btn" data-val="6">6</button>
+          <button class="btn op-btn" data-val="-">-</button>
+          
+          <!-- Row 4 -->
+          <button class="btn fn-btn" data-val="tan">tan</button>
+          <button class="btn num-btn" data-val="1">1</button>
+          <button class="btn num-btn" data-val="2">2</button>
+          <button class="btn num-btn" data-val="3">3</button>
+          <button class="btn op-btn" data-val="+">+</button>
+          
+          <!-- Row 5 -->
+          <button class="btn fn-btn" data-val="log">log</button>
+          <button class="btn fn-btn" data-val="ln">ln</button>
+          <button class="btn num-btn" data-val="0">0</button>
+          <button class="btn num-btn" data-val=".">.</button>
+          <button class="btn eq-btn" data-val="=">=</button>
+          
+          <!-- Row 6 -->
+          <button class="btn fn-btn" data-val="sqrt">√</button>
+          <button class="btn fn-btn" data-val="pi">π</button>
+          <button class="btn fn-btn" data-val="e">e</button>
+          <button class="btn fn-btn" data-val="^">^</button>
+          <button class="btn fn-btn" data-val="exp">exp</button>
+        </div>
+      </div>
+
+      <!-- SEO Article -->
+      <section class="article-section">
+        <div class="article-header">
+          <h2>Scientific Calculator Functions</h2>
+        </div>
+        <div class="article-content">
+          <p>Scientific calculators solve equations relating to geometry, chemistry, physics, and calculus. Standard trigonometry (sin/cos/tan) inputs are evaluated in radians. To compute standard degree values, convert degrees to radians via: <code>Radians = Degrees &times; (π / 180)</code>.</p>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="copyright-bar" style="border-top: none; padding-top: 0;">
+      © <span id="year">2026</span> CalcuPortal. All rights reserved.
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').innerText = new Date().getFullYear();
+
+    const screen = document.getElementById('calc-screen');
+    const history = document.getElementById('calc-history');
+    let expression = '';
+    let readyToReset = false;
+
+    document.querySelectorAll('.btn').forEach(button => {
+      button.addEventListener('click', () => {
+        const val = button.getAttribute('data-val');
+        
+        if (val === 'clear') {
+          expression = '';
+          screen.innerText = '0';
+          history.innerText = '';
+        } else if (val === 'backspace') {
+          if (expression.length > 0) {
+            expression = expression.slice(0, -1);
+            screen.innerText = expression || '0';
+          }
+        } else if (val === '=') {
+          try {
+            if (!expression) return;
+            
+            let parsedExpression = expression
+              .replace(/sin\(/g, 'Math.sin(')
+              .replace(/cos\(/g, 'Math.cos(')
+              .replace(/tan\(/g, 'Math.tan(')
+              .replace(/log\(/g, 'Math.log10(')
+              .replace(/ln\(/g, 'Math.log(')
+              .replace(/sqrt\(/g, 'Math.sqrt(')
+              .replace(/pi/g, 'Math.PI')
+              .replace(/e/g, 'Math.E')
+              .replace(/\^/g, '**');
+            
+            let result = Function('"use strict";return (' + parsedExpression + ')')();
+            
+            if (typeof result === 'number' && !isNaN(result)) {
+              if (result % 1 !== 0) {
+                result = Math.round(result * 10000000) / 10000000;
+              }
+              history.innerText = expression + ' =';
+              screen.innerText = result.toString();
+              expression = result.toString();
+              readyToReset = true;
+            } else {
+              screen.innerText = 'Error';
+            }
+          } catch (err) {
+            screen.innerText = 'Error';
+          }
+        } else {
+          if (readyToReset) {
+            if (['+', '-', '*', '/', '^'].includes(val)) {
+              readyToReset = false;
+            } else {
+              expression = '';
+              readyToReset = false;
+            }
+          }
+          
+          if (['sin', 'cos', 'tan', 'log', 'ln', 'sqrt'].includes(val)) {
+            expression += val + '(';
+          } else if (val === 'pi' || val === 'e') {
+            expression += val;
+          } else if (val === 'exp') {
+            expression += '*10^';
+          } else {
+            expression += val;
+          }
+          screen.innerText = expression;
+        }
+      });
+    });
+  </script>
+</body>
+</html>
+

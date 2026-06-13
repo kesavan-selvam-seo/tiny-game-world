@@ -1,0 +1,187 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="robots" content="index, follow">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Loan EMI Calculator - Free Home &amp; Car Loan Calculator</title>
+  <meta name="description" content="Calculate your monthly EMI, total interest, and total payment for home, car, or personal loans. See breakdowns instantly.">
+  <link rel="canonical" href="https://www.calcuportal.com/calculators/loan-emi-calculator.html">
+  <link rel="stylesheet" href="../styles.css">
+  <script src="../script.js"></script>
+  <style>
+    .tenure-input-group {
+      display: flex;
+      gap: 0.5rem;
+    }
+    .tenure-input-group .input-field {
+      flex: 2;
+    }
+    .tenure-input-group .select-field {
+      flex: 1;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="nav-container">
+      <a href="../index.html" class="logo">
+        <span class="logo-icon">🧮</span>
+        <span>CalcuPortal</span>
+      </a>
+      <nav class="nav-links">
+        <a href="../index.html" class="nav-link">Home</a>
+        <a href="../pages/about.html" class="nav-link">About</a>
+        <a href="../pages/contact.html" class="nav-link">Contact</a>
+        <button class="theme-btn" title="Toggle Theme">
+          <span class="theme-btn-icon"></span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="detail-container">
+      <a href="../index.html" class="back-btn">← Back to Directory</a>
+      
+      <div class="detail-header">
+        <h1>Loan EMI Calculator</h1>
+        <p>Estimate your Equated Monthly Installments (EMIs) for home, car, or personal loan borrow balances.</p>
+      </div>
+
+      <!-- Calculator Widget -->
+      <div class="calc-widget">
+        <div class="form-group">
+          <label for="loan-amount">Loan Amount ($)</label>
+          <input type="number" id="loan-amount" value="50000" class="input-field" min="1" />
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="interest-rate">Annual Interest Rate (%)</label>
+            <input type="number" id="interest-rate" value="7.5" step="0.01" class="input-field" min="0.1" />
+          </div>
+          <div class="form-group">
+            <label for="loan-tenure">Tenure</label>
+            <div class="tenure-input-group">
+              <input type="number" id="loan-tenure" value="5" class="input-field" min="1" />
+              <select id="tenure-unit" class="select-field">
+                <option value="years" selected>Years</option>
+                <option value="months">Months</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <button id="calculate-btn" class="calc-btn">Calculate EMI</button>
+
+        <!-- Result -->
+        <div id="result-section" class="result-section hidden" style="text-align: center;">
+          <div class="summary-title" style="font-size: 0.875rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em;">Monthly Payment (EMI)</div>
+          <div class="total-balance" id="emi-monthly-payment" style="font-size: 2.5rem; font-weight: 900; color: var(--accent); margin: 0.5rem 0 1.5rem 0; line-height: 1;">$1,001.90</div>
+          
+          <div class="metric-grid">
+            <div class="metric-card">
+              <span class="metric-title">Principal Amount</span>
+              <span class="metric-value" id="emi-principal-val">$50,000.00</span>
+            </div>
+            <div class="metric-card">
+              <span class="metric-title">Total Interest</span>
+              <span class="metric-value" id="emi-interest-val">$10,114.24</span>
+            </div>
+            <div class="metric-card">
+              <span class="metric-title">Total Payment</span>
+              <span class="metric-value" id="emi-total-val">$60,114.24</span>
+            </div>
+          </div>
+          
+          <div class="breakdown-info" style="text-align: left;">
+            <p>For a loan of <strong>$<span id="amt-txt">50,000</span></strong> at <strong><span id="rate-txt">7.5</span>%</strong> interest over <strong><span id="tenure-txt">5</span> years</strong>, your monthly EMI will be <strong>$<span id="monthly-txt">1,001.90</span></strong>. Interest constitutes <strong><span id="pct-interest-txt">16.8</span>%</strong> of the total repayment.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- SEO Article -->
+      <section class="article-section">
+        <div class="article-header">
+          <h2>How is a Loan EMI Calculated?</h2>
+        </div>
+        <div class="article-content">
+          <p>EMI stands for <strong>Equated Monthly Installment</strong>. It is the fixed payment amount a borrower pays back to a financial lender at a specific date every month until the outstanding balance of a loan is cleared. An EMI consists of both a principal portion and an interest portion, representing a gradual amortization of the loan.</p>
+          <h3>The Mathematical EMI Formula</h3>
+          <p style="background-color: var(--border-light); font-family: monospace; padding: 0.75rem 1rem; border-radius: 0.5rem; text-align: center; font-size: 1rem; margin: 1rem 0;">
+            EMI = P &times; r &times; (1 + r)<sup>n</sup> / ((1 + r)<sup>n</sup> - 1)
+          </p>
+          <p>Where:</p>
+          <ul>
+            <li><strong>P:</strong> The Principal loan amount.</li>
+            <li><strong>r:</strong> The monthly interest rate (annual interest / 12 / 100).</li>
+            <li><strong>n:</strong> The tenure of the loan in total months.</li>
+          </ul>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="copyright-bar" style="border-top: none; padding-top: 0;">
+      © <span id="year">2026</span> CalcuPortal. All rights reserved.
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').innerText = new Date().getFullYear();
+
+    document.getElementById('calculate-btn').addEventListener('click', () => {
+      const principal = parseFloat(document.getElementById('loan-amount').value);
+      const annualRate = parseFloat(document.getElementById('interest-rate').value);
+      const tenureVal = parseFloat(document.getElementById('loan-tenure').value);
+      const tenureUnit = document.getElementById('tenure-unit').value;
+      
+      if (isNaN(principal) || isNaN(annualRate) || isNaN(tenureVal) || principal <= 0 || annualRate <= 0 || tenureVal <= 0) {
+        alert('Please enter valid positive numbers.');
+        return;
+      }
+      
+      let totalMonths = tenureVal;
+      if (tenureUnit === 'years') {
+        totalMonths = tenureVal * 12;
+      }
+      
+      const monthlyRate = annualRate / (12 * 100);
+      let emi = 0;
+      if (monthlyRate === 0) {
+        emi = principal / totalMonths;
+      } else {
+        emi = principal * monthlyRate * Math.pow(1 + monthlyRate, totalMonths) / (Math.pow(1 + monthlyRate, totalMonths) - 1);
+      }
+      
+      const totalRepayment = emi * totalMonths;
+      const totalInterest = totalRepayment - principal;
+      const interestPercentage = (totalInterest / totalRepayment) * 100;
+      
+      const formatCurrency = (val) => {
+        return new Intl.NumberFormat('en-US', {
+          style: 'currency',
+          currency: 'USD'
+        }).format(val);
+      };
+      
+      document.getElementById('emi-monthly-payment').innerText = formatCurrency(emi);
+      document.getElementById('emi-principal-val').innerText = formatCurrency(principal);
+      document.getElementById('emi-interest-val').innerText = formatCurrency(totalInterest);
+      document.getElementById('emi-total-val').innerText = formatCurrency(totalRepayment);
+      
+      document.getElementById('amt-txt').innerText = principal.toLocaleString();
+      document.getElementById('rate-txt').innerText = annualRate;
+      document.getElementById('tenure-txt').innerText = tenureVal + ' ' + tenureUnit;
+      document.getElementById('monthly-txt').innerText = emi.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+      document.getElementById('pct-interest-txt').innerText = interestPercentage.toFixed(1);
+      
+      document.getElementById('result-section').classList.remove('hidden');
+    });
+  </script>
+</body>
+</html>
+

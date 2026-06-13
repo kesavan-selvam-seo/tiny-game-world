@@ -1,0 +1,115 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Age Difference Calculator - Compare Birthday Ages</title>
+  <meta name="description" content="Compare two birthdays and calculate the exact age gap in years, months, and days.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://www.calcuportal.com/calculators/age-difference-calculator.html">
+  <link rel="stylesheet" href="../styles.css">
+  <script src="../script.js"></script>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="nav-container">
+      <a href="../index.html" class="logo">
+        <span class="logo-icon">🧮</span>
+        <span>CalcuPortal</span>
+      </a>
+      <nav class="nav-links">
+        <a href="../index.html" class="nav-link">Home</a>
+        <a href="../pages/about.html" class="nav-link">About</a>
+        <a href="../pages/contact.html" class="nav-link">Contact</a>
+        <button class="theme-btn" title="Toggle Theme">
+          <span class="theme-btn-icon"></span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="detail-container">
+      <a href="../index.html" class="back-btn">← Back to Directory</a>
+      
+      <div class="detail-header">
+        <h1>Age Difference Calculator</h1>
+      </div>
+
+      <!-- Calculator Widget -->
+      <div class="calc-widget">
+                <div class="form-row">
+          <div class="form-group">
+            <label for="bday-a">Person A Birthday</label>
+            <input type="date" id="bday-a" class="input-field" />
+          </div>
+          <div class="form-group">
+            <label for="bday-b">Person B Birthday</label>
+            <input type="date" id="bday-b" class="input-field" />
+          </div>
+        </div>
+        <button id="calc-btn" class="calc-btn">Find Difference</button>
+        <div id="result-section" class="result-section hidden" style="text-align: center;">
+          <div class="summary-title">Age Gap</div>
+          <div class="total-balance" id="age-gap-val">0 Years</div>
+          <div class="breakdown-info" id="age-gap-breakdown" style="text-align: left; margin-top: 1rem;">...</div>
+        </div>
+      </div>
+
+      <!-- SEO Article -->
+      <section class="article-section">
+        <div class="article-header">
+          <h2>Age Difference Calculator Guides</h2>
+        </div>
+        <div class="article-content">
+          <h2>Compare Ages Between People</h2><p>Find the exact timeline gap between spouses, siblings, or friends instantly by comparing birthdays.</p>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="copyright-bar" style="border-top: none; padding-top: 0;">
+      © <span id="year">2026</span> CalcuPortal. All rights reserved.
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').innerText = new Date().getFullYear();
+    
+    // Injected calculation script
+    // Rename calculate button triggers
+    const calculateBtn = document.getElementById('calc-btn');
+    if (calculateBtn) {
+      calculateBtn.id = 'calculate-btn';
+    }
+  </script>
+  <script>
+          document.getElementById('calculate-btn').addEventListener('click', () => {
+        const aVal = document.getElementById('bday-a').value;
+        const bVal = document.getElementById('bday-b').value;
+        if (!aVal || !bVal) {
+          alert('Please enter both dates.');
+          return;
+        }
+        
+        const d1 = new Date(aVal);
+        const d2 = new Date(bVal);
+        
+        const diffTime = Math.abs(d2 - d1);
+        const diffDays = Math.round(diffTime / (1000 * 60 * 60 * 24));
+        
+        let years = Math.abs(d2.getFullYear() - d1.getFullYear());
+        let months = Math.abs(d2.getMonth() - d1.getMonth());
+        let days = Math.abs(d2.getDate() - d1.getDate());
+        
+        document.getElementById('age-gap-val').innerText = (diffDays / 365.25).toFixed(1) + ' Years';
+        document.getElementById('age-gap-breakdown').innerHTML = 'The exact difference in calendar days is: <strong>' + diffDays.toLocaleString() + ' Days</strong>.';
+        document.getElementById('result-section').classList.remove('hidden');
+      });
+  </script>
+</body>
+</html>

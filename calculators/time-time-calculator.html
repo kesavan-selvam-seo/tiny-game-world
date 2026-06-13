@@ -1,0 +1,139 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Time Math Calculator - Add or Subtract Time</title>
+  <meta name="description" content="Add or subtract days, hours, and minutes from any starting time. Ideal for time cards and duration planning.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://www.calcuportal.com/calculators/time-time-calculator.html">
+  <link rel="stylesheet" href="../styles.css">
+  <script src="../script.js"></script>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="nav-container">
+      <a href="../index.html" class="logo">
+        <span class="logo-icon">🧮</span>
+        <span>CalcuPortal</span>
+      </a>
+      <nav class="nav-links">
+        <a href="../index.html" class="nav-link">Home</a>
+        <a href="../pages/about.html" class="nav-link">About</a>
+        <a href="../pages/contact.html" class="nav-link">Contact</a>
+        <button class="theme-btn" title="Toggle Theme">
+          <span class="theme-btn-icon"></span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="detail-container">
+      <a href="../index.html" class="back-btn">← Back to Directory</a>
+      
+      <div class="detail-header">
+        <h1>Time Add & Subtract Calculator</h1>
+      </div>
+
+      <!-- Calculator Widget -->
+      <div class="calc-widget">
+                <div class="form-row">
+          <div class="form-group">
+            <label for="time-time-start">Start Time (HH:MM)</label>
+            <input type="text" id="time-time-start" placeholder="e.g. 08:30" class="input-field" value="08:30" />
+          </div>
+          <div class="form-group">
+            <label for="time-time-op">Operation</label>
+            <select id="time-time-op" class="select-field">
+              <option value="add">Add (+)</option>
+              <option value="sub">Subtract (-)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="time-time-dur">Duration (HH:MM)</label>
+            <input type="text" id="time-time-dur" placeholder="e.g. 02:45" class="input-field" value="02:45" />
+          </div>
+        </div>
+        <button id="calc-btn" class="calc-btn">Calculate Time</button>
+        <div id="result-section" class="result-section hidden" style="text-align: center;">
+          <div class="summary-title">Resulting Time</div>
+          <div class="total-balance" id="time-time-result">11:15</div>
+        </div>
+      </div>
+
+      <!-- SEO Article -->
+      <section class="article-section">
+        <div class="article-header">
+          <h2>Time Add & Subtract Calculator Guides</h2>
+        </div>
+        <div class="article-content">
+          <h2>Time Add and Subtract Math</h2><p>This utility enables you to easily add or subtract a duration (hours and minutes) to or from a starting time, which is helpful for timesheets, scheduling, and shifts.</p>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="copyright-bar" style="border-top: none; padding-top: 0;">
+      © <span id="year">2026</span> CalcuPortal. All rights reserved.
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').innerText = new Date().getFullYear();
+    
+    // Injected calculation script
+    // Rename calculate button triggers
+    const calculateBtn = document.getElementById('calc-btn');
+    if (calculateBtn) {
+      calculateBtn.id = 'calculate-btn';
+    }
+  </script>
+  <script>
+          document.getElementById('calculate-btn').addEventListener('click', () => {
+        const startVal = document.getElementById('time-time-start').value.trim();
+        const op = document.getElementById('time-time-op').value;
+        const durVal = document.getElementById('time-time-dur').value.trim();
+        
+        const startMatch = startVal.match(/^(\d{1,2}):(\d{2})$/);
+        const durMatch = durVal.match(/^(\d{1,2}):(\d{2})$/);
+        
+        if (!startMatch || !durMatch) {
+          alert('Please enter times in HH:MM format (e.g. 08:30).');
+          return;
+        }
+        
+        const startH = parseInt(startMatch[1]);
+        const startM = parseInt(startMatch[2]);
+        const durH = parseInt(durMatch[1]);
+        const durM = parseInt(durMatch[2]);
+        
+        let totalStartMin = (startH * 60) + startM;
+        let totalDurMin = (durH * 60) + durM;
+        
+        let resultMin = 0;
+        if (op === 'add') {
+          resultMin = totalStartMin + totalDurMin;
+        } else {
+          resultMin = totalStartMin - totalDurMin;
+          if (resultMin < 0) {
+            resultMin += 24 * 60;
+          }
+        }
+        
+        resultMin = resultMin % (24 * 60);
+        
+        const endH = Math.floor(resultMin / 60);
+        const endM = resultMin % 60;
+        
+        const pad = (n) => n.toString().padStart(2, '0');
+        document.getElementById('time-time-result').innerText = pad(endH) + ':' + pad(endM);
+        document.getElementById('result-section').classList.remove('hidden');
+      });
+  </script>
+</body>
+</html>

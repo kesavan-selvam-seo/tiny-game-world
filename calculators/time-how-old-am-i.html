@@ -1,0 +1,131 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How Old Am I? - Age in Days & Seconds</title>
+  <meta name="description" content="Find your exact age in years, months, weeks, days, and seconds. Realtime countdown calculator.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://www.calcuportal.com/calculators/time-how-old-am-i.html">
+  <link rel="stylesheet" href="../styles.css">
+  <script src="../script.js"></script>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="nav-container">
+      <a href="../index.html" class="logo">
+        <span class="logo-icon">🧮</span>
+        <span>CalcuPortal</span>
+      </a>
+      <nav class="nav-links">
+        <a href="../index.html" class="nav-link">Home</a>
+        <a href="../pages/about.html" class="nav-link">About</a>
+        <a href="../pages/contact.html" class="nav-link">Contact</a>
+        <button class="theme-btn" title="Toggle Theme">
+          <span class="theme-btn-icon"></span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="detail-container">
+      <a href="../index.html" class="back-btn">← Back to Directory</a>
+      
+      <div class="detail-header">
+        <h1>How Old Am I Calculator</h1>
+      </div>
+
+      <!-- Calculator Widget -->
+      <div class="calc-widget">
+                <div class="form-group">
+          <label for="birthdate-input">Enter Birth Date &amp; Time</label>
+          <input type="datetime-local" id="birthdate-input" class="input-field" />
+        </div>
+        <button id="calc-btn" class="calc-btn">Find Age</button>
+        <div id="result-section" class="result-section hidden">
+          <div class="summary-title" style="text-align: center;">Age Statistics</div>
+          <div class="metric-grid" style="margin-top: 1rem;">
+            <div class="metric-card">
+              <span class="metric-title">Days Old</span>
+              <span class="metric-value" id="days-old">0</span>
+            </div>
+            <div class="metric-card">
+              <span class="metric-title">Hours Old</span>
+              <span class="metric-value" id="hours-old">0</span>
+            </div>
+            <div class="metric-card">
+              <span class="metric-title">Seconds Old</span>
+              <span class="metric-value" id="seconds-old">0</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SEO Article -->
+      <section class="article-section">
+        <div class="article-header">
+          <h2>How Old Am I Calculator Guides</h2>
+        </div>
+        <div class="article-content">
+          <h2>Compute Your Lifespan Metrics</h2><p>Get a ticking, real-time breakdown of your existence on Earth down to the second.</p>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="copyright-bar" style="border-top: none; padding-top: 0;">
+      © <span id="year">2026</span> CalcuPortal. All rights reserved.
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').innerText = new Date().getFullYear();
+    
+    // Injected calculation script
+    // Rename calculate button triggers
+    const calculateBtn = document.getElementById('calc-btn');
+    if (calculateBtn) {
+      calculateBtn.id = 'calculate-btn';
+    }
+  </script>
+  <script>
+          let timer = null;
+      document.getElementById('calculate-btn').addEventListener('click', () => {
+        const bdayVal = document.getElementById('birthdate-input').value;
+        if (!bdayVal) {
+          alert('Please enter a birthdate.');
+          return;
+        }
+        if (timer) clearInterval(timer);
+        
+        function updateAge() {
+          const dob = new Date(bdayVal);
+          const now = new Date();
+          const diffMs = now - dob;
+          if (diffMs < 0) {
+            document.getElementById('days-old').innerText = '0';
+            document.getElementById('hours-old').innerText = '0';
+            document.getElementById('seconds-old').innerText = '0';
+            return;
+          }
+          const seconds = Math.floor(diffMs / 1000);
+          const hours = Math.floor(seconds / 3600);
+          const days = Math.floor(hours / 24);
+          
+          document.getElementById('days-old').innerText = days.toLocaleString();
+          document.getElementById('hours-old').innerText = hours.toLocaleString();
+          document.getElementById('seconds-old').innerText = seconds.toLocaleString();
+        }
+        
+        updateAge();
+        timer = setInterval(updateAge, 1000);
+        document.getElementById('result-section').classList.remove('hidden');
+      });
+  </script>
+</body>
+</html>

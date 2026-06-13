@@ -1,0 +1,142 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GPA Calculator - Semester GPA Estimator</title>
+  <meta name="description" content="Calculate your semester grade point average (GPA) from course credits and grade letters.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://www.calcuportal.com/calculators/gpa-calculator.html">
+  <link rel="stylesheet" href="../styles.css">
+  <script src="../script.js"></script>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="nav-container">
+      <a href="../index.html" class="logo">
+        <span class="logo-icon">🧮</span>
+        <span>CalcuPortal</span>
+      </a>
+      <nav class="nav-links">
+        <a href="../index.html" class="nav-link">Home</a>
+        <a href="../pages/about.html" class="nav-link">About</a>
+        <a href="../pages/contact.html" class="nav-link">Contact</a>
+        <button class="theme-btn" title="Toggle Theme">
+          <span class="theme-btn-icon"></span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="detail-container">
+      <a href="../index.html" class="back-btn">← Back to Directory</a>
+      
+      <div class="detail-header">
+        <h1>GPA Calculator</h1>
+      </div>
+
+      <!-- Calculator Widget -->
+      <div class="calc-widget">
+                <div id="courses-container">
+          <div class="form-row course-row">
+            <div class="form-group" style="flex:2;">
+              <label>Grade Letter</label>
+              <select class="select-field grade-letter">
+                <option value="4.0">A (4.0)</option>
+                <option value="3.0">B (3.0)</option>
+                <option value="2.0">C (2.0)</option>
+                <option value="1.0">D (1.0)</option>
+                <option value="0.0">F (0.0)</option>
+              </select>
+            </div>
+            <div class="form-group" style="flex:1;">
+              <label>Credits</label>
+              <input type="number" class="input-field course-credits" value="3" />
+            </div>
+          </div>
+        </div>
+        <button id="add-course-btn" class="calc-btn" style="background:var(--border-light); color:var(--text-primary); margin-bottom:1rem;">+ Add Course</button>
+        <button id="calc-btn" class="calc-btn">Calculate GPA</button>
+        <div id="result-section" class="result-section hidden" style="text-align: center;">
+          <div class="summary-title">Grade Point Average (GPA)</div>
+          <div class="total-balance" id="gpa-val-result" style="color:var(--accent);">4.00</div>
+        </div>
+      </div>
+
+      <!-- SEO Article -->
+      <section class="article-section">
+        <div class="article-header">
+          <h2>GPA Calculator Guides</h2>
+        </div>
+        <div class="article-content">
+          <h2>Academic GPA Calculations</h2><p>Calculate your course grades averages by weighting standard points scores against credit hours.</p>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="copyright-bar" style="border-top: none; padding-top: 0;">
+      © <span id="year">2026</span> CalcuPortal. All rights reserved.
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').innerText = new Date().getFullYear();
+    
+    // Injected calculation script
+    // Rename calculate button triggers
+    const calculateBtn = document.getElementById('calc-btn');
+    if (calculateBtn) {
+      calculateBtn.id = 'calculate-btn';
+    }
+  </script>
+  <script>
+          document.getElementById('add-course-btn').addEventListener('click', () => {
+        const container = document.getElementById('courses-container');
+        const div = document.createElement('div');
+        div.className = 'form-row course-row';
+        div.innerHTML = 
+          <div class="form-group" style="flex:2;">
+            <label>Grade Letter</label>
+            <select class="select-field grade-letter">
+              <option value="4.0">A (4.0)</option>
+              <option value="3.0">B (3.0)</option>
+              <option value="2.0">C (2.0)</option>
+              <option value="1.0">D (1.0)</option>
+              <option value="0.0">F (0.0)</option>
+            </select>
+          </div>
+          <div class="form-group" style="flex:1;">
+            <label>Credits</label>
+            <input type="number" class="input-field course-credits" value="3" />
+          </div>
+        ;
+        container.appendChild(div);
+      });
+      document.getElementById('calculate-btn').addEventListener('click', () => {
+        const grades = document.querySelectorAll('.grade-letter');
+        const credits = document.querySelectorAll('.course-credits');
+        let totalPoints = 0;
+        let totalCredits = 0;
+        for (let i = 0; i < grades.length; i++) {
+          const g = parseFloat(grades[i].value);
+          const c = parseFloat(credits[i].value) || 0;
+          totalPoints += (g * c);
+          totalCredits += c;
+        }
+        if (totalCredits === 0) {
+          alert('Please enter valid credits.');
+          return;
+        }
+        const gpa = totalPoints / totalCredits;
+        document.getElementById('gpa-val-result').innerText = gpa.toFixed(2);
+        document.getElementById('result-section').classList.remove('hidden');
+      });
+  </script>
+</body>
+</html>

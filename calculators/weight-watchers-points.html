@@ -1,0 +1,109 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weight Watchers Points Calculator - Dietary Estimator</title>
+  <meta name="description" content="Estimate dietary points valuations based on calories, fat grams, and dietary fiber contents.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://www.calcuportal.com/calculators/weight-watchers-points.html">
+  <link rel="stylesheet" href="../styles.css">
+  <script src="../script.js"></script>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="nav-container">
+      <a href="../index.html" class="logo">
+        <span class="logo-icon">🧮</span>
+        <span>CalcuPortal</span>
+      </a>
+      <nav class="nav-links">
+        <a href="../index.html" class="nav-link">Home</a>
+        <a href="../pages/about.html" class="nav-link">About</a>
+        <a href="../pages/contact.html" class="nav-link">Contact</a>
+        <button class="theme-btn" title="Toggle Theme">
+          <span class="theme-btn-icon"></span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="detail-container">
+      <a href="../index.html" class="back-btn">← Back to Directory</a>
+      
+      <div class="detail-header">
+        <h1>Weight Watchers Points Calculator</h1>
+      </div>
+
+      <!-- Calculator Widget -->
+      <div class="calc-widget">
+                <div class="form-row">
+          <div class="form-group">
+            <label for="ww-calories">Calories (kcal)</label>
+            <input type="number" id="ww-calories" value="150" class="input-field" />
+          </div>
+          <div class="form-group">
+            <label for="ww-fat">Fat (grams)</label>
+            <input type="number" id="ww-fat" value="5" class="input-field" step="any" />
+          </div>
+          <div class="form-group">
+            <label for="ww-fiber">Fiber (grams)</label>
+            <input type="number" id="ww-fiber" value="2" class="input-field" step="any" />
+          </div>
+        </div>
+        <button id="calc-btn" class="calc-btn">Estimate Points</button>
+        <div id="result-section" class="result-section hidden" style="text-align: center;">
+          <div class="summary-title">WW Point Value</div>
+          <div class="total-balance" id="ww-points-val">3 Points</div>
+        </div>
+      </div>
+
+      <!-- SEO Article -->
+      <section class="article-section">
+        <div class="article-header">
+          <h2>Weight Watchers Points Calculator Guides</h2>
+        </div>
+        <div class="article-content">
+          <h2>Dietary Point Estimation</h2><p>Our calculator yields values close to original classic points formulas, helping you evaluate portion selections.</p>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="copyright-bar" style="border-top: none; padding-top: 0;">
+      © <span id="year">2026</span> CalcuPortal. All rights reserved.
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').innerText = new Date().getFullYear();
+    
+    // Injected calculation script
+    // Rename calculate button triggers
+    const calculateBtn = document.getElementById('calc-btn');
+    if (calculateBtn) {
+      calculateBtn.id = 'calculate-btn';
+    }
+  </script>
+  <script>
+          document.getElementById('calculate-btn').addEventListener('click', () => {
+        const cal = parseFloat(document.getElementById('ww-calories').value) || 0;
+        const fat = parseFloat(document.getElementById('ww-fat').value) || 0;
+        const fib = parseFloat(document.getElementById('ww-fiber').value) || 0;
+        
+        // Classic WW Formula: (Calories / 50) + (Fat / 12) - (Fiber / 5, max 4)
+        const fiberPart = Math.min(fib, 4) / 5;
+        let points = (cal / 50) + (fat / 12) - fiberPart;
+        points = Math.max(0, Math.round(points));
+        
+        document.getElementById('ww-points-val').innerText = points + ' ' + (points === 1 ? 'Point' : 'Points');
+        document.getElementById('result-section').classList.remove('hidden');
+      });
+  </script>
+</body>
+</html>

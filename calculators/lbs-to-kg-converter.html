@@ -1,0 +1,115 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lbs to Kg Converter - Convert Weight Online</title>
+  <meta name="description" content="Convert weight measurements from Pounds (lbs) to Kilograms (kg) and vice versa with our free online weight converter.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://www.calcuportal.com/calculators/lbs-to-kg-converter.html">
+  <link rel="stylesheet" href="../styles.css">
+  <script src="../script.js"></script>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="nav-container">
+      <a href="../index.html" class="logo">
+        <span class="logo-icon">🧮</span>
+        <span>CalcuPortal</span>
+      </a>
+      <nav class="nav-links">
+        <a href="../index.html" class="nav-link">Home</a>
+        <a href="../pages/about.html" class="nav-link">About</a>
+        <a href="../pages/contact.html" class="nav-link">Contact</a>
+        <button class="theme-btn" title="Toggle Theme">
+          <span class="theme-btn-icon"></span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="detail-container">
+      <a href="../index.html" class="back-btn">← Back to Directory</a>
+      
+      <div class="detail-header">
+        <h1>Pounds to Kilograms Converter</h1>
+      </div>
+
+      <!-- Calculator Widget -->
+      <div class="calc-widget">
+                <div class="unit-tabs">
+          <button id="lbs-to-kg-tab" class="tab-btn active">Lbs to Kg</button>
+          <button id="kg-to-lbs-tab" class="tab-btn">Kg to Lbs</button>
+        </div>
+        <div class="form-group">
+          <label for="weight-input">Enter Weight</label>
+          <input type="number" id="weight-input" value="150" class="input-field" step="any" />
+        </div>
+        <button id="calc-btn" class="calc-btn">Convert Weight</button>
+        <div id="result-section" class="result-section hidden" style="text-align: center;">
+          <div class="summary-title">Result</div>
+          <div class="total-balance" id="weight-result">68.04 kg</div>
+        </div>
+      </div>
+
+      <!-- SEO Article -->
+      <section class="article-section">
+        <div class="article-header">
+          <h2>Pounds to Kilograms Converter Guides</h2>
+        </div>
+        <div class="article-content">
+          <h2>Weight Conversion Formula</h2><p>Pounds to kilograms conversion uses the multiplier <code>0.45359237</code>. Multiply pounds by this value to get weight in kg.</p>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="copyright-bar" style="border-top: none; padding-top: 0;">
+      © <span id="year">2026</span> CalcuPortal. All rights reserved.
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').innerText = new Date().getFullYear();
+    
+    // Injected calculation script
+    // Rename calculate button triggers
+    const calculateBtn = document.getElementById('calc-btn');
+    if (calculateBtn) {
+      calculateBtn.id = 'calculate-btn';
+    }
+  </script>
+  <script>
+          let mode = 'lbs-to-kg';
+      document.getElementById('lbs-to-kg-tab').addEventListener('click', () => {
+        mode = 'lbs-to-kg';
+        document.getElementById('lbs-to-kg-tab').classList.add('active');
+        document.getElementById('kg-to-lbs-tab').classList.remove('active');
+      });
+      document.getElementById('kg-to-lbs-tab').addEventListener('click', () => {
+        mode = 'kg-to-lbs';
+        document.getElementById('kg-to-lbs-tab').classList.add('active');
+        document.getElementById('lbs-to-kg-tab').classList.remove('active');
+      });
+      document.getElementById('calculate-btn').addEventListener('click', () => {
+        const val = parseFloat(document.getElementById('weight-input').value);
+        if (isNaN(val)) {
+          alert('Please enter a valid weight.');
+          return;
+        }
+        const resEl = document.getElementById('weight-result');
+        if (mode === 'lbs-to-kg') {
+          resEl.innerText = (val * 0.45359237).toFixed(2) + ' kg';
+        } else {
+          resEl.innerText = (val / 0.45359237).toFixed(2) + ' lbs';
+        }
+        document.getElementById('result-section').classList.remove('hidden');
+      });
+  </script>
+</body>
+</html>

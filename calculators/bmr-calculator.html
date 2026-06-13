@@ -1,0 +1,126 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BMR Calculator - Calculate Rest Energy Calories</title>
+  <meta name="description" content="Estimate your Basal Metabolic Rate (BMR) using Mifflin-St Jeor. Learn baseline rest calories.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://www.calcuportal.com/calculators/bmr-calculator.html">
+  <link rel="stylesheet" href="../styles.css">
+  <script src="../script.js"></script>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="nav-container">
+      <a href="../index.html" class="logo">
+        <span class="logo-icon">🧮</span>
+        <span>CalcuPortal</span>
+      </a>
+      <nav class="nav-links">
+        <a href="../index.html" class="nav-link">Home</a>
+        <a href="../pages/about.html" class="nav-link">About</a>
+        <a href="../pages/contact.html" class="nav-link">Contact</a>
+        <button class="theme-btn" title="Toggle Theme">
+          <span class="theme-btn-icon"></span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="detail-container">
+      <a href="../index.html" class="back-btn">← Back to Directory</a>
+      
+      <div class="detail-header">
+        <h1>Basal Metabolic Rate (BMR) Calculator</h1>
+      </div>
+
+      <!-- Calculator Widget -->
+      <div class="calc-widget">
+                <div class="form-row">
+          <div class="form-group">
+            <label for="bmr-age">Age (Years)</label>
+            <input type="number" id="bmr-age" value="25" class="input-field" />
+          </div>
+          <div class="form-group">
+            <label for="bmr-gender">Gender</label>
+            <select id="bmr-gender" class="select-field">
+              <option value="male" selected>Male</option>
+              <option value="female">Female</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="bmr-height">Height (cm)</label>
+            <input type="number" id="bmr-height" value="175" class="input-field" />
+          </div>
+          <div class="form-group">
+            <label for="bmr-weight">Weight (kg)</label>
+            <input type="number" id="bmr-weight" value="70" class="input-field" />
+          </div>
+        </div>
+        <button id="calc-btn" class="calc-btn">Calculate BMR</button>
+        <div id="result-section" class="result-section hidden" style="text-align: center;">
+          <div class="summary-title">Basal Metabolic Rate (BMR)</div>
+          <div class="total-balance" id="bmr-value-result">1,657 kcal</div>
+        </div>
+      </div>
+
+      <!-- SEO Article -->
+      <section class="article-section">
+        <div class="article-header">
+          <h2>Basal Metabolic Rate (BMR) Calculator Guides</h2>
+        </div>
+        <div class="article-content">
+          <h2>Base Metabolic Energy Calculations</h2><p>BMR gauges what caloric energy quantities the body consumes to continue basic survival functions at rest.</p>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="copyright-bar" style="border-top: none; padding-top: 0;">
+      © <span id="year">2026</span> CalcuPortal. All rights reserved.
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').innerText = new Date().getFullYear();
+    
+    // Injected calculation script
+    // Rename calculate button triggers
+    const calculateBtn = document.getElementById('calc-btn');
+    if (calculateBtn) {
+      calculateBtn.id = 'calculate-btn';
+    }
+  </script>
+  <script>
+          document.getElementById('calculate-btn').addEventListener('click', () => {
+        const age = parseFloat(document.getElementById('bmr-age').value);
+        const gender = document.getElementById('bmr-gender').value;
+        const height = parseFloat(document.getElementById('bmr-height').value);
+        const weight = parseFloat(document.getElementById('bmr-weight').value);
+        
+        if (isNaN(age) || isNaN(height) || isNaN(weight) || age <= 0 || height <= 0 || weight <= 0) {
+          alert('Please enter valid inputs.');
+          return;
+        }
+        
+        let bmr = 0;
+        if (gender === 'male') {
+          bmr = (10 * weight) + (6.25 * height) - (5 * age) + 5;
+        } else {
+          bmr = (10 * weight) + (6.25 * height) - (5 * age) - 161;
+        }
+        
+        document.getElementById('bmr-value-result').innerText = Math.round(bmr).toLocaleString() + ' kcal';
+        document.getElementById('result-section').classList.remove('hidden');
+      });
+  </script>
+</body>
+</html>

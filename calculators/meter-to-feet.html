@@ -1,0 +1,115 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Meters to Feet Converter - Length Conversion</title>
+  <meta name="description" content="Convert meters to feet and vice versa instantly. Supports decimal values.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://www.calcuportal.com/calculators/meter-to-feet.html">
+  <link rel="stylesheet" href="../styles.css">
+  <script src="../script.js"></script>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="nav-container">
+      <a href="../index.html" class="logo">
+        <span class="logo-icon">🧮</span>
+        <span>CalcuPortal</span>
+      </a>
+      <nav class="nav-links">
+        <a href="../index.html" class="nav-link">Home</a>
+        <a href="../pages/about.html" class="nav-link">About</a>
+        <a href="../pages/contact.html" class="nav-link">Contact</a>
+        <button class="theme-btn" title="Toggle Theme">
+          <span class="theme-btn-icon"></span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="detail-container">
+      <a href="../index.html" class="back-btn">← Back to Directory</a>
+      
+      <div class="detail-header">
+        <h1>Meters to Feet Converter</h1>
+      </div>
+
+      <!-- Calculator Widget -->
+      <div class="calc-widget">
+                <div class="unit-tabs">
+          <button id="m-to-ft-tab" class="tab-btn active">Meters to Feet</button>
+          <button id="ft-to-m-tab" class="tab-btn">Feet to Meters</button>
+        </div>
+        <div class="form-group">
+          <label for="len-input">Length</label>
+          <input type="number" id="len-input" value="10" class="input-field" step="any" />
+        </div>
+        <button id="calc-btn" class="calc-btn">Convert</button>
+        <div id="result-section" class="result-section hidden" style="text-align: center;">
+          <div class="summary-title">Result</div>
+          <div class="total-balance" id="len-result">32.81 ft</div>
+        </div>
+      </div>
+
+      <!-- SEO Article -->
+      <section class="article-section">
+        <div class="article-header">
+          <h2>Meters to Feet Converter Guides</h2>
+        </div>
+        <div class="article-content">
+          <h2>Length Metrics Conversions</h2><p>Meters is the base unit of length in the International System of Units (SI). Feet is the Imperial equivalent (1m = 3.28084ft).</p>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="copyright-bar" style="border-top: none; padding-top: 0;">
+      © <span id="year">2026</span> CalcuPortal. All rights reserved.
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').innerText = new Date().getFullYear();
+    
+    // Injected calculation script
+    // Rename calculate button triggers
+    const calculateBtn = document.getElementById('calc-btn');
+    if (calculateBtn) {
+      calculateBtn.id = 'calculate-btn';
+    }
+  </script>
+  <script>
+          let mode = 'm-to-ft';
+      document.getElementById('m-to-ft-tab').addEventListener('click', () => {
+        mode = 'm-to-ft';
+        document.getElementById('m-to-ft-tab').classList.add('active');
+        document.getElementById('ft-to-m-tab').classList.remove('active');
+      });
+      document.getElementById('ft-to-m-tab').addEventListener('click', () => {
+        mode = 'ft-to-m';
+        document.getElementById('ft-to-m-tab').classList.add('active');
+        document.getElementById('m-to-ft-tab').classList.remove('active');
+      });
+      document.getElementById('calculate-btn').addEventListener('click', () => {
+        const val = parseFloat(document.getElementById('len-input').value);
+        if (isNaN(val)) {
+          alert('Please enter a valid number.');
+          return;
+        }
+        const resEl = document.getElementById('len-result');
+        if (mode === 'm-to-ft') {
+          resEl.innerText = (val * 3.2808399).toFixed(2) + ' ft';
+        } else {
+          resEl.innerText = (val / 3.2808399).toFixed(2) + ' m';
+        }
+        document.getElementById('result-section').classList.remove('hidden');
+      });
+  </script>
+</body>
+</html>

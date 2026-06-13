@@ -1,0 +1,118 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Time Age Checker - Verify Age Online</title>
+  <meta name="description" content="Check exact ages, verify thresholds (e.g. 18+, 21+), and view time metrics based on birthday.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://www.calcuportal.com/calculators/time-age-checker.html">
+  <link rel="stylesheet" href="../styles.css">
+  <script src="../script.js"></script>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="nav-container">
+      <a href="../index.html" class="logo">
+        <span class="logo-icon">🧮</span>
+        <span>CalcuPortal</span>
+      </a>
+      <nav class="nav-links">
+        <a href="../index.html" class="nav-link">Home</a>
+        <a href="../pages/about.html" class="nav-link">About</a>
+        <a href="../pages/contact.html" class="nav-link">Contact</a>
+        <button class="theme-btn" title="Toggle Theme">
+          <span class="theme-btn-icon"></span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="detail-container">
+      <a href="../index.html" class="back-btn">← Back to Directory</a>
+      
+      <div class="detail-header">
+        <h1>Time Age Checker</h1>
+      </div>
+
+      <!-- Calculator Widget -->
+      <div class="calc-widget">
+                <div class="form-group">
+          <label for="birth-date">Enter Birth Date</label>
+          <input type="date" id="birth-date" class="input-field" />
+        </div>
+        <div class="form-group">
+          <label for="verify-age">Target Age to Verify</label>
+          <input type="number" id="verify-age" value="18" class="input-field" />
+        </div>
+        <button id="calc-btn" class="calc-btn">Verify Age</button>
+        <div id="result-section" class="result-section hidden">
+          <div class="total-balance" id="check-status">Eligible</div>
+          <div id="check-details" class="breakdown-info">...</div>
+        </div>
+      </div>
+
+      <!-- SEO Article -->
+      <section class="article-section">
+        <div class="article-header">
+          <h2>Time Age Checker Guides</h2>
+        </div>
+        <div class="article-content">
+          <h2>Verify Age Milestones</h2><p>This age verification utility checks compliance for age gating (like 18+ and 21+ restrictions) instantly based on the birthdate.</p>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="copyright-bar" style="border-top: none; padding-top: 0;">
+      © <span id="year">2026</span> CalcuPortal. All rights reserved.
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').innerText = new Date().getFullYear();
+    
+    // Injected calculation script
+    // Rename calculate button triggers
+    const calculateBtn = document.getElementById('calc-btn');
+    if (calculateBtn) {
+      calculateBtn.id = 'calculate-btn';
+    }
+  </script>
+  <script>
+          document.getElementById('calculate-btn').addEventListener('click', () => {
+        const dobVal = document.getElementById('birth-date').value;
+        const targetAge = parseInt(document.getElementById('verify-age').value);
+        if (!dobVal || isNaN(targetAge)) {
+          alert('Please enter valid inputs.');
+          return;
+        }
+        const dob = new Date(dobVal);
+        const today = new Date();
+        let age = today.getFullYear() - dob.getFullYear();
+        const m = today.getMonth() - dob.getMonth();
+        if (m < 0 || (m === 0 && today.getDate() < dob.getDate())) {
+          age--;
+        }
+        const statusEl = document.getElementById('check-status');
+        const detailsEl = document.getElementById('check-details');
+        
+        if (age >= targetAge) {
+          statusEl.innerText = 'Verified (' + age + ' Years Old)';
+          statusEl.style.color = '#10b981';
+          detailsEl.innerText = 'The individual meets the age threshold of ' + targetAge + '.';
+        } else {
+          statusEl.innerText = 'Not Verified (' + age + ' Years Old)';
+          statusEl.style.color = '#ef4444';
+          detailsEl.innerText = 'The individual does not meet the age threshold of ' + targetAge + '.';
+        }
+        document.getElementById('result-section').classList.remove('hidden');
+      });
+  </script>
+</body>
+</html>

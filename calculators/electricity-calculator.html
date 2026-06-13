@@ -1,0 +1,129 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Electricity Cost Calculator - Power Consumption Cost</title>
+  <meta name="description" content="Calculate appliance electricity cost. Input wattage, hours used, and utility rate to see daily/yearly expenses.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://www.calcuportal.com/calculators/electricity-calculator.html">
+  <link rel="stylesheet" href="../styles.css">
+  <script src="../script.js"></script>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="nav-container">
+      <a href="../index.html" class="logo">
+        <span class="logo-icon">🧮</span>
+        <span>CalcuPortal</span>
+      </a>
+      <nav class="nav-links">
+        <a href="../index.html" class="nav-link">Home</a>
+        <a href="../pages/about.html" class="nav-link">About</a>
+        <a href="../pages/contact.html" class="nav-link">Contact</a>
+        <button class="theme-btn" title="Toggle Theme">
+          <span class="theme-btn-icon"></span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="detail-container">
+      <a href="../index.html" class="back-btn">← Back to Directory</a>
+      
+      <div class="detail-header">
+        <h1>Electricity Cost Calculator</h1>
+      </div>
+
+      <!-- Calculator Widget -->
+      <div class="calc-widget">
+                <div class="form-group">
+          <label for="power-watts">Appliance Power (Watts)</label>
+          <input type="number" id="power-watts" value="500" class="input-field" />
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="hours-day">Hours Used per Day</label>
+            <input type="number" id="hours-day" value="4" class="input-field" min="1" max="24" />
+          </div>
+          <div class="form-group">
+            <label for="kwh-cost">Cost per kWh ($)</label>
+            <input type="number" id="kwh-cost" value="0.15" class="input-field" step="0.01" />
+          </div>
+        </div>
+        <button id="calc-btn" class="calc-btn">Calculate Power Cost</button>
+        <div id="result-section" class="result-section hidden">
+          <div class="metric-grid">
+            <div class="metric-card">
+              <span class="metric-title">Daily Cost</span>
+              <span class="metric-value" id="elec-daily">.30</span>
+            </div>
+            <div class="metric-card">
+              <span class="metric-title">Monthly Cost</span>
+              <span class="metric-value" id="elec-monthly">.00</span>
+            </div>
+            <div class="metric-card">
+              <span class="metric-title">Yearly Cost</span>
+              <span class="metric-value" id="elec-yearly">.50</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SEO Article -->
+      <section class="article-section">
+        <div class="article-header">
+          <h2>Electricity Cost Calculator Guides</h2>
+        </div>
+        <div class="article-content">
+          <h2>Track Home Power Costs</h2><p>Understand the running expenses of home utilities by computing appliance wattage outputs against local utility fees.</p>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="copyright-bar" style="border-top: none; padding-top: 0;">
+      © <span id="year">2026</span> CalcuPortal. All rights reserved.
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').innerText = new Date().getFullYear();
+    
+    // Injected calculation script
+    // Rename calculate button triggers
+    const calculateBtn = document.getElementById('calc-btn');
+    if (calculateBtn) {
+      calculateBtn.id = 'calculate-btn';
+    }
+  </script>
+  <script>
+          document.getElementById('calculate-btn').addEventListener('click', () => {
+        const watts = parseFloat(document.getElementById('power-watts').value);
+        const hours = parseFloat(document.getElementById('hours-day').value);
+        const cost = parseFloat(document.getElementById('kwh-cost').value);
+        
+        if (isNaN(watts) || isNaN(hours) || isNaN(cost) || hours <= 0 || hours > 24) {
+          alert('Please enter valid inputs.');
+          return;
+        }
+        
+        // kWh = (Watts * Hours) / 1000
+        const kwhDaily = (watts * hours) / 1000;
+        const daily = kwhDaily * cost;
+        const monthly = daily * 30;
+        const yearly = daily * 365;
+        
+        document.getElementById('elec-daily').innerText = '$' + daily.toFixed(2);
+        document.getElementById('elec-monthly').innerText = '$' + monthly.toFixed(2);
+        document.getElementById('elec-yearly').innerText = '$' + yearly.toFixed(2);
+        document.getElementById('result-section').classList.remove('hidden');
+      });
+  </script>
+</body>
+</html>

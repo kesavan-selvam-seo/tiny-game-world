@@ -1,0 +1,103 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Remainder Calculator - Find Remainders Online</title>
+  <meta name="description" content="Find the remainder of a division instantly. Ideal for modular arithmetic problems.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://www.calcuportal.com/calculators/remainder-calculator.html">
+  <link rel="stylesheet" href="../styles.css">
+  <script src="../script.js"></script>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="nav-container">
+      <a href="../index.html" class="logo">
+        <span class="logo-icon">🧮</span>
+        <span>CalcuPortal</span>
+      </a>
+      <nav class="nav-links">
+        <a href="../index.html" class="nav-link">Home</a>
+        <a href="../pages/about.html" class="nav-link">About</a>
+        <a href="../pages/contact.html" class="nav-link">Contact</a>
+        <button class="theme-btn" title="Toggle Theme">
+          <span class="theme-btn-icon"></span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="detail-container">
+      <a href="../index.html" class="back-btn">← Back to Directory</a>
+      
+      <div class="detail-header">
+        <h1>Remainder Calculator</h1>
+      </div>
+
+      <!-- Calculator Widget -->
+      <div class="calc-widget">
+                <div class="form-row">
+          <div class="form-group">
+            <label for="rem-dividend">Dividend</label>
+            <input type="number" id="rem-dividend" value="10" class="input-field" />
+          </div>
+          <div class="form-group">
+            <label for="rem-divisor">Divisor</label>
+            <input type="number" id="rem-divisor" value="3" class="input-field" />
+          </div>
+        </div>
+        <button id="calc-btn" class="calc-btn">Calculate Remainder</button>
+        <div id="result-section" class="result-section hidden" style="text-align: center;">
+          <div class="summary-title">Remainder</div>
+          <div class="total-balance" id="rem-val-result" style="color:var(--accent);">1</div>
+        </div>
+      </div>
+
+      <!-- SEO Article -->
+      <section class="article-section">
+        <div class="article-header">
+          <h2>Remainder Calculator Guides</h2>
+        </div>
+        <div class="article-content">
+          <h2>Modular Modulo Calculator</h2><p>Calculate remainders for standard division algorithms, which is identical to the modulo (mod) operation.</p>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="copyright-bar" style="border-top: none; padding-top: 0;">
+      © <span id="year">2026</span> CalcuPortal. All rights reserved.
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').innerText = new Date().getFullYear();
+    
+    // Injected calculation script
+    // Rename calculate button triggers
+    const calculateBtn = document.getElementById('calc-btn');
+    if (calculateBtn) {
+      calculateBtn.id = 'calculate-btn';
+    }
+  </script>
+  <script>
+          document.getElementById('calculate-btn').addEventListener('click', () => {
+        const dividend = parseInt(document.getElementById('rem-dividend').value);
+        const divisor = parseInt(document.getElementById('rem-divisor').value);
+        if (isNaN(dividend) || isNaN(divisor) || divisor === 0) {
+          alert('Please enter valid inputs. Divisor cannot be zero.');
+          return;
+        }
+        const rem = dividend % divisor;
+        document.getElementById('rem-val-result').innerText = rem;
+        document.getElementById('result-section').classList.remove('hidden');
+      });
+  </script>
+</body>
+</html>

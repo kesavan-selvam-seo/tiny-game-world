@@ -1,0 +1,111 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rounding Calculator - Math Tool</title>
+  <meta name="description" content="Round any decimals or fractions up, down, or to the nearest digit index instantly.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://www.calcuportal.com/calculators/rounding-calculator.html">
+  <link rel="stylesheet" href="../styles.css">
+  <script src="../script.js"></script>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="nav-container">
+      <a href="../index.html" class="logo">
+        <span class="logo-icon">🧮</span>
+        <span>CalcuPortal</span>
+      </a>
+      <nav class="nav-links">
+        <a href="../index.html" class="nav-link">Home</a>
+        <a href="../pages/about.html" class="nav-link">About</a>
+        <a href="../pages/contact.html" class="nav-link">Contact</a>
+        <button class="theme-btn" title="Toggle Theme">
+          <span class="theme-btn-icon"></span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="detail-container">
+      <a href="../index.html" class="back-btn">← Back to Directory</a>
+      
+      <div class="detail-header">
+        <h1>Rounding Calculator</h1>
+      </div>
+
+      <!-- Calculator Widget -->
+      <div class="calc-widget">
+                <div class="form-row">
+          <div class="form-group">
+            <label for="rd-input">Number</label>
+            <input type="number" id="rd-input" value="4.567" class="input-field" step="any" />
+          </div>
+          <div class="form-group">
+            <label for="rd-mode">Mode</label>
+            <select id="rd-mode" class="select-field">
+              <option value="round" selected>Round (Nearest)</option>
+              <option value="ceil">Ceil (Up)</option>
+              <option value="floor">Floor (Down)</option>
+            </select>
+          </div>
+        </div>
+        <button id="calc-btn" class="calc-btn">Round</button>
+        <div id="result-section" class="result-section hidden" style="text-align: center;">
+          <div class="summary-title">Result</div>
+          <div class="total-balance" id="rd-result">5</div>
+        </div>
+      </div>
+
+      <!-- SEO Article -->
+      <section class="article-section">
+        <div class="article-header">
+          <h2>Rounding Calculator Guides</h2>
+        </div>
+        <div class="article-content">
+          <h2>Arithmetic Rounding</h2><p>Our rounding calculator resolves integer estimates using ceiling, floor, or standard round-half-up math algorithms.</p>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="copyright-bar" style="border-top: none; padding-top: 0;">
+      © <span id="year">2026</span> CalcuPortal. All rights reserved.
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').innerText = new Date().getFullYear();
+    
+    // Injected calculation script
+    // Rename calculate button triggers
+    const calculateBtn = document.getElementById('calc-btn');
+    if (calculateBtn) {
+      calculateBtn.id = 'calculate-btn';
+    }
+  </script>
+  <script>
+          document.getElementById('calculate-btn').addEventListener('click', () => {
+        const val = parseFloat(document.getElementById('rd-input').value);
+        const mode = document.getElementById('rd-mode').value;
+        if (isNaN(val)) {
+          alert('Please enter a valid number.');
+          return;
+        }
+        let result = 0;
+        if (mode === 'round') result = Math.round(val);
+        else if (mode === 'ceil') result = Math.ceil(val);
+        else result = Math.floor(val);
+        
+        document.getElementById('rd-result').innerText = result;
+        document.getElementById('result-section').classList.remove('hidden');
+      });
+  </script>
+</body>
+</html>

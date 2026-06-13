@@ -1,0 +1,115 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gallons to Liters Converter - Liquid Volume</title>
+  <meta name="description" content="Convert US Gallons to Liters and vice versa instantly. Free fluid volume converter.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://www.calcuportal.com/calculators/gallons-to-liters.html">
+  <link rel="stylesheet" href="../styles.css">
+  <script src="../script.js"></script>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="nav-container">
+      <a href="../index.html" class="logo">
+        <span class="logo-icon">🧮</span>
+        <span>CalcuPortal</span>
+      </a>
+      <nav class="nav-links">
+        <a href="../index.html" class="nav-link">Home</a>
+        <a href="../pages/about.html" class="nav-link">About</a>
+        <a href="../pages/contact.html" class="nav-link">Contact</a>
+        <button class="theme-btn" title="Toggle Theme">
+          <span class="theme-btn-icon"></span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="detail-container">
+      <a href="../index.html" class="back-btn">← Back to Directory</a>
+      
+      <div class="detail-header">
+        <h1>Gallons to Liters Converter</h1>
+      </div>
+
+      <!-- Calculator Widget -->
+      <div class="calc-widget">
+                <div class="unit-tabs">
+          <button id="gal-to-l-tab" class="tab-btn active">Gallons to Liters</button>
+          <button id="l-to-gal-tab" class="tab-btn">Liters to Gallons</button>
+        </div>
+        <div class="form-group">
+          <label for="vol-input">Volume</label>
+          <input type="number" id="vol-input" value="10" class="input-field" step="any" />
+        </div>
+        <button id="calc-btn" class="calc-btn">Convert Volume</button>
+        <div id="result-section" class="result-section hidden" style="text-align: center;">
+          <div class="summary-title">Result</div>
+          <div class="total-balance" id="vol-result">37.85 Liters</div>
+        </div>
+      </div>
+
+      <!-- SEO Article -->
+      <section class="article-section">
+        <div class="article-header">
+          <h2>Gallons to Liters Converter Guides</h2>
+        </div>
+        <div class="article-content">
+          <h2>Liquid Volume Conversions</h2><p>One US liquid gallon is equivalent to exactly 3.785411784 liters.</p>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="copyright-bar" style="border-top: none; padding-top: 0;">
+      © <span id="year">2026</span> CalcuPortal. All rights reserved.
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').innerText = new Date().getFullYear();
+    
+    // Injected calculation script
+    // Rename calculate button triggers
+    const calculateBtn = document.getElementById('calc-btn');
+    if (calculateBtn) {
+      calculateBtn.id = 'calculate-btn';
+    }
+  </script>
+  <script>
+          let mode = 'gal-to-l';
+      document.getElementById('gal-to-l-tab').addEventListener('click', () => {
+        mode = 'gal-to-l';
+        document.getElementById('gal-to-l-tab').classList.add('active');
+        document.getElementById('l-to-gal-tab').classList.remove('active');
+      });
+      document.getElementById('l-to-gal-tab').addEventListener('click', () => {
+        mode = 'l-to-gal';
+        document.getElementById('l-to-gal-tab').classList.add('active');
+        document.getElementById('gal-to-l-tab').classList.remove('active');
+      });
+      document.getElementById('calculate-btn').addEventListener('click', () => {
+        const val = parseFloat(document.getElementById('vol-input').value);
+        if (isNaN(val)) {
+          alert('Please enter a valid volume.');
+          return;
+        }
+        const resEl = document.getElementById('vol-result');
+        if (mode === 'gal-to-l') {
+          resEl.innerText = (val * 3.785411784).toFixed(3) + ' Liters';
+        } else {
+          resEl.innerText = (val / 3.785411784).toFixed(3) + ' Gallons (US)';
+        }
+        document.getElementById('result-section').classList.remove('hidden');
+      });
+  </script>
+</body>
+</html>

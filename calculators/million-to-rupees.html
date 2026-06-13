@@ -1,0 +1,109 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Million to Rupees Converter - Indian Currency Converter</title>
+  <meta name="description" content="Convert Millions to Indian Rupees (INR) instantly. Supports custom conversions for Lakhs and Crores.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://www.calcuportal.com/calculators/million-to-rupees.html">
+  <link rel="stylesheet" href="../styles.css">
+  <script src="../script.js"></script>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="nav-container">
+      <a href="../index.html" class="logo">
+        <span class="logo-icon">🧮</span>
+        <span>CalcuPortal</span>
+      </a>
+      <nav class="nav-links">
+        <a href="../index.html" class="nav-link">Home</a>
+        <a href="../pages/about.html" class="nav-link">About</a>
+        <a href="../pages/contact.html" class="nav-link">Contact</a>
+        <button class="theme-btn" title="Toggle Theme">
+          <span class="theme-btn-icon"></span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="detail-container">
+      <a href="../index.html" class="back-btn">← Back to Directory</a>
+      
+      <div class="detail-header">
+        <h1>Million to Rupees Converter</h1>
+      </div>
+
+      <!-- Calculator Widget -->
+      <div class="calc-widget">
+                <div class="form-group">
+          <label for="millions-val">Millions</label>
+          <input type="number" id="millions-val" value="1" class="input-field" step="any" />
+        </div>
+        <button id="calc-btn" class="calc-btn">Convert to INR</button>
+        <div id="result-section" class="result-section hidden" style="text-align: center;">
+          <div class="summary-title">Indian Rupees (INR)</div>
+          <div class="total-balance" id="rupees-val">₹10,00,000</div>
+          <div class="breakdown-info" id="lakh-crore-val">...</div>
+        </div>
+      </div>
+
+      <!-- SEO Article -->
+      <section class="article-section">
+        <div class="article-header">
+          <h2>Million to Rupees Converter Guides</h2>
+        </div>
+        <div class="article-content">
+          <h2>Convert International Scales to Indian System</h2><p>Indian currency calculations express large amounts in Lakhs and Crores rather than Millions or Billions. Use this converter to align international numbers into Indian Rupee scales.</p>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="copyright-bar" style="border-top: none; padding-top: 0;">
+      © <span id="year">2026</span> CalcuPortal. All rights reserved.
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').innerText = new Date().getFullYear();
+    
+    // Injected calculation script
+    // Rename calculate button triggers
+    const calculateBtn = document.getElementById('calc-btn');
+    if (calculateBtn) {
+      calculateBtn.id = 'calculate-btn';
+    }
+  </script>
+  <script>
+          document.getElementById('calculate-btn').addEventListener('click', () => {
+        const millions = parseFloat(document.getElementById('millions-val').value);
+        if (isNaN(millions) || millions < 0) {
+          alert('Please enter a valid amount.');
+          return;
+        }
+        
+        // 1 Million = 10 Lakhs = 1,000,000 Rupees
+        const rupees = millions * 1000000;
+        const lakhs = millions * 10;
+        const crores = millions / 10;
+        
+        const formatRupees = new Intl.NumberFormat('en-IN', {
+          style: 'currency',
+          currency: 'INR',
+          maximumFractionDigits: 0
+        }).format(rupees);
+        
+        document.getElementById('rupees-val').innerText = formatRupees;
+        document.getElementById('lakh-crore-val').innerHTML = 'Equivalent to: <strong>' + lakhs + ' Lakhs</strong> or <strong>' + crores + ' Crores</strong>.';
+        document.getElementById('result-section').classList.remove('hidden');
+      });
+  </script>
+</body>
+</html>

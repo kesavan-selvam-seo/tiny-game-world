@@ -1,0 +1,195 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="robots" content="index, follow">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Age Calculator - Calculate Exact Age Online</title>
+  <meta name="description" content="Calculate your exact age in years, months, days, weeks, and minutes. See how many days are left until your next birthday. Free and responsive.">
+  <link rel="canonical" href="https://www.calcuportal.com/calculators/age-calculator.html">
+  <link rel="stylesheet" href="../styles.css">
+  <script src="../script.js"></script>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="nav-container">
+      <a href="../index.html" class="logo">
+        <span class="logo-icon">🧮</span>
+        <span>CalcuPortal</span>
+      </a>
+      <nav class="nav-links">
+        <a href="../index.html" class="nav-link">Home</a>
+        <a href="../pages/about.html" class="nav-link">About</a>
+        <a href="../pages/contact.html" class="nav-link">Contact</a>
+        <button class="theme-btn" title="Toggle Theme">
+          <span class="theme-btn-icon"></span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="detail-container">
+      <a href="../index.html" class="back-btn">← Back to Directory</a>
+      
+      <div class="detail-header">
+        <h1>Age Calculator</h1>
+        <p>Determine your exact age in years, months, days, and count down to your next birthday milestone.</p>
+      </div>
+
+      <!-- Calculator Widget -->
+      <div class="calc-widget">
+        <div class="form-group">
+          <label for="dob">Date of Birth</label>
+          <input type="date" id="dob" class="input-field" />
+        </div>
+        <div class="form-group">
+          <label for="today-date">Calculate Age As Of</label>
+          <input type="date" id="today-date" class="input-field" />
+        </div>
+        <button id="calculate-btn" class="calc-btn">Calculate Age</button>
+
+        <!-- Result -->
+        <div id="result-section" class="result-section hidden">
+          <div class="summary-title" style="font-size: 0.875rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; text-align: center; margin-bottom: 0.5rem;">Your Age is</div>
+          <div class="metric-grid">
+            <div class="metric-card">
+              <span class="metric-title">Years</span>
+              <span class="metric-value" id="res-years">0</span>
+            </div>
+            <div class="metric-card">
+              <span class="metric-title">Months</span>
+              <span class="metric-value" id="res-months">0</span>
+            </div>
+            <div class="metric-card">
+              <span class="metric-title">Days</span>
+              <span class="metric-value" id="res-days">0</span>
+            </div>
+          </div>
+          <div class="breakdown-info">
+            <p>Your exact age is: <strong id="full-sentence">...</strong></p>
+            <p style="margin-top: 0.5rem;">Next birthday in: <strong id="next-birthday">...</strong></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- SEO Article -->
+      <section class="article-section">
+        <div class="article-header">
+          <h2>How Does the Age Calculator Work?</h2>
+        </div>
+        <div class="article-content">
+          <p>Our online age calculator deduces the exact timeline between a specific date of birth and your targeted chronological date (which defaults to today's date). The calculator breaks down the calculation into years, months, and days, so you do not have to manually account for leap years or month lengths.</p>
+          <h3>Step-by-Step Calculation Guide</h3>
+          <p>To compute your age manually, follow these calendar rules:</p>
+          <ol>
+            <li>Subtract the birth year from the target year.</li>
+            <li>Subtract the birth month from the target month. If the result is negative, subtract 1 from the year value and add 12 to the month value.</li>
+            <li>Subtract the birth day from the target day. If this result is negative, subtract 1 from the month and add the number of days in the previous month.</li>
+          </ol>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="copyright-bar" style="border-top: none; padding-top: 0;">
+      © <span id="year">2026</span> CalcuPortal. All rights reserved.
+    </div>
+  </footer>
+
+  <!-- FAQ Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Does this age calculator account for leap years?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, our age calculator accounts for leap years by checking the exact calendar date boundaries, including February 29th."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <script>
+    document.getElementById('year').innerText = new Date().getFullYear();
+
+    // Set defaults
+    const today = new Date();
+    const yyyy = today.getFullYear();
+    const mm = String(today.getMonth() + 1).padStart(2, '0');
+    const dd = String(today.getDate()).padStart(2, '0');
+    const todayStr = `${yyyy}-${mm}-${dd}`;
+    
+    document.getElementById('today-date').value = todayStr;
+    document.getElementById('dob').setAttribute('max', todayStr);
+
+    document.getElementById('calculate-btn').addEventListener('click', () => {
+      const dobVal = document.getElementById('dob').value;
+      const targetVal = document.getElementById('today-date').value;
+      
+      if (!dobVal || !targetVal) {
+        alert('Please fill in both date inputs!');
+        return;
+      }
+      
+      const dob = new Date(dobVal);
+      const target = new Date(targetVal);
+      
+      if (dob > target) {
+        alert('Birth date cannot be after the target date!');
+        return;
+      }
+      
+      let years = target.getFullYear() - dob.getFullYear();
+      let months = target.getMonth() - dob.getMonth();
+      let days = target.getDate() - dob.getDate();
+      
+      if (days < 0) {
+        months--;
+        const prevMonth = new Date(target.getFullYear(), target.getMonth(), 0);
+        days += prevMonth.getDate();
+      }
+      
+      if (months < 0) {
+        years--;
+        months += 12;
+      }
+      
+      // Calculate next birthday countdown
+      let nextBdayYear = target.getFullYear();
+      let nextBday = new Date(nextBdayYear, dob.getMonth(), dob.getDate());
+      if (nextBday < target) {
+        nextBdayYear++;
+        nextBday = new Date(nextBdayYear, dob.getMonth(), dob.getDate());
+      }
+      const diffTime = Math.abs(nextBday - target);
+      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+      
+      // Output
+      document.getElementById('res-years').innerText = years;
+      document.getElementById('res-months').innerText = months;
+      document.getElementById('res-days').innerText = days;
+      
+      document.getElementById('full-sentence').innerText = `${years} years, ${months} months, and ${days} days`;
+      
+      if (diffDays === 0 || (dob.getMonth() === target.getMonth() && dob.getDate() === target.getDate())) {
+        document.getElementById('next-birthday').innerText = "Happy Birthday! Today is your birthday! 🎉";
+      } else {
+        document.getElementById('next-birthday').innerText = `${diffDays} days left`;
+      }
+      
+      document.getElementById('result-section').classList.remove('hidden');
+    });
+  </script>
+</body>
+</html>
+

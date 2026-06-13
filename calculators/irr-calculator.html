@@ -1,0 +1,132 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IRR Calculator - Internal Rate of Return Online</title>
+  <meta name="description" content="Estimate the Internal Rate of Return (IRR) for a series of annual investment cash flows.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://www.calcuportal.com/calculators/irr-calculator.html">
+  <link rel="stylesheet" href="../styles.css">
+  <script src="../script.js"></script>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="nav-container">
+      <a href="../index.html" class="logo">
+        <span class="logo-icon">🧮</span>
+        <span>CalcuPortal</span>
+      </a>
+      <nav class="nav-links">
+        <a href="../index.html" class="nav-link">Home</a>
+        <a href="../pages/about.html" class="nav-link">About</a>
+        <a href="../pages/contact.html" class="nav-link">Contact</a>
+        <button class="theme-btn" title="Toggle Theme">
+          <span class="theme-btn-icon"></span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="detail-container">
+      <a href="../index.html" class="back-btn">← Back to Directory</a>
+      
+      <div class="detail-header">
+        <h1>IRR (Internal Rate of Return) Calculator</h1>
+      </div>
+
+      <!-- Calculator Widget -->
+      <div class="calc-widget">
+                <div class="form-group">
+          <label for="cash-flows">Cash Flows (Comma-separated, first value negative e.g. -10000, 3000, 4200, 6800)</label>
+          <input type="text" id="cash-flows" value="-10000, 3000, 4200, 6000" class="input-field" />
+        </div>
+        <button id="calc-btn" class="calc-btn">Calculate IRR</button>
+        <div id="result-section" class="result-section hidden" style="text-align: center;">
+          <div class="summary-title">Internal Rate of Return (IRR)</div>
+          <div class="total-balance" id="irr-result-val" style="color:var(--accent);">12.1%</div>
+        </div>
+      </div>
+
+      <!-- SEO Article -->
+      <section class="article-section">
+        <div class="article-header">
+          <h2>IRR (Internal Rate of Return) Calculator Guides</h2>
+        </div>
+        <div class="article-content">
+          <h2>Understand Investment Returns</h2><p>The IRR represents the break-even discount rate where the Net Present Value (NPV) of all cash inflows and outflows equals zero.</p>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="copyright-bar" style="border-top: none; padding-top: 0;">
+      © <span id="year">2026</span> CalcuPortal. All rights reserved.
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').innerText = new Date().getFullYear();
+    
+    // Injected calculation script
+    // Rename calculate button triggers
+    const calculateBtn = document.getElementById('calc-btn');
+    if (calculateBtn) {
+      calculateBtn.id = 'calculate-btn';
+    }
+  </script>
+  <script>
+          document.getElementById('calculate-btn').addEventListener('click', () => {
+        const text = document.getElementById('cash-flows').value;
+        if (!text) return;
+        const cfs = text.split(',').map(n => parseFloat(n.trim())).filter(n => !isNaN(n));
+        
+        if (cfs.length < 2 || cfs[0] >= 0) {
+          alert('Invalid cash flows. First cash flow representing initial investment must be negative.');
+          return;
+        }
+        
+        // Calculate IRR using Newton-Raphson approximation
+        function npv(rate, flows) {
+          let sum = 0;
+          for (let t = 0; t < flows.length; t++) {
+            sum += flows[t] / Math.pow(1 + rate, t);
+          }
+          return sum;
+        }
+        
+        let rate = 0.1; // Initial guess
+        let maxIterations = 1000;
+        let precision = 1e-7;
+        let success = false;
+        
+        for (let i = 0; i < maxIterations; i++) {
+          let val = npv(rate, cfs);
+          let deriv = 0;
+          for (let t = 1; t < cfs.length; t++) {
+            deriv -= t * cfs[t] / Math.pow(1 + rate, t + 1);
+          }
+          let nextRate = rate - val / deriv;
+          if (Math.abs(nextRate - rate) < precision) {
+            rate = nextRate;
+            success = true;
+            break;
+          }
+          rate = nextRate;
+        }
+        
+        if (success && rate > -1 && rate < 10) {
+          document.getElementById('irr-result-val').innerText = (rate * 100).toFixed(2) + '%';
+        } else {
+          document.getElementById('irr-result-val').innerText = 'Could not resolve';
+        }
+        document.getElementById('result-section').classList.remove('hidden');
+      });
+  </script>
+</body>
+</html>
